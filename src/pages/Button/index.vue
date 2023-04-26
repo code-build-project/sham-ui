@@ -4,10 +4,10 @@
         .field
             h1.title Button
             p.text
-                | The v-btn component replaces the standard html button with
-                | a material design theme and a multitude of options. Any color
-                | helper class can be used to alter the background or text color.
-                | Try out an interactive screencast on how Vuetify buttons work.
+                | Компонент <b>sh-button-origin</b> представляет элемент кнопки
+                | с минимальным функционалом, который очень просто кастомизировать,
+                | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
+                | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
                 :parameters="buttonOrigin"
@@ -21,7 +21,11 @@
 
         .field
             h3.sub-title Стилизованная кнопка
-            p.text Эта кнопка с разными вариациями
+            p.text
+                | Компонент <b>sh-button</b> представляет из себя обертку над
+                | <b>sh-button-origin</b>, с добавлением необходимого набора стилей.
+                | Вы можете использовать данный компонент в проектах,
+                | либо кастомизировать свой компонент кнопки, как в примере ниже.
 
             v-playground.playground(
                 :parameters="buttonStylized"

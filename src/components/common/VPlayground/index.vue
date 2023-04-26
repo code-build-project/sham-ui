@@ -249,14 +249,13 @@ function drag(e: MouseEvent): void {
     position: relative
     scrollbar-gutter: stable
     &-button-wrap
-        @extend .flex_row-center
-        position: absolute
+        @extend .flex_row-center-end
+        position: sticky
         right: 0
         top: 0
-        padding: 20px
+        padding: 20px 20px 0 20px
     &-button
         @extend .flex_row-center
-        margin-right: 20px
         background: $color-gray-3
         padding: 0 15px
         height: 28px
@@ -264,10 +263,12 @@ function drag(e: MouseEvent): void {
         font-weight: 500
         color: $color-dark-1
         cursor: pointer
+        &:first-child
+            margin-right: 20px
     &-button_active
         background: rgb($color-gray-2, 0.8)
     &-template
-        margin: 20px 0
+        margin-bottom: 10px
     &_open
         max-height: 700px
         border-bottom: 1px solid $color-gray-3
