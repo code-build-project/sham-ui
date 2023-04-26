@@ -25,7 +25,7 @@ const router = createRouter({
                 {
                     path: '/text-field',
                     name: 'PageTextField',
-                    component: () => import('@/pages/PageTextField.vue'),
+                    component: () => import('@/pages/TextField/index.vue'),
                 },
             ],
         },
