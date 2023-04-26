@@ -40,7 +40,7 @@
                 :class="getCodeButtonClasses(false)"
                 @click="setCodeField(false)"
             ) Исходный код
-        div(v-html="getCodeTemplate")
+        .code-template(v-html="getCodeTemplate")
 
     .parameters
         template(
@@ -246,11 +246,17 @@ function drag(e: MouseEvent): void {
     padding: 0 15px
     user-select: text
     border-top: 1px solid $color-gray-3
+    position: relative
+    scrollbar-gutter: stable
     &-button-wrap
         @extend .flex_row-center
+        position: absolute
+        right: 0
+        top: 0
+        padding: 20px
     &-button
         @extend .flex_row-center
-        margin: 20px 20px 20px 0
+        margin-right: 20px
         background: $color-gray-3
         padding: 0 15px
         height: 28px
@@ -260,6 +266,8 @@ function drag(e: MouseEvent): void {
         cursor: pointer
     &-button_active
         background: rgb($color-gray-2, 0.8)
+    &-template
+        margin: 20px 0
     &_open
         max-height: 700px
         border-bottom: 1px solid $color-gray-3

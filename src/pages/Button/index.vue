@@ -11,7 +11,7 @@
 
             v-playground.playground(
                 :parameters="buttonOrigin"
-                :codeTemplate="codeTemplate"
+                :codeTemplate="codeButtonOrigin"
                 @changeParameter="setParameter(buttonOrigin, $event)"
             )
                 sh-button(
@@ -25,7 +25,7 @@
 
             v-playground.playground(
                 :parameters="buttonStylized"
-                :codeTemplate="codeTemplate"
+                :codeTemplate="codeButtonStylized"
                 @changeParameter="setParameter(buttonStylized, $event)"
             )
                 sh-button-stylized(
@@ -43,7 +43,8 @@ import { reactive } from 'vue';
 import ShButton from '@/components/ShButton/index.vue';
 import ShButtonStylized from '@/components/ShButton/Stylized/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeTemplate from '@/components/ShButton/codeTemplate';
+import codeButtonOrigin from '@/components/ShButton/codeTemplate';
+import codeButtonStylized from '@/components/ShButton/Stylized/codeTemplate';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const buttonOrigin: TypeParameter = reactive({
