@@ -14,8 +14,3 @@ export interface TypeParameter {
         variantList?: TypeVariant[],
     }
 }
-
-export interface TypeCodeTemplate {
-    example: string,
-    source: string,
-}

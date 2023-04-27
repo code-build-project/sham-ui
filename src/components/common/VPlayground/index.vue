@@ -31,16 +31,7 @@
             )
 
     .code(:class="codeClasses")
-        .code-button-wrap
-            .code-button(
-                :class="getCodeButtonClasses(true)"
-                @click="setCodeField(true)"
-            ) Шаблон
-            .code-button(
-                :class="getCodeButtonClasses(false)"
-                @click="setCodeField(false)"
-            ) Исходный код
-        .code-template(v-html="getCodeTemplate")
+        .code-template(v-html="codeTemplate")
 
     .parameters
         template(
@@ -77,15 +68,15 @@ import VIcon from '@/components/common/VIcon/index.vue';
 import VSwitch from '@/components/common/VSwitch/index.vue';
 import VInputTitle from '@/components/common/VInput/Title/index.vue';
 import VRadioButton from '@/components/common/VRadioButton/index.vue';
-import type { TypeParameter, TypeCodeTemplate } from '@/components/common/VPlayground/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
-const props = withDefaults(
+withDefaults(
     defineProps<{
         parameters?: TypeParameter,
-        codeTemplate?: TypeCodeTemplate,
+        codeTemplate?: string,
     }>(),
     {
-        codeTemplate: () => ({ example: '', source: '' }),
+        codeTemplate: '',
     },
 );
 
@@ -116,25 +107,6 @@ const codeClasses = computed<object>(() => {
 
 function showCode(): void {
     isCodeShow.value = !isCodeShow.value;
-}
-
-// BLOCK "code template change"
-let isCodeExample = ref<boolean>(true);
-
-const getCodeTemplate = computed<string>(() => {
-    return isCodeExample.value ? props.codeTemplate.example : props.codeTemplate.source;
-});
-
-function setCodeField(value: boolean): void {
-    isCodeExample.value = value;
-}
-
-function getCodeButtonClasses(value: boolean): string {
-    if (isCodeExample.value === value) {
-        return 'code-button_active';
-    }
-
-    return '';
 }
 
 // BLOCK "field theme change"
@@ -248,27 +220,8 @@ function drag(e: MouseEvent): void {
     border-top: 1px solid $color-gray-3
     position: relative
     scrollbar-gutter: stable
-    &-button-wrap
-        @extend .flex_row-center-end
-        position: sticky
-        right: 0
-        top: 0
-        padding: 20px 20px 0 20px
-    &-button
-        @extend .flex_row-center
-        background: $color-gray-3
-        padding: 0 15px
-        height: 28px
-        border-radius: 4px
-        font-weight: 500
-        color: $color-dark-1
-        cursor: pointer
-        &:first-child
-            margin-right: 20px
-    &-button_active
-        background: rgb($color-gray-2, 0.8)
     &-template
-        margin-bottom: 10px
+        margin-top: 15px
     &_open
         max-height: 700px
         border-bottom: 1px solid $color-gray-3

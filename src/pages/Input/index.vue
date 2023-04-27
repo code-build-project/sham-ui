@@ -26,7 +26,7 @@
 import { reactive } from 'vue';
 import ShInput from '@/components/ShInput/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeButtonOrigin from '@/components/ShButton/codeTemplate';
+import codeButtonOrigin from '@/components/ShButton/Origin/codeTemplate';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const buttonOrigin: TypeParameter = reactive({

@@ -27,7 +27,7 @@ import type { TypeLink } from '@/components/SidebarMenu/types';
 const links: TypeLink[] = [
     { id: 1, name: 'Alert', path: '/alert' },
     { id: 2, name: 'Button', path: '/button' },
-    { id: 3, name: 'TextField', path: '/text-field' },
+    { id: 3, name: 'Input', path: '/input' },
 ];
 </script>
 
