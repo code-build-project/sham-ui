@@ -15,8 +15,8 @@
                 @changeParameter="setParameter(buttonOrigin, $event)"
             )
                 sh-button-origin(
-                    :isLoading="buttonOrigin.loading.checked"
-                    :isDisabled="buttonOrigin.disabled.checked"
+                    :isLoading="buttonOrigin.loading.isChecked"
+                    :isDisabled="buttonOrigin.disabled.isChecked"
                 ) {{ buttonOrigin.text.value || 'My button' }}
 
         .field
@@ -36,8 +36,8 @@
                     :variant="buttonStylized.variant.value"
                     :type="buttonStylized.type.value"
                     :size="buttonStylized.size.value"
-                    :isLoading="buttonStylized.loading.checked"
-                    :isDisabled="buttonStylized.disabled.checked"
+                    :isLoading="buttonStylized.loading.isChecked"
+                    :isDisabled="buttonStylized.disabled.isChecked"
                 ) {{ buttonStylized.text.value || 'My button' }}
 
 </template>
@@ -47,8 +47,8 @@ import { reactive } from 'vue';
 import ShButton from '@/components/ShButton/index.vue';
 import ShButtonOrigin from '@/components/ShButton/Origin/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeButton from '@/components/ShButton/codeTemplate';
-import codeButtonOrigin from '@/components/ShButton/Origin/codeTemplate';
+import codeButton from '@/components/ShButton/code';
+import codeButtonOrigin from '@/components/ShButton/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import { useParameter } from '@/composables/playground';
 
@@ -66,13 +66,14 @@ const buttonOrigin: TypeParameter = reactive({
         id: 'load',
         elementType: 'switch',
         title: 'LOADING',
-        checked: false,
+        isChecked: false,
     },
     disabled: {
         id: 'disable',
         elementType: 'switch',
         title: 'DISABLED',
-        checked: false,
+        isChecked: false,
+        isInline: true,
     },
 });
 
@@ -88,13 +89,14 @@ const buttonStylized: TypeParameter = reactive({
         id: 'load1',
         elementType: 'switch',
         title: 'LOADING',
-        checked: false,
+        isChecked: false,
     },
     disabled: {
         id: 'disable1',
         elementType: 'switch',
         title: 'DISABLED',
-        checked: false,
+        isChecked: false,
+        isInline: true,
     },
     variant: {
         id: 'variant',

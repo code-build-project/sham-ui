@@ -11,14 +11,14 @@
 
             v-playground.playground(
                 :parameters="inputOrigin"
-                :codeTemplate="codeButtonOrigin"
+                :codeTemplate="codeInputOrigin"
                 @changeParameter="setParameter(inputOrigin, $event)"
             )
                 sh-input-origin(
                     v-model="inputOriginValue"
                     :placeholder="inputOrigin.placeholder.value || 'My Input'"
-                    :isReadonly="inputOrigin.readonly.checked"
-                    :isDisabled="inputOrigin.disabled.checked"
+                    :isReadonly="inputOrigin.readonly.isChecked"
+                    :isDisabled="inputOrigin.disabled.isChecked"
                 )
 
         .field
@@ -28,21 +28,21 @@
 
             v-playground.playground(
                 :parameters="inputStylized"
-                :codeTemplate="codeButtonOrigin"
+                :codeTemplate="codeInput"
                 @changeParameter="setParameter(inputStylized, $event)"
             )
                 sh-input(
                     v-model="inputStylizednValue"
                     class="sh-input"
                     :placeholder="inputStylized.placeholder.value || 'My Input'"
-                    :isReadonly="inputStylized.readonly.checked"
-                    :isDisabled="inputStylized.disabled.checked"
+                    :isReadonly="inputStylized.readonly.isChecked"
+                    :isDisabled="inputStylized.disabled.isChecked"
                     :size="inputStylized.size.value"
                     :variant="inputStylized.variant.value"
-                    :isError="inputStylized.error.checked"
+                    :isError="inputStylized.error.isChecked"
                     :message="inputStylized.message.value"
-                    :isClearable="inputStylized.clear.checked"
-                    :isPassword="inputStylized.password.checked"
+                    :isClearable="inputStylized.clear.isChecked"
+                    :isPassword="inputStylized.password.isChecked"
                     :format="inputStylized.format.value"
                 ) {{ inputStylized.label.value }}
 
@@ -53,7 +53,8 @@ import { ref, reactive } from 'vue';
 import ShInput from '@/components/ShInput/index.vue';
 import ShInputOrigin from '@/components/ShInput/Origin/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeButtonOrigin from '@/components/ShButton/Origin/codeTemplate';
+import codeInput from '@/components/ShInput/code';
+import codeInputOrigin from '@/components/ShInput/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import { useParameter } from '@/composables/playground';
 
@@ -73,13 +74,14 @@ const inputOrigin: TypeParameter = reactive({
         id: 'readonly',
         elementType: 'switch',
         title: 'READONLY',
-        checked: false,
+        isChecked: false,
     },
     disabled: {
         id: 'disable',
         elementType: 'switch',
         title: 'DISABLED',
-        checked: false,
+        isChecked: false,
+        isInline: true,
     },
 });
 
@@ -97,13 +99,14 @@ const inputStylized: TypeParameter = reactive({
         id: 'readonly1',
         elementType: 'switch',
         title: 'READONLY',
-        checked: false,
+        isChecked: false,
     },
     disabled: {
         id: 'disable1',
         elementType: 'switch',
         title: 'DISABLED',
-        checked: false,
+        isChecked: false,
+        isInline: true,
     },
     variant: {
         id: 'variant',
@@ -127,12 +130,6 @@ const inputStylized: TypeParameter = reactive({
             { id: 'large', name: 'Large' },
         ],
     },
-    error: {
-        id: 'error',
-        elementType: 'switch',
-        title: 'ERROR',
-        checked: false,
-    },
     message: { 
         id: 'message',
         elementType: 'input',
@@ -140,24 +137,25 @@ const inputStylized: TypeParameter = reactive({
         value: '',
         placeholder: 'Message',
     },
+    error: {
+        id: 'error',
+        elementType: 'switch',
+        title: 'ERROR',
+        isChecked: false,
+    },
     clear: {
         id: 'clear',
         elementType: 'switch',
         title: 'CLEARABLE',
-        checked: false,
-    },
-    label: { 
-        id: 'label',
-        elementType: 'input',
-        title: 'LABEL',
-        value: '',
-        placeholder: 'Label',
+        isChecked: false,
+        isInline: true,
     },
     password: {
         id: 'password',
         elementType: 'switch',
         title: 'PASSWORD',
-        checked: false,
+        isChecked: false,
+        isInline: true,
     },
     format: { 
         id: 'format',
@@ -171,6 +169,13 @@ const inputStylized: TypeParameter = reactive({
             { id: 'latin', name: 'Latin' },
             { id: 'cyrillic', name: 'Cyrillic' },
         ],
+    },
+    label: { 
+        id: 'label',
+        elementType: 'input',
+        title: 'LABEL',
+        value: '',
+        placeholder: 'Label',
     },
 });
 

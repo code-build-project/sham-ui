@@ -9,8 +9,9 @@ export interface TypeParameter {
         elementType: string,
         title: string,
         value?: string,
-        checked?: boolean,
+        isChecked?: boolean,
         placeholder?: string,
         variantList?: TypeVariant[],
+        isInline?: boolean,
     }
 }

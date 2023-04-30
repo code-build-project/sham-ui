@@ -35,9 +35,11 @@
 
     .parameters
         template(
-            v-for="(item, key) in parameters"
+            v-for="(item, key, index) in parameters"
             :key="item.id"
         )
+            .new-string(v-if="index !== 0 && !item.isInline")
+
             v-radio-button.parameters-radio(
                 v-if="item.elementType === 'radio'"
                 :modelValue="item.value"
@@ -48,7 +50,7 @@
 
             v-switch.parameters-switch(
                 v-if="item.elementType === 'switch'"
-                :modelValue="item.checked"
+                :modelValue="item.isChecked"
                 :keyField="item.id"
                 @update:modelValue="setParameter(key, $event)"
             ) {{ item.title }}
@@ -225,7 +227,6 @@ function drag(e: MouseEvent): void {
     &_open
         max-height: 700px
         border-bottom: 1px solid $color-gray-3
-        border-top: 1px solid $color-gray-3
         animation: show-scroll 1s linear forwards
 
 @keyframes show-scroll
@@ -235,16 +236,19 @@ function drag(e: MouseEvent): void {
         overflow-y: auto
 
 .parameters
+    @extend %flex_wrap
     min-height: 176px
     padding: 20px
-    &-radio:not(:first-child)
-        margin-top: 32px
-    &-switch:not(:first-child)
-        margin-top: 32px
+    &-radio
+        margin-right: 35px
+    &-switch
+        margin-right: 35px
     &-input
         width: 200px
-        margin-top: 32px
-        &:first-child
-            margin-top: 0
+        margin-right: 35px
+
+.new-string
+    width: 100%
+    height: 32px
 
 </style>
