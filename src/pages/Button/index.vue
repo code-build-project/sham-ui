@@ -50,6 +50,9 @@ import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeButton from '@/components/ShButton/codeTemplate';
 import codeButtonOrigin from '@/components/ShButton/Origin/codeTemplate';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
+import { useParameter } from '@/composables/playground';
+
+const { setParameter } = useParameter();
 
 const buttonOrigin: TypeParameter = reactive({
     text: { 
@@ -130,24 +133,11 @@ const buttonStylized: TypeParameter = reactive({
     },
 });
 
-type TypeData = {
-    key: string,
-    value: string | boolean,
-}
-
-function setParameter(playground: TypeParameter, data: TypeData): void {
-    if (typeof data.value === 'string') {
-        playground[data.key].value = data.value as string;
-    } else {
-        playground[data.key].checked = data.value as boolean;
-    }
-}
-
 </script>
 
 <style scoped lang="sass">
 .page-wrap
-    @extend .flex_column-start-center
+    @extend %flex_column-start-center
 
 .page
     width: 768px

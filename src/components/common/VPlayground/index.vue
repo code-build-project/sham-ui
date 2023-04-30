@@ -158,14 +158,14 @@ function drag(e: MouseEvent): void {
     background: $color-gray-5
 
 .header
-    @extend .flex_row-center-between
+    @extend %flex_row-center-between
     padding: 0 20px
     height: 56px
     color: $color-dark-1
     font-weight: 600
     border-bottom: 1px solid $color-gray-3
     &-icons
-        @extend .flex_row-center-center
+        @extend %flex_row-center-center
     &-icon-bulb
         width: 24px
         height: 24px
@@ -188,14 +188,14 @@ function drag(e: MouseEvent): void {
         fill: $color-dark-2
 
 .field
-    @extend .flex_row-center-center
+    @extend %flex_row-center-center
     height: 168px
     position: relative
     background: $color-white-1
     overflow: hidden
     padding-right: 16px
     &-resize
-        @extend .flex_row-center
+        @extend %flex_row-center
         width: 16px
         height: 100%
         background: $color-gray-5

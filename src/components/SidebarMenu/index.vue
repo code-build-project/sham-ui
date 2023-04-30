@@ -38,7 +38,7 @@ const links: TypeLink[] = [
     background: $color-dark-1
 
 .header
-    @extend .flex_row-center
+    @extend %flex_row-center
     height: 64px
     padding-left: 32px
     font-size: 20px
@@ -46,7 +46,7 @@ const links: TypeLink[] = [
     border-bottom: 1px solid rgba(255, 255, 255, 0.08)
 
 .version
-    @extend .flex_row-center-center
+    @extend %flex_row-center-center
     width: 43px
     height: 24px
     background: rgba(255, 255, 255, 0.08)
@@ -60,12 +60,12 @@ const links: TypeLink[] = [
     padding: 32px 16px
     font-weight: 600
     &-title
-        @extend .flex_row-start-between
+        @extend %flex_row-start-between
         padding: 0 16px
         margin-bottom: 8px
         color: rgba(255, 255, 255, 0.24)
     &-link
-        @extend .flex_row-center-between
+        @extend %flex_row-center-between
         height: 44px
         padding: 0 16px
         border-radius: 8px

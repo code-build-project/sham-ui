@@ -21,7 +21,7 @@ const textButton = ref<string>('');
 
 <style scoped lang="sass">
 .header
-    @extend .flex_row-center
+    @extend %flex_row-center
     height: 64px
     border: 1px solid $color-gray-3
     padding-right: 12px
@@ -31,7 +31,7 @@ const textButton = ref<string>('');
     margin-left: 426px
 
 .button
-    @extend .flex_row-center-center
+    @extend %flex_row-center-center
     width: 211px
     height: 40px
     border-radius: 8px

@@ -1,27 +1,44 @@
 <template lang="pug">
-.input(
-    :class="inputClasses"
-    @click="clickInput"
-)
-    slot(name="left")
-    
-    input.field(
-        ref="refInput"
-        :value="modelValue"
-        :type="type"
-        :placeholder="placeholder"
-        :readonly="isReadonly"
-        @input="onInput"
-        @focus="onFocus"
-        @blur="onBlur"
+.input-wrap
+    .label(
+        v-if="$slots.default || label"
+        :class="labelClasses"
     )
+        slot {{ label }}
 
-    slot(name="right")
+    sh-input-origin(
+        :modelValue="modelValue"
+        :class="componentClasses"
+        :type="isPassword ? 'password' : type"
+        :placeholder="placeholder"
+        :isDisabled="isDisabled"
+        :isReadonly="isReadonly"
+        :maxlength="maxlength"
+        @update:modelValue="updateValue"
+        @input="onInput"
+        @focus="emit('focus')"
+        @blur="emit('blur')"
+    )
+        template(v-slot:left)
+            slot(name="left")
+
+        template(v-slot:right)
+            slot(name="right")
+                v-icon.icon(
+                    v-show="isClearable && modelValue"
+                    path="img/clearField.svg"
+                    @click="clearField"
+                )
+
+
+    .message(v-if="message") {{ message }}
 
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
+import VIcon from '@/components/common/VIcon/index.vue';
+import ShInputOrigin from '@/components/ShInput/Origin/index.vue';
 
 const props = withDefaults(
     defineProps<{
@@ -30,6 +47,16 @@ const props = withDefaults(
         placeholder?: string,
         isDisabled?: boolean,
         isReadonly?: boolean,
+        maxlength?: string,
+        autocomplete?: string,
+        size?: string,
+        variant?: string,
+        isError?: boolean,
+        message?: string,
+        isClearable?: boolean,
+        label?: string,
+        isPassword?: boolean,
+        format?: string,
     }>(),
     {
         modelValue: '',
@@ -37,72 +64,151 @@ const props = withDefaults(
         placeholder: '',
         isDisabled: false,
         isReadonly: false,
+        maxlength: '',
+        autocomplete: 'on',
+        size: 'medium',
+        variant: 'default',
+        isError: false,
+        message: '',
+        isClearable: false,
+        label: '',
+        isPassword: false,
+        format: '',
     },
 );
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: number | string): void
+  (e: 'input', event: Event): void
   (e: 'focus'): void
   (e: 'blur'): void
 }>();
 
-const isFocus = ref<boolean>(false);
-const refInput = ref<null | HTMLInputElement>(null);
+const componentClasses = computed<string[] | object>(() => {
+    return [
+        'size-' + props.size,
+        'variant-' + props.variant,
+        {
+            'error': props.isError,
+        },
+    ];
+});
 
-const inputClasses = computed<object>(() => {
+const labelClasses = computed<object>(() => {
     return {
-        'input_focused': isFocus.value,
-        'disabled': props.isDisabled,
+        'label-underline': props.variant === 'underline',
+        'label-error': props.isError,
     };
 });
 
-function clickInput(): void {
-    refInput.value?.focus();
+function updateValue(value: number | string) {
+    emit('update:modelValue', value as string);
 }
 
-function onFocus(): void {
-    isFocus.value = true;
-    emit('focus');
+function onInput(event: Event) {
+    type TypeFormat = {
+        [name: string]: Function
+    };
+
+    const formatters: TypeFormat = {
+        number(value: string): string {
+            return value.replace(/[^\d.,]*/g, '');
+        },
+        letter(value: string) {
+            return value.replace(/[^a-zA-ZА-Яа-яЁё\s-]/gi, '');
+        },
+        latin(value: string) {
+            return value.replace(/[^a-z\s-]/gi, '');
+        },
+        cyrillic(value: string) {
+            return value.replace(/[^а-яё\s-]/gi, '');
+        },
+    };
+
+    if (props.format) {
+        (event.target as HTMLInputElement).value = formatters[props.format]((event.target as HTMLInputElement).value);
+    }
+
+    updateValue((event.target as HTMLInputElement).value);
+    emit('input', event);
 }
 
-function onBlur(): void {
-    isFocus.value = false;
-    emit('blur');
-}
-
-function onInput(event: Event): void {
-    emit('update:modelValue', (event.target as HTMLInputElement).value);
+function clearField() {
+    updateValue('');
 }
 </script>
 
 <style lang="sass" scoped>
-.input
-    @extend .flex_row-center
-    border: 1px solid $color-gray-3
-    border-radius: 8px
-    padding: 0 12px
-    height: 40px
-    cursor: text
+.input-wrap
+    position: relative
+
+.label
+    margin-left: 5px
+    font-weight: 500
+    font-size: 12px
+    color: $color-gray-2
+    margin-left: 5px
+    margin-bottom: 5px
+    &-underline
+        margin-left: 0
+        margin-bottom: 0
+    &-error
+        color: $color-red-1
+
+.message
+    position: absolute
+    margin-top: 5px
+    margin-left: 5px
+    color: $color-gray-2
+    font-size: 12px
+
+.icon
+    width: 20px
+    height: 20px
+    fill: $color-gray-2
+    cursor: pointer
+
+.size
+    &-small
+        height: 32px
+        padding: 0 10px
+        &:deep(.field)
+            font-size: 12px
+            &::placeholder
+                font-size: 12px
+    &-medium
+        height: 40px
+        padding: 0 12px
+        &:deep(.field)
+            font-size: 14px
+            &::placeholder
+                font-size: 14px
+    &-large
+        height: 48px
+        padding: 0 14px
+        &:deep(.field)
+            font-size: 16px
+            &::placeholder
+                font-size: 16px
+
+.variant
+    &-outline
+        background: transparent
+    &-underline
+        border: none
+        border-radius: 0
+        border-bottom: 1px solid $color-gray-3
+        background: transparent
+        padding: 0
+        & + .message
+            margin-left: 0
+
+.error
+    border-color: $color-red-1
     &:hover,
     &_focused
-        border-color: $color-gray-2
-        border-color: $color-gray-2
-
-.field
-    width: 100%
-    font-weight: 500
-    font-size: 14px
-    color: $color-dark-1
-    outline: none
-    border: none
-    background: transparent
-    caret-color: $color-blue-1
-    &::placeholder
-        font-size: 14px
-        color: $color-gray-2
-
-.disabled
-    pointer-events: none
-    opacity: 0.8
+        border-color: $color-red-1
+    & + .message
+        color: $color-red-1
 
 </style>

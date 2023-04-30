@@ -48,7 +48,7 @@ function onClick(): void {
 
 <style scoped lang="sass">
 .button
-    @extend .flex_row-center-center
+    @extend %flex_row-center-center
     position: relative
     padding: 12px 20px
     background: $color-blue-1
@@ -64,7 +64,7 @@ function onClick(): void {
         opacity: 0.9
 
 .loader
-    @extend .flex_row-center-center
+    @extend %flex_row-center-center
     position: absolute
     width: 100%
     height: 100%

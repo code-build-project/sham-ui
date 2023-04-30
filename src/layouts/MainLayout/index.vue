@@ -14,14 +14,14 @@ import SidebarMenu from '@/components/SidebarMenu/index.vue';
 
 <style lang="sass" scoped>
 .layout
-    @extend .flex_row
+    @extend %flex_row
     height: 100%
 
 .main-block
     flex: auto
 
 .content
-    @extend .flex_column-start
+    @extend %flex_column-start
     width: 100%
     overflow-y: auto
     max-height: calc(100vh - 64px)
