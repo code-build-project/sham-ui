@@ -191,7 +191,7 @@ function drag(e: MouseEvent): void {
 
 .field
     @extend %flex_row-center-center
-    height: 168px
+    min-height: 168px
     position: relative
     background: $color-white-1
     overflow: hidden

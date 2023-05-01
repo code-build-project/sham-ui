@@ -10,7 +10,7 @@ export function useParameter() {
         if (typeof data.value === 'string') {
             playground[data.key].value = data.value as string;
         } else {
-            playground[data.key].checked = data.value as boolean;
+            playground[data.key].isChecked = data.value as boolean;
         }
     }
     

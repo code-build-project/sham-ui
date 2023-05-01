@@ -27,6 +27,11 @@ const router = createRouter({
                     name: 'PageInput',
                     component: () => import('@/pages/Input/index.vue'),
                 },
+                {
+                    path: '/select',
+                    name: 'PageSelect',
+                    component: () => import('@/pages/Select/index.vue'),
+                },
             ],
         },
     ],
