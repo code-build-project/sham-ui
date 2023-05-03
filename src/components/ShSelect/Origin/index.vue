@@ -5,7 +5,8 @@
         isReadonly
         :placeholder="placeholder"
         :isDisabled="isDisabled"
-        @focus="onFocus"
+        @click="clickInput"
+        @focus="emit('focus')"
         @blur="onBlur"
     )
         template(v-slot:left)
@@ -23,8 +24,8 @@
         li.item(
             v-for="option in options"
             :key="option.id"
-            @mousedown="updateValue(option.text)"
-        ) {{ option.text }}
+            @click="updateValue(option.value)"
+        ) {{ option.value }}
 
 </template>
 
@@ -38,7 +39,7 @@ withDefaults(
         modelValue?: number | string,
         placeholder?: string,
         isDisabled?: boolean,
-        options: { id: string, value: string, text: string }[],
+        options: { id: string, value: string }[],
     }>(),
     {
         modelValue: '',
@@ -58,23 +59,25 @@ function updateValue(value: number | string) {
     emit('update:modelValue', value as string);
 }
 
-const isFocus = ref<boolean>(false);
-
-function onFocus(): void {
-    isFocus.value = true;
-    emit('focus');
-}
-
-function onBlur(): void {
-    isFocus.value = false;
-    emit('blur');
-}
-
 const iconClasses = computed<object>(() => {
     return {
         'icon-invert': isFocus.value,
     };
 });
+
+// BLOCK "focus and blur"
+const isFocus = ref<boolean>(false);
+
+function clickInput(): void {
+    isFocus.value = !isFocus.value;
+}
+
+function onBlur(): void {
+    setTimeout( () => {
+        isFocus.value = false;
+        emit('blur');
+    }, 100);
+}
 
 </script>
 
@@ -86,8 +89,9 @@ const iconClasses = computed<object>(() => {
         cursor: pointer
 
 .icon
-    width: 30px
-    height: 30px
+    min-width: 25px
+    max-width: 25px
+    height: 25px
     fill: $color-gray-2
     &-invert
         transform: rotate(180deg)

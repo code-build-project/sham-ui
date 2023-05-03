@@ -70,7 +70,7 @@ import VIcon from '@/components/common/VIcon/index.vue';
 import VSwitch from '@/components/common/VSwitch/index.vue';
 import VInputTitle from '@/components/common/VInput/Title/index.vue';
 import VRadioButton from '@/components/common/VRadioButton/index.vue';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
+import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
 
 withDefaults(
     defineProps<{
@@ -83,7 +83,7 @@ withDefaults(
 );
 
 const emit = defineEmits<{
-    (e: 'changeParameter', data: { key: string, value: string | boolean }): void,
+    (e: 'changeParameter', data: TypeData): void,
 }>();
 
 function setParameter(key: string | number, value: string | boolean | number): void {

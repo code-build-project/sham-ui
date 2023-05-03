@@ -15,3 +15,8 @@ export interface TypeParameter {
         isInline?: boolean,
     }
 }
+
+export interface TypeData {
+    key: string,
+    value: string | boolean,
+}

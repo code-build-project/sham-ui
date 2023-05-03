@@ -29,11 +29,10 @@
             v-playground.playground(
                 :parameters="selectStylized"
                 :codeTemplate="codeSelect"
-                @changeParameter="setParameter(selectStylized, $event)"
+                @changeParameter="setParameterDecorator(selectStylized, $event)"
             )
                 sh-select.sh-select(
                     v-model="selectValue"
-                    class="sh-input"
                     :placeholder="selectStylized.placeholder.value || 'My Input'"
                     :isDisabled="selectStylized.disabled.isChecked"
                     :size="selectStylized.size.value"
@@ -41,6 +40,7 @@
                     :isError="selectStylized.error.isChecked"
                     :message="selectStylized.message.value"
                     :isClearable="selectStylized.clear.isChecked"
+                    :isMultiple="selectStylized.multiple.isChecked"
                     :options="selectOptions"
                 ) {{ selectStylized.label.value }}
 
@@ -51,29 +51,26 @@ import { ref, reactive } from 'vue';
 import ShSelect from '@/components/ShSelect/index.vue';
 import ShSelectOrigin from '@/components/ShSelect/Origin/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeSelect from '@/components/ShInput/code';
-import codeSelectOrigin from '@/components/ShInput/Origin/code';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
+import codeSelect from '@/components/ShSelect/code';
+import codeSelectOrigin from '@/components/ShSelect/Origin/code';
+import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
 import { useParameter } from '@/composables/playground';
 
 const { setParameter } = useParameter();
 
 let selectOriginValue = ref<string>('');
-const selectOriginOptions = ref<{ id: string, value: string, text: string }[]>([
+const selectOriginOptions = ref<{ id: string, value: string }[]>([
     {
         id: '1',
-        value: 'first',
-        text: 'First',
+        value: 'First',
     },
     {
         id: '2',
-        value: 'second',
-        text: 'Second',
+        value: 'Second',
     },
     {
         id: '3',
-        value: 'third',
-        text: 'Third',
+        value: 'Third',
     },
 ]);
 
@@ -94,22 +91,19 @@ const selectOrigin: TypeParameter = reactive({
     },
 });
 
-let selectValue = ref<string>('');
-const selectOptions = ref<{ id: string, value: string, text: string }[]>([
+let selectValue = ref<string | string[]>('');
+const selectOptions = ref<{ id: string, value: string }[]>([
     {
         id: '1',
-        value: 'first',
-        text: 'First',
+        value: 'First',
     },
     {
         id: '2',
-        value: 'second',
-        text: 'Second',
+        value: 'Second',
     },
     {
         id: '3',
-        value: 'third',
-        text: 'Third',
+        value: 'Third',
     },
 ]);
 
@@ -170,6 +164,13 @@ const selectStylized: TypeParameter = reactive({
         isChecked: false,
         isInline: true,
     },
+    multiple: {
+        id: 'multiple',
+        elementType: 'switch',
+        title: 'MULTIPLE',
+        isChecked: false,
+        isInline: true,
+    },
     label: { 
         id: 'label',
         elementType: 'input',
@@ -178,6 +179,18 @@ const selectStylized: TypeParameter = reactive({
         placeholder: 'Label',
     },
 });
+
+function setParameterDecorator(selectStylized: TypeParameter, event: TypeData): void {
+    if (event.key === selectStylized.multiple.id) {
+        if (event.value) {
+            selectValue.value = [];
+        } else {
+            selectValue.value = '';
+        }
+    }
+
+    setParameter(selectStylized, event);
+}
 
 </script>
 

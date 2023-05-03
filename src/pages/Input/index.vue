@@ -31,9 +31,8 @@
                 :codeTemplate="codeInput"
                 @changeParameter="setParameter(inputStylized, $event)"
             )
-                sh-input(
+                sh-input.sh-input(
                     v-model="inputStylizednValue"
-                    class="sh-input"
                     :placeholder="inputStylized.placeholder.value || 'My Input'"
                     :isReadonly="inputStylized.readonly.isChecked"
                     :isDisabled="inputStylized.disabled.isChecked"

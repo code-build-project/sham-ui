@@ -1,18 +1,19 @@
 <template lang="pug">
 .select
     .label(
-        v-if="$slots.default || label"
+        v-if="isLabel"
         :class="labelClasses"
     )
         slot {{ label }}
 
     sh-input-origin(
-        :modelValue="modelValue"
+        :modelValue="valueInput"
         :class="componentClasses"
         isReadonly
         :placeholder="placeholder"
         :isDisabled="isDisabled"
-        @focus="onFocus"
+        @click="clickInput"
+        @focus="emit('focus')"
         @blur="onBlur"
     )
         template(v-slot:left)
@@ -20,11 +21,11 @@
 
         template(v-slot:right)
             slot(name="right")
-                v-icon.icon-clear(
-                    v-show="isClearable && modelValue"
-                    path="img/clearField.svg"
-                    @click="clearField"
+                div(
+                    v-show="isIconClear"
+                    @click.stop="clearField"
                 )
+                    v-icon.icon-clear(path="img/clearField.svg")
 
             v-icon.icon-chevron(
                 path="img/chevron.svg"
@@ -33,23 +34,41 @@
 
     .message(v-if="message") {{ message }}
 
-    ul.list(v-show="isFocus")
+    ul.list(
+        v-show="isOpenList"
+        @focus="handleFocus"
+        @focusout="handleFocusOut"
+        tabindex="-1"
+    )
         li.item(
             v-for="option in options"
             :key="option.id"
-            @mousedown="updateValue(option.text)"
-        ) {{ option.text }}
+            @click.prevent="updateValue(option.id)"
+        )
+            v-check-box(
+                v-if="isMultiple"
+                :modelValue="modelValue.includes(option.id)"
+                :keyField="option.id"
+            ) {{ option.value }}
+
+            div(v-else) {{ option.value }}
 
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
+import VCheckBox from '@/components/common/VCheckBox/index.vue';
 import ShInputOrigin from '@/components/ShInput/Origin/index.vue';
+
+type Option = {
+    id: string,
+    value: string,
+}
 
 const props = withDefaults(
     defineProps<{
-        modelValue?: number | string,
+        modelValue?: string | string[],
         placeholder?: string,
         isDisabled?: boolean,
         label?: string,
@@ -58,7 +77,8 @@ const props = withDefaults(
         isError?: boolean,
         isClearable?: boolean,
         message?: string,
-        options: { id: string, value: string, text: string }[],
+        isMultiple?: boolean,
+        options: Option[],
     }>(),
     {
         modelValue: '',
@@ -70,35 +90,40 @@ const props = withDefaults(
         isError: false,
         isClearable: false,
         message: '',
+        isMultiple: false,
         options: () => [],
     },
 );
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: number | string): void
+  (e: 'update:modelValue', id: string | string[]): void
   (e: 'focus'): void
   (e: 'blur'): void
 }>();
 
-function updateValue(value: number | string) {
-    emit('update:modelValue', value as string);
-}
+const componentClasses = computed<string[] | object>(() => {
+    return [
+        'size-' + props.size,
+        'variant-' + props.variant,
+        {
+            'error': props.isError,
+            'focus': isOpenList.value,
+        },
+    ];
+});
 
-const isFocus = ref<boolean>(false);
+const iconClasses = computed<object>(() => {
+    return {
+        'icon-chevron-invert': isOpenList.value,
+    };
+});
 
-function onFocus(): void {
-    isFocus.value = true;
-    emit('focus');
-}
+// BLOCK "label"
+const slots = useSlots();
 
-function onBlur(): void {
-    isFocus.value = false;
-    emit('blur');
-}
-
-function clearField() {
-    updateValue('');
-}
+const isLabel = computed<boolean>(() => {
+    return !!(slots.default || props.label);
+});
 
 const labelClasses = computed<object>(() => {
     return {
@@ -107,21 +132,87 @@ const labelClasses = computed<object>(() => {
     };
 });
 
-const componentClasses = computed<string[] | object>(() => {
-    return [
-        'size-' + props.size,
-        'variant-' + props.variant,
-        {
-            'error': props.isError,
-        },
-    ];
+// BLOCK "focus and blur"
+let isOpenList = ref<boolean>(false);
+let isFocusList = ref<boolean>(false);
+
+function clickInput(): void {
+    isOpenList.value = !isOpenList.value;
+}
+
+function onBlur(): void {
+    setTimeout( () => {
+        if (props.isMultiple && isFocusList.value) {
+            return;
+        }
+
+        isOpenList.value = false;
+        emit('blur');
+    }, 100);
+}
+
+function handleFocus() {
+    if (!props.isMultiple) {
+        return;
+    }
+    isFocusList.value = true;
+}
+
+function handleFocusOut() {
+    if (!props.isMultiple) {
+        return;
+    }
+    isFocusList.value = false;
+    onBlur();
+}
+
+// BLOCK "show and update value"
+const valueInput = computed<string>(() => {
+    if (props.isMultiple && Array.isArray(props.modelValue)) {
+        let values: string[] = [];
+    
+        props.modelValue.forEach(value => {
+            const newItem = props.options.find((item) => value === item.id);
+            if (newItem) {
+                values.push(newItem.value);
+            }
+        });
+
+        return values.join(', ');
+    }
+
+    const item = props.options.find((item) => props.modelValue === item.id);
+    return item?.value || '';
 });
 
-const iconClasses = computed<object>(() => {
-    return {
-        'icon-chevron-invert': isFocus.value,
-    };
+function updateValue(id: string): void {
+    if (props.isMultiple) {
+        let array: string[] = props.modelValue.slice() as string[];
+
+        if (array.includes(id)) {
+            array.splice(array.indexOf(id), 1);
+        } else {
+            array.push(id);
+        }
+
+        emit('update:modelValue', array.slice());
+    } else {
+        emit('update:modelValue', id);
+    }
+}
+
+// BLOCK "clear"
+const isIconClear = computed<boolean>(() => {
+    return !!(props.isClearable && props.modelValue.length);
 });
+
+function clearField() {
+    if (props.isMultiple) {
+        emit('update:modelValue', []);
+    } else {
+        emit('update:modelValue', '');
+    }
+}
 
 </script>
 
@@ -152,8 +243,9 @@ const iconClasses = computed<object>(() => {
     cursor: pointer
 
 .icon-chevron
-    width: 30px
-    height: 30px
+    min-width: 25px
+    max-width: 25px
+    height: 25px
     fill: $color-gray-2
     &-invert
         transform: rotate(180deg)
@@ -186,6 +278,9 @@ const iconClasses = computed<object>(() => {
     color: $color-gray-2
     font-size: 12px
 
+.focus
+    border-color: $color-gray-2
+
 .size
     &-small
         height: 32px
@@ -194,6 +289,8 @@ const iconClasses = computed<object>(() => {
             font-size: 12px
             &::placeholder
                 font-size: 12px
+        & + .message
+            font-size: 10px
     &-medium
         height: 40px
         padding: 0 12px
@@ -208,6 +305,8 @@ const iconClasses = computed<object>(() => {
             font-size: 16px
             &::placeholder
                 font-size: 16px
+        & + .message
+            font-size: 14px
 
 .variant
     &-outline
