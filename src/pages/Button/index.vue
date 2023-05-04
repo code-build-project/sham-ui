@@ -44,11 +44,11 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import ShButton from '@/components/ShButton/index.vue';
-import ShButtonOrigin from '@/components/ShButton/Origin/index.vue';
+import ShButton from '@/components/UI/ShButton/index.vue';
+import ShButtonOrigin from '@/components/UI/ShButton/Origin/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeButton from '@/components/ShButton/code';
-import codeButtonOrigin from '@/components/ShButton/Origin/code';
+import codeButton from '@/components/UI/ShButton/code';
+import codeButtonOrigin from '@/components/UI/ShButton/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import { useParameter } from '@/composables/playground';
 

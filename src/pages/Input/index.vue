@@ -49,11 +49,11 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import ShInput from '@/components/ShInput/index.vue';
-import ShInputOrigin from '@/components/ShInput/Origin/index.vue';
+import ShInput from '@/components/UI/ShInput/index.vue';
+import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeInput from '@/components/ShInput/code';
-import codeInputOrigin from '@/components/ShInput/Origin/code';
+import codeInput from '@/components/UI/ShInput/code';
+import codeInputOrigin from '@/components/UI/ShInput/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import { useParameter } from '@/composables/playground';
 

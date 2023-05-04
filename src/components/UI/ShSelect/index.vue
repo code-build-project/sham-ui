@@ -59,7 +59,7 @@
 import { ref, computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import VCheckBox from '@/components/common/VCheckBox/index.vue';
-import ShInputOrigin from '@/components/ShInput/Origin/index.vue';
+import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
 
 type Option = {
     id: string,

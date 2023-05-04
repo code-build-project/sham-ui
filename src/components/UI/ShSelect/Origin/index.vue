@@ -32,7 +32,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
-import ShInputOrigin from '@/components/ShInput/Origin/index.vue';
+import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
 
 withDefaults(
     defineProps<{

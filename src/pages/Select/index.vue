@@ -48,11 +48,11 @@
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import ShSelect from '@/components/ShSelect/index.vue';
-import ShSelectOrigin from '@/components/ShSelect/Origin/index.vue';
+import ShSelect from '@/components/UI/ShSelect/index.vue';
+import ShSelectOrigin from '@/components/UI/ShSelect/Origin/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeSelect from '@/components/ShSelect/code';
-import codeSelectOrigin from '@/components/ShSelect/Origin/code';
+import codeSelect from '@/components/UI/ShSelect/code';
+import codeSelectOrigin from '@/components/UI/ShSelect/Origin/code';
 import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
 import { useParameter } from '@/composables/playground';
 
