@@ -26,9 +26,10 @@ import type { TypeLink } from '@/components/SidebarMenu/types';
 
 const links: TypeLink[] = [
     { id: 1, name: 'Alert', path: '/alert' },
-    { id: 2, name: 'Button', path: '/button' },
-    { id: 3, name: 'Input', path: '/input' },
-    { id: 4, name: 'Select', path: '/select' },
+    { id: 2, name: 'Autocomplete', path: '/autocomplete' },
+    { id: 3, name: 'Button', path: '/button' },
+    { id: 4, name: 'Input', path: '/input' },
+    { id: 5, name: 'Select', path: '/select' },
 ];
 </script>
 

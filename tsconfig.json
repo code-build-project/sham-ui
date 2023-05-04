@@ -5,7 +5,9 @@
         "baseUrl": ".",
         "paths": {
             "@/*": ["./src/*"]
-        }
+        },
+        "preserveValueImports": false, // Добавлено чтоб не было ошибки: 'importsNotUsedAsValues', Use 'verbatimModuleSyntax'
+        "importsNotUsedAsValues": "remove", // Добавлено чтоб не было ошибки: 'importsNotUsedAsValues', Use 'verbatimModuleSyntax'
     },
 
     "references": [

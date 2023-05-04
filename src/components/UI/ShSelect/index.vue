@@ -1,9 +1,6 @@
 <template lang="pug">
 .select
-    .label(
-        v-if="isLabel"
-        :class="labelClasses"
-    )
+    .label(v-if="isLabel")
         slot {{ label }}
 
     sh-input-origin(
@@ -125,13 +122,6 @@ const isLabel = computed<boolean>(() => {
     return !!(slots.default || props.label);
 });
 
-const labelClasses = computed<object>(() => {
-    return {
-        'label-underline': props.variant === 'underline',
-        'label-error': props.isError,
-    };
-});
-
 // BLOCK "focus and blur"
 let isOpenList = ref<boolean>(false);
 let isFocusList = ref<boolean>(false);
@@ -230,11 +220,6 @@ function clearField() {
     color: $color-gray-2
     margin-left: 5px
     margin-bottom: 5px
-    &-underline
-        margin-left: 0
-        margin-bottom: 0
-    &-error
-        color: $color-red-1
 
 .icon-clear
     width: 20px
@@ -289,8 +274,6 @@ function clearField() {
             font-size: 12px
             &::placeholder
                 font-size: 12px
-        & + .message
-            font-size: 10px
     &-medium
         height: 40px
         padding: 0 12px
@@ -305,7 +288,15 @@ function clearField() {
             font-size: 16px
             &::placeholder
                 font-size: 16px
-        & + .message
+
+.select
+    &:has(.size-small)
+        .label,
+        .message
+            font-size: 10px
+    &:has(.size-large)
+        .label,
+        .message
             font-size: 14px
 
 .variant
@@ -317,15 +308,23 @@ function clearField() {
         border-bottom: 1px solid $color-gray-3
         background: transparent
         padding: 0
-        & + .message
-            margin-left: 0
+
+.select:has(.variant-underline)
+    .label
+        margin-left: 0
+        margin-bottom: 0
+    .message
+        margin-left: 0
 
 .error
     border-color: $color-red-1
     &:hover,
     &_focused
         border-color: $color-red-1
-    & + .message
+
+.select:has(.error)
+    .label,
+    .message
         color: $color-red-1
 
 </style>

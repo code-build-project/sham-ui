@@ -1,84 +1,96 @@
 <template lang="pug">
-.input-wrap
+.autocomplete
     .label(v-if="isLabel")
         slot {{ label }}
 
     sh-input-origin(
         :modelValue="modelValue"
         :class="componentClasses"
-        :type="isPassword ? 'password' : type"
         :placeholder="placeholder"
         :isDisabled="isDisabled"
-        :isReadonly="isReadonly"
-        :maxlength="maxlength"
-        @input="onInput"
-        @focus="emit('focus')"
-        @blur="emit('blur')"
+        @update:modelValue="updateValue"
+        @focus="onFocus"
+        @blur="onBlur"
     )
         template(v-slot:left)
             slot(name="left")
 
         template(v-slot:right)
             slot(name="right")
-                v-icon.icon(
+                div(
                     v-show="isIconClear"
-                    path="img/clearField.svg"
-                    @click="clearField"
+                    @click.stop="clearField"
                 )
-
+                    v-icon.icon-clear(path="img/clearField.svg")
 
     .message(v-if="message") {{ message }}
+
+    ul.list(v-show="isShowList")
+        li.item(
+            v-for="(option, index) in filteredOptions"
+            :key="option + index"
+            @click="updateValue(option)"
+        ) {{ option }}
 
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { ref, computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
 
 const props = withDefaults(
     defineProps<{
         modelValue?: number | string,
-        type?: string,
         placeholder?: string,
         isDisabled?: boolean,
-        isReadonly?: boolean,
-        maxlength?: string,
-        autocomplete?: string,
+        label?: string,
         size?: string,
         variant?: string,
         isError?: boolean,
-        message?: string,
         isClearable?: boolean,
-        label?: string,
-        isPassword?: boolean,
-        format?: string,
+        message?: string,
+        isListWithoutValue?: boolean,
+        options?: string[],
     }>(),
     {
         modelValue: '',
-        type: 'text',
         placeholder: '',
         isDisabled: false,
-        isReadonly: false,
-        maxlength: '',
-        autocomplete: 'on',
+        label: '',
         size: 'medium',
         variant: 'default',
         isError: false,
-        message: '',
         isClearable: false,
-        label: '',
-        isPassword: false,
-        format: '',
+        message: '',
+        isListWithoutValue: true,
+        options: () => [],
     },
 );
 
 const emit = defineEmits<{
   (e: 'update:modelValue', value: number | string): void
-  (e: 'input', event: Event): void
   (e: 'focus'): void
   (e: 'blur'): void
 }>();
+
+function updateValue(value: number | string) {
+    emit('update:modelValue', value as string);
+}
+
+const filteredOptions = computed<string[]>(() => {
+    return props.options.filter((option) => {
+        return option.startsWith(props.modelValue as string);
+    });
+});
+
+const isShowList = computed<boolean>(() => {
+    if (props.isListWithoutValue) {
+        return !!(isFocus.value && filteredOptions.value.length);
+    } else {
+        return !!(isFocus.value && filteredOptions.value.length && props.modelValue);
+    }
+});
 
 const componentClasses = computed<string[] | object>(() => {
     return [
@@ -97,33 +109,19 @@ const isLabel = computed<boolean>(() => {
     return !!(slots.default || props.label);
 });
 
-// BLOCK "input"
-function onInput(event: Event) {
-    type TypeFormat = {
-        [name: string]: Function
-    };
+// BLOCK "focus and blur"
+const isFocus = ref<boolean>(false);
 
-    const formatters: TypeFormat = {
-        number(value: string): string {
-            return value.replace(/[^\d.,]*/g, '');
-        },
-        letter(value: string) {
-            return value.replace(/[^a-zA-ZА-Яа-яЁё\s-]/gi, '');
-        },
-        latin(value: string) {
-            return value.replace(/[^a-z\s-]/gi, '');
-        },
-        cyrillic(value: string) {
-            return value.replace(/[^а-яё\s-]/gi, '');
-        },
-    };
+function onFocus(): void {
+    isFocus.value = true;
+    emit('focus');
+}
 
-    if (props.format) {
-        (event.target as HTMLInputElement).value = formatters[props.format]((event.target as HTMLInputElement).value);
-    }
-
-    emit('update:modelValue', (event.target as HTMLInputElement).value);
-    emit('input', event);
+function onBlur(): void {
+    setTimeout( () => {
+        isFocus.value = false;
+        emit('blur');
+    }, 100);
 }
 
 // BLOCK "clear"
@@ -132,13 +130,13 @@ const isIconClear = computed<boolean>(() => {
 });
 
 function clearField() {
-    emit('update:modelValue', '');
+    updateValue('');
 }
 
 </script>
 
 <style lang="sass" scoped>
-.input-wrap
+.autocomplete
     position: relative
 
 .label
@@ -149,18 +147,39 @@ function clearField() {
     margin-left: 5px
     margin-bottom: 5px
 
+.icon-clear
+    width: 20px
+    height: 20px
+    fill: $color-gray-2
+    cursor: pointer
+
+.list
+    position: absolute
+    width: 100%
+    min-height: 40px
+    max-height: 200px
+    background-color: $color-white-1
+    border-radius: 4px
+    box-shadow: 0 3px 19px $color-gray-3
+    overflow-y: auto
+    z-index: 1
+
+.item
+    @extend %flex_row-center
+    cursor: pointer
+    padding: 9px 0 9px 15px
+    min-height: 35px
+    font-size: 14px
+    color: $color-dark-1
+    &:hover
+        background: $color-gray-4
+
 .message
     position: absolute
     margin-top: 5px
     margin-left: 5px
     color: $color-gray-2
     font-size: 12px
-
-.icon
-    width: 20px
-    height: 20px
-    fill: $color-gray-2
-    cursor: pointer
 
 .size
     &-small
@@ -185,7 +204,7 @@ function clearField() {
             &::placeholder
                 font-size: 16px
 
-.input-wrap
+.autocomplete
     &:has(.size-small)
         .label,
         .message
@@ -205,7 +224,7 @@ function clearField() {
         background: transparent
         padding: 0
 
-.input-wrap:has(.variant-underline)
+.autocomplete:has(.variant-underline)
     .label
         margin-left: 0
         margin-bottom: 0
@@ -218,7 +237,7 @@ function clearField() {
     &_focused
         border-color: $color-red-1
 
-.input-wrap:has(.error)
+.autocomplete:has(.error)
     .label,
     .message
         color: $color-red-1

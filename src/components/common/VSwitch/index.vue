@@ -5,6 +5,7 @@
 
     input.switch__input(
         :id="keyField"
+        :class="componentClasses"
         type="checkbox"
         :value="modelValue"
         @change="$emit('update:modelValue', !modelValue)"
@@ -15,7 +16,9 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(
+import { computed } from 'vue';
+
+const props = withDefaults(
     defineProps<{
         modelValue?: boolean,
         keyField: string,
@@ -28,6 +31,13 @@ withDefaults(
 defineEmits<{
     (e: 'update:modelValue', value: boolean): void
 }>();
+
+const componentClasses = computed<object>(() => {
+    return {
+        'input_checked': !!props.modelValue,
+    };
+});
+
 </script>
 
 <style lang="sass" scoped>
@@ -66,10 +76,10 @@ label:after
     border-radius: 10px
     transition: 0.3s
 
-input:checked + label
+.input_checked + label
     background: $color-blue-1
 
-input:checked + label:after
+.input_checked + label:after
     left: calc(100% - 3px)
     transform: translateX(-100%)
 
