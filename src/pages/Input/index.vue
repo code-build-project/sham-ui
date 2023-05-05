@@ -32,7 +32,7 @@
                 @changeParameter="setParameter(inputStylized, $event)"
             )
                 sh-input.sh-input(
-                    v-model="inputStylizednValue"
+                    v-model="inputStylizedValue"
                     :placeholder="inputStylized.placeholder.value || 'My Input'"
                     :isReadonly="inputStylized.readonly.isChecked"
                     :isDisabled="inputStylized.disabled.isChecked"
@@ -84,7 +84,7 @@ const inputOrigin: TypeParameter = reactive({
     },
 });
 
-let inputStylizednValue = ref<string>('');
+let inputStylizedValue = ref<string>('');
 
 const inputStylized: TypeParameter = reactive({
     placeholder: { 

@@ -28,8 +28,9 @@ const links: TypeLink[] = [
     { id: 1, name: 'Alert', path: '/alert' },
     { id: 2, name: 'Autocomplete', path: '/autocomplete' },
     { id: 3, name: 'Button', path: '/button' },
-    { id: 4, name: 'Input', path: '/input' },
-    { id: 5, name: 'Select', path: '/select' },
+    { id: 4, name: 'Checkbox', path: '/checkbox' },
+    { id: 5, name: 'Input', path: '/input' },
+    { id: 6, name: 'Select', path: '/select' },
 ];
 </script>
 

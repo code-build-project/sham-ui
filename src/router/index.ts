@@ -28,6 +28,11 @@ const router = createRouter({
                     component: () => import('@/pages/Button/index.vue'),
                 },
                 {
+                    path: '/checkbox',
+                    name: 'PageCheckbox',
+                    component: () => import('@/pages/Checkbox/index.vue'),
+                },
+                {
                     path: '/input',
                     name: 'PageInput',
                     component: () => import('@/pages/Input/index.vue'),
