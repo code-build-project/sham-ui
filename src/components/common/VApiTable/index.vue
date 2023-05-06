@@ -27,18 +27,19 @@
                         v-for="header in headerList[activeNavId]"
                         :key="header.id"
                     ) {{ item[header.id] }}
-                .body-row-description Примерное описание, до тех пор пока не добавлю для всех значений
+                .body-row-description {{  item.description }}
 
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import type { TypeTableProp, TypeTableEvent, TypeTableSlot } from '@/components/common/VApiTable/types';
 
 const props = withDefaults(
     defineProps<{
-        propList?: { name: string, type: string, default: string }[],
-        eventList?: { name: string, parameters: string }[],
-        slotList?: { name: string, default: string }[],
+        propList?: TypeTableProp[],
+        eventList?: TypeTableEvent[],
+        slotList?: TypeTableSlot[],
     }>(),
     {
         propList: () => [],
@@ -49,7 +50,12 @@ const props = withDefaults(
 
 
 // BLOCK "nav"
-const navList: { id: string, title: string }[] = [
+type TypeNav = {
+    id: string,
+    title: string,
+}
+
+const navList: TypeNav[] = [
     { id: 'props', title: 'Properties' },
     { id: 'events', title: 'Events' },
     { id: 'slots', title: 'Slots' },
@@ -89,7 +95,7 @@ const headerList: { [name: string]: TypeHeader[] } = {
 };
 
 // BLOCK "body"
-const items = computed<{ [name: string]: string }[]>(() => {
+const items = computed<TypeTableProp[] | TypeTableEvent[] | TypeTableSlot[]>(() => {
     switch (activeNavId.value) {
         case navList[0].id:
             return props.propList;

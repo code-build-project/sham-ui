@@ -53,15 +53,21 @@ const emit = defineEmits<{
   (e: 'blur'): void
 }>();
 
-const isFocus = ref<boolean>(false);
-const refInput = ref<null | HTMLInputElement>(null);
-
 const inputClasses = computed<object>(() => {
     return {
         'input_focused': isFocus.value,
         'disabled': props.isDisabled,
     };
 });
+
+function onInput(event: Event): void {
+    emit('update:modelValue', (event.target as HTMLInputElement).value);
+    emit('input', event);
+}
+
+// BLOCK "focus and blur"
+const isFocus = ref<boolean>(false);
+const refInput = ref<null | HTMLInputElement>(null);
 
 function clickInput(): void {
     refInput.value?.focus();
@@ -77,10 +83,6 @@ function onBlur(): void {
     emit('blur');
 }
 
-function onInput(event: Event): void {
-    emit('update:modelValue', (event.target as HTMLInputElement).value);
-    emit('input', event);
-}
 </script>
 
 <style lang="sass" scoped>

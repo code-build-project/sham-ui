@@ -6,9 +6,9 @@
     sh-input-origin(
         :modelValue="valueInput"
         :class="componentClasses"
-        isReadonly
         :placeholder="placeholder"
         :isDisabled="isDisabled"
+        isReadonly
         @click="clickInput"
         @focus="emit('focus')"
         @blur="onBlur"
@@ -57,36 +57,32 @@ import { ref, computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import VCheckBox from '@/components/common/VCheckBox/index.vue';
 import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
-
-type Option = {
-    id: string,
-    value: string,
-}
+import type { TypeOption } from '@/components/UI/ShSelect/types';
 
 const props = withDefaults(
     defineProps<{
         modelValue?: string | string[],
+        label?: string,
         placeholder?: string,
         isDisabled?: boolean,
-        label?: string,
+        isClearable?: boolean,
+        message?: string,
         size?: string,
         variant?: string,
         isError?: boolean,
-        isClearable?: boolean,
-        message?: string,
         isMultiple?: boolean,
-        options: Option[],
+        options?: TypeOption[],
     }>(),
     {
         modelValue: '',
+        label: '',
         placeholder: '',
         isDisabled: false,
-        label: '',
+        isClearable: false,
+        message: '',
         size: 'medium',
         variant: 'default',
         isError: false,
-        isClearable: false,
-        message: '',
         isMultiple: false,
         options: () => [],
     },

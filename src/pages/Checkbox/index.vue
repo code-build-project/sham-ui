@@ -22,9 +22,9 @@
                 ) {{ dataCheckboxOrigin.text.value || 'My checkbox' }}
 
             v-api-table.api-table(
-                :propList="[{ name: 'modelValue', type: 'boolean', default: 'false' }, { name: 'keyField', type: 'string', default: 'key-id' }]"
-                :eventList="[{ name: '@click', parameters: 'value: boolean' }]"
-                :slotList="[{ name: '(default)', default: 'Название флажка' }]"
+                :propList="apiData.props"
+                :eventList="apiData.events"
+                :slotList="apiData.slots"
             )
 
         .field
@@ -45,22 +45,23 @@
                 ) {{ dataCheckbox.text.value || 'My checkbox' }}
             
             v-api-table.api-table(
-                :propList="[{ name: 'modelValue', type: 'boolean', default: 'false' }, { name: 'keyField', type: 'string', default: 'key-id' }]"
-                :eventList="[{ name: '@click', parameters: 'value: boolean' }]"
-                :slotList="[{ name: '(default)', default: 'Название флажка' }]"
+                :propList="apiData.props"
+                :eventList="apiData.events"
+                :slotList="apiData.slots"
             )
 
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import VPlayground from '@/components/common/VPlayground/index.vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
+import VPlayground from '@/components/common/VPlayground/index.vue';
 import ShCheckbox from '@/components/UI/ShCheckbox/index.vue';
 import ShCheckboxOrigin from '@/components/UI/ShCheckbox/Origin/index.vue';
 import codeCheckbox from '@/components/UI/ShCheckbox/code';
 import codeCheckboxOrigin from '@/components/UI/ShCheckbox/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import { useParameter } from '@/composables/playground';
 
 const { setParameter } = useParameter();
@@ -113,6 +114,19 @@ const dataCheckbox: TypeParameter = reactive({
         ],
     },
 });
+
+const apiData: TypeApiTable = {
+    props: [
+        { name: 'modelValue', type: 'boolean', default: 'false', description: 'Example text' },
+        { name: 'keyField', type: 'string', default: 'key-id', description: 'Example text' },
+    ],
+    events: [
+        { name: '@click', parameters: 'value: boolean', description: 'Example text' },
+    ],
+    slots: [
+        { name: '(default)', default: 'Название флажка', description: 'Example text' },
+    ],
+};
 
 </script>
 

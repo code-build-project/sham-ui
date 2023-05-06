@@ -10,110 +10,58 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="selectOrigin"
-                :codeTemplate="codeSelectOrigin"
-                @changeParameter="setParameter(selectOrigin, $event)"
-            )
-                sh-select-origin.sh-select-origin(
-                    v-model="selectOriginValue"
-                    :placeholder="selectOrigin.placeholder.value || 'My Select'"
-                    :isDisabled="selectOrigin.disabled.isChecked"
-                    :options="selectOriginOptions"
-                )
-
-        .field
-            h3.sub-title Стилизованное поле выбора
-            p.text
-                | Компонент <b>sh-select</b> представляет из себя обертку над
-
-            v-playground.playground(
-                :parameters="selectStylized"
+                :parameters="selectData"
                 :codeTemplate="codeSelect"
-                @changeParameter="setParameterDecorator(selectStylized, $event)"
+                @changeParameter="setParameterDecorator"
             )
                 sh-select.sh-select(
                     v-model="selectValue"
-                    :placeholder="selectStylized.placeholder.value || 'My Input'"
-                    :isDisabled="selectStylized.disabled.isChecked"
-                    :size="selectStylized.size.value"
-                    :variant="selectStylized.variant.value"
-                    :isError="selectStylized.error.isChecked"
-                    :message="selectStylized.message.value"
-                    :isClearable="selectStylized.clear.isChecked"
-                    :isMultiple="selectStylized.multiple.isChecked"
+                    :placeholder="selectData.placeholder.value || 'My Select'"
+                    :isDisabled="selectData.disabled.isChecked"
+                    :isClearable="selectData.clear.isChecked"
+                    :message="selectData.message.value"
+                    :size="selectData.size.value"
+                    :variant="selectData.variant.value"
+                    :isError="selectData.error.isChecked"
+                    :isMultiple="selectData.multiple.isChecked"
                     :options="selectOptions"
-                ) {{ selectStylized.label.value }}
+                ) {{ selectData.label.value }}
+
+            v-api-table.api-table(
+                :propList="apiData.props"
+                :eventList="apiData.events"
+                :slotList="apiData.slots"
+            )
 
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import ShSelect from '@/components/UI/ShSelect/index.vue';
-import ShSelectOrigin from '@/components/UI/ShSelect/Origin/index.vue';
+import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeSelect from '@/components/UI/ShSelect/code';
-import codeSelectOrigin from '@/components/UI/ShSelect/Origin/code';
+import ShSelect from '@/components/UI/ShSelect/index.vue';
 import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
+import type { TypeOption } from '@/components/UI/ShSelect/types';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import apiDataJSON from '@/pages/Select/apiData.json';
+import selectOptionsJSON from '@/pages/Select/selectOptions.json';
 import { useParameter } from '@/composables/playground';
 
 const { setParameter } = useParameter();
 
-let selectOriginValue = ref<string>('');
-const selectOriginOptions = ref<{ id: string, value: string }[]>([
-    {
-        id: '1',
-        value: 'First',
-    },
-    {
-        id: '2',
-        value: 'Second',
-    },
-    {
-        id: '3',
-        value: 'Third',
-    },
-]);
-
-const selectOrigin: TypeParameter = reactive({
-    placeholder: { 
-        id: 'placeholder',
-        elementType: 'input',
-        title: 'PLACEHOLDER',
-        value: '',
-        placeholder: 'My Input',
-    },
-    disabled: {
-        id: 'disable',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
-});
+const apiData = apiDataJSON as TypeApiTable;
+const selectOptions = selectOptionsJSON as TypeOption[];
 
 let selectValue = ref<string | string[]>('');
-const selectOptions = ref<{ id: string, value: string }[]>([
-    {
-        id: '1',
-        value: 'First',
-    },
-    {
-        id: '2',
-        value: 'Second',
-    },
-    {
-        id: '3',
-        value: 'Third',
-    },
-]);
 
-const selectStylized: TypeParameter = reactive({
+const selectData: TypeParameter = reactive({
     placeholder: { 
         id: 'placeholder',
         elementType: 'input',
         title: 'PLACEHOLDER',
         value: '',
-        placeholder: 'My Input',
+        placeholder: 'My Select',
     },
     disabled: {
         id: 'disable1',
@@ -180,8 +128,8 @@ const selectStylized: TypeParameter = reactive({
     },
 });
 
-function setParameterDecorator(selectStylized: TypeParameter, event: TypeData): void {
-    if (event.key === selectStylized.multiple.id) {
+function setParameterDecorator(event: TypeData): void {
+    if (event.key === selectData.multiple.id) {
         if (event.value) {
             selectValue.value = [];
         } else {
@@ -189,7 +137,7 @@ function setParameterDecorator(selectStylized: TypeParameter, event: TypeData): 
         }
     }
 
-    setParameter(selectStylized, event);
+    setParameter(selectData, event);
 }
 
 </script>
@@ -223,13 +171,12 @@ function setParameterDecorator(selectStylized: TypeParameter, event: TypeData): 
 .playground
     margin-top: 32px
 
-.sh-select-origin
-    padding-top: 80px
-    padding-bottom: 130px
-
 .sh-select
     padding-top: 80px
     padding-bottom: 130px
     width: 230px
+
+.api-table
+    margin-top: 32px
 
 </style>
