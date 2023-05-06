@@ -10,82 +10,56 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="autocompleteOrigin"
-                :codeTemplate="codeAutocompleteOrigin"
-                @changeParameter="setParameter(autocompleteOrigin, $event)"
-            )
-                sh-autocomplete-origin.sh-autocomplete-origin(
-                    v-model="autocompleteOriginValue"
-                    :placeholder="autocompleteOrigin.placeholder.value || 'My Autocomplete'"
-                    :isDisabled="autocompleteOrigin.disabled.isChecked"
-                    :options="['Яблоко', 'Мандарин', 'Мадрид', 'Апельсин']"
-                )
-
-        .field
-            h3.sub-title Стилизованное поле выбора
-            p.text
-                | Компонент <b>sh-select</b> представляет из себя обертку над
-
-            v-playground.playground(
-                :parameters="autocompleteStylized"
+                :parameters="autocompleteData"
                 :codeTemplate="codeAutocomplete"
-                @changeParameter="setParameter(autocompleteStylized, $event)"
+                @changeParameter="setParameter(autocompleteData, $event)"
             )
                 sh-autocomplete.sh-autocomplete(
                     v-model="autocompleteValue"
-                    :placeholder="autocompleteStylized.placeholder.value || 'My Autocomplete'"
-                    :isDisabled="autocompleteStylized.disabled.isChecked"
-                    :size="autocompleteStylized.size.value"
-                    :variant="autocompleteStylized.variant.value"
-                    :isError="autocompleteStylized.error.isChecked"
-                    :message="autocompleteStylized.message.value"
-                    :isClearable="autocompleteStylized.clear.isChecked"
-                    :isListWithoutValue="autocompleteStylized.listHide.isChecked"
-                    :options="['Яблоко', 'Мандарин', 'Мадрид', 'Апельсин']"
-                ) {{ autocompleteStylized.label.value }}
+                    :placeholder="autocompleteData.placeholder.value || 'My Autocomplete'"
+                    :isDisabled="autocompleteData.disabled.isChecked"
+                    :isClearable="autocompleteData.clear.isChecked"
+                    :message="autocompleteData.message.value"
+                    :size="autocompleteData.size.value"
+                    :variant="autocompleteData.variant.value"
+                    :isError="autocompleteData.error.isChecked"
+                    :isListWithoutValue="autocompleteData.listHide.isChecked"
+                    :options="autocompleteOptions"
+                ) {{ autocompleteData.label.value }}
+
+            v-api-table.api-table(
+                :propList="apiData.props"
+                :eventList="apiData.events"
+                :slotList="apiData.slots"
+            )
 
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import ShAutocomplete from '@/components/UI/ShAutocomplete/index.vue';
-import ShAutocompleteOrigin from '@/components/UI/ShAutocomplete/Origin/index.vue';
+import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeAutocomplete from '@/components/UI/ShAutocomplete/code';
-import codeAutocompleteOrigin from '@/components/UI/ShAutocomplete/Origin/code';
+import ShAutocomplete from '@/components/UI/ShAutocomplete/index.vue';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import apiDataJSON from '@/pages/Autocomplete/apiData.json';
 import { useParameter } from '@/composables/playground';
 
 const { setParameter } = useParameter();
 
-let autocompleteOriginValue = ref<string>('');
+const apiData = apiDataJSON as TypeApiTable;
+const autocompleteOptions: string[] = ['Яблоко', 'Мандарин', 'Мадрид', 'Апельсин'];
 
-const autocompleteOrigin: TypeParameter = reactive({
+let autocompleteValue = ref<string>('');
+
+const autocompleteData: TypeParameter = reactive({
     placeholder: { 
         id: 'placeholder',
         elementType: 'input',
         title: 'PLACEHOLDER',
         value: '',
         placeholder: 'My Autocomplete',
-    },
-    disabled: {
-        id: 'disable',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
-});
-
-let autocompleteValue = ref<string>('');
-
-const autocompleteStylized: TypeParameter = reactive({
-    placeholder: { 
-        id: 'placeholder',
-        elementType: 'input',
-        title: 'PLACEHOLDER',
-        value: '',
-        placeholder: 'My Input',
     },
     disabled: {
         id: 'disable1',
@@ -183,13 +157,12 @@ const autocompleteStylized: TypeParameter = reactive({
 .playground
     margin-top: 32px
 
-.sh-autocomplete-origin
-    padding-top: 80px
-    padding-bottom: 160px
-
 .sh-autocomplete
     padding-top: 80px
     padding-bottom: 160px
     width: 230px
+
+.api-table
+    margin-top: 32px
 
 </style>

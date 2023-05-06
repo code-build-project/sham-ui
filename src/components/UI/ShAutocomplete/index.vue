@@ -17,11 +17,12 @@
 
         template(v-slot:right)
             slot(name="right")
-                div(
-                    v-show="isIconClear"
-                    @click.stop="clearField"
-                )
-                    v-icon.icon-clear(path="img/clearField.svg")
+
+            div(
+                v-show="isIconClear"
+                @click.stop="clearField"
+            )
+                v-icon.icon-clear(path="img/clearField.svg")
 
     .message(v-if="message") {{ message }}
 
@@ -42,27 +43,27 @@ import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
 const props = withDefaults(
     defineProps<{
         modelValue?: number | string,
+        label?: string,
         placeholder?: string,
         isDisabled?: boolean,
-        label?: string,
+        isClearable?: boolean,
+        message?: string,
         size?: string,
         variant?: string,
         isError?: boolean,
-        isClearable?: boolean,
-        message?: string,
         isListWithoutValue?: boolean,
         options?: string[],
     }>(),
     {
         modelValue: '',
+        label: '',
         placeholder: '',
         isDisabled: false,
-        label: '',
+        isClearable: false,
+        message: '',
         size: 'medium',
         variant: 'default',
         isError: false,
-        isClearable: false,
-        message: '',
         isListWithoutValue: true,
         options: () => [],
     },
@@ -77,20 +78,6 @@ const emit = defineEmits<{
 function updateValue(value: number | string) {
     emit('update:modelValue', value as string);
 }
-
-const filteredOptions = computed<string[]>(() => {
-    return props.options.filter((option) => {
-        return option.startsWith(props.modelValue as string);
-    });
-});
-
-const isShowList = computed<boolean>(() => {
-    if (props.isListWithoutValue) {
-        return !!(isFocus.value && filteredOptions.value.length);
-    } else {
-        return !!(isFocus.value && filteredOptions.value.length && props.modelValue);
-    }
-});
 
 const componentClasses = computed<string[] | object>(() => {
     return [
@@ -123,6 +110,21 @@ function onBlur(): void {
         emit('blur');
     }, 100);
 }
+
+// BLOCK "list"
+const filteredOptions = computed<string[]>(() => {
+    return props.options.filter((option) => {
+        return option.startsWith(props.modelValue as string);
+    });
+});
+
+const isShowList = computed<boolean>(() => {
+    if (props.isListWithoutValue) {
+        return !!(isFocus.value && filteredOptions.value.length);
+    } else {
+        return !!(isFocus.value && filteredOptions.value.length && props.modelValue);
+    }
+});
 
 // BLOCK "clear"
 const isIconClear = computed<boolean>(() => {
