@@ -1,3 +1,4 @@
+<!-- eslint-disable max-len -->
 <template lang="pug">
 .page-wrap
     .page
@@ -20,6 +21,12 @@
                     :isDisabled="dataCheckboxOrigin.disabled.isChecked"
                 ) {{ dataCheckboxOrigin.text.value || 'My checkbox' }}
 
+            v-api-table.api-table(
+                :propList="[{ name: 'modelValue', type: 'boolean', default: 'false' }, { name: 'keyField', type: 'string', default: 'key-id' }]"
+                :eventList="[{ name: '@click', parameters: 'value: boolean' }]"
+                :slotList="[{ name: '(default)', default: 'Название флажка' }]"
+            )
+
         .field
             h3.sub-title Стилизованный checkbox
             p.text
@@ -36,12 +43,19 @@
                     :isDisabled="dataCheckbox.disabled.isChecked"
                     :size="dataCheckbox.size.value"
                 ) {{ dataCheckbox.text.value || 'My checkbox' }}
+            
+            v-api-table.api-table(
+                :propList="[{ name: 'modelValue', type: 'boolean', default: 'false' }, { name: 'keyField', type: 'string', default: 'key-id' }]"
+                :eventList="[{ name: '@click', parameters: 'value: boolean' }]"
+                :slotList="[{ name: '(default)', default: 'Название флажка' }]"
+            )
 
 </template>
 
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
+import VApiTable from '@/components/common/VApiTable/index.vue';
 import ShCheckbox from '@/components/UI/ShCheckbox/index.vue';
 import ShCheckboxOrigin from '@/components/UI/ShCheckbox/Origin/index.vue';
 import codeCheckbox from '@/components/UI/ShCheckbox/code';
@@ -129,6 +143,9 @@ const dataCheckbox: TypeParameter = reactive({
     margin-top: 12px
 
 .playground
+    margin-top: 32px
+
+.api-table
     margin-top: 32px
 
 </style>
