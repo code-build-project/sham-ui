@@ -1,0 +1,19 @@
+{
+    "placeholder": { 
+        "id": "placeholder",
+        "elementType": "input",
+        "title": "PLACEHOLDER",
+        "placeholder": "My Input"
+    },
+    "readonly": {
+        "id": "readonly-origin",
+        "elementType": "switch",
+        "title": "READONLY"
+    },
+    "disabled": {
+        "id": "disable-origin",
+        "elementType": "switch",
+        "title": "DISABLED",
+        "isInline": true
+    }
+}

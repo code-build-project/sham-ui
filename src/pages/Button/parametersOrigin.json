@@ -1,0 +1,19 @@
+{
+    "text": { 
+        "id": "text",
+        "elementType": "input",
+        "title": "TEXT",
+        "placeholder": "My Button"
+    },
+    "loading": {
+        "id": "loading-origin",
+        "elementType": "switch",
+        "title": "LOADING"
+    },
+    "disabled": {
+        "id": "disable-origin",
+        "elementType": "switch",
+        "title": "DISABLED",
+        "isInline": true
+    }
+}

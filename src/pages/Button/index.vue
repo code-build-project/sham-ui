@@ -10,14 +10,15 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="buttonOrigin"
+                :parameters="buttonOriginParameters"
                 :codeTemplate="codeButtonOrigin"
-                @changeParameter="setParameter(buttonOrigin, $event)"
+                :parameterValues="buttonOriginValues"
+                @changeParameter="setValue(buttonOriginValues, $event)"
             )
                 sh-button-origin(
-                    :isLoading="buttonOrigin.loading.isChecked"
-                    :isDisabled="buttonOrigin.disabled.isChecked"
-                ) {{ buttonOrigin.text.value || 'My button' }}
+                    :isLoading="buttonOriginValues.loading"
+                    :isDisabled="buttonOriginValues.disabled"
+                ) {{ buttonOriginValues.text || 'My button' }}
 
         .field
             h3.sub-title Стилизованная кнопка
@@ -28,17 +29,18 @@
                 | либо кастомизировать свой компонент кнопки, как в примере ниже.
 
             v-playground.playground(
-                :parameters="buttonStylized"
+                :parameters="buttonParameters"
                 :codeTemplate="codeButton"
-                @changeParameter="setParameter(buttonStylized, $event)"
+                :parameterValues="buttonValues"
+                @changeParameter="setValue(buttonValues, $event)"
             )
                 sh-button(
-                    :variant="buttonStylized.variant.value"
-                    :type="buttonStylized.type.value"
-                    :size="buttonStylized.size.value"
-                    :isLoading="buttonStylized.loading.isChecked"
-                    :isDisabled="buttonStylized.disabled.isChecked"
-                ) {{ buttonStylized.text.value || 'My button' }}
+                    :variant="buttonValues.variant"
+                    :type="buttonValues.type"
+                    :size="buttonValues.size"
+                    :isLoading="buttonValues.loading"
+                    :isDisabled="buttonValues.disabled"
+                ) {{ buttonValues.text || 'My button' }}
 
 </template>
 
@@ -50,89 +52,46 @@ import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeButton from '@/components/UI/ShButton/code';
 import codeButtonOrigin from '@/components/UI/ShButton/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
+import parametersJSON from '@/pages/Button/parameters.json';
+import parametersOriginJSON from '@/pages/Button/parametersOrigin.json';
 import { useParameter } from '@/composables/playground';
 
-const { setParameter } = useParameter();
+const { setValue } = useParameter();
 
-const buttonOrigin: TypeParameter = reactive({
-    text: { 
-        id: 'text',
-        elementType: 'input',
-        title: 'TEXT BUTTON',
-        value: '',
-        placeholder: 'My button',
-    },
-    loading: {
-        id: 'load',
-        elementType: 'switch',
-        title: 'LOADING',
-        isChecked: false,
-    },
-    disabled: {
-        id: 'disable',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
+// BLOCK "button origin"
+const buttonOriginParameters: TypeParameter = parametersOriginJSON;
+
+type TypeValuesOrigin = {
+    text: string,
+    loading: boolean,
+    disabled: boolean,
+}
+
+const buttonOriginValues: TypeValuesOrigin = reactive({
+    text: '',
+    loading: false,
+    disabled: false,
 });
 
-const buttonStylized: TypeParameter = reactive({
-    text: { 
-        id: 'text',
-        elementType: 'input',
-        title: 'TEXT BUTTON',
-        value: '',
-        placeholder: 'My button',
-    },
-    loading: {
-        id: 'load1',
-        elementType: 'switch',
-        title: 'LOADING',
-        isChecked: false,
-    },
-    disabled: {
-        id: 'disable1',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
-    variant: {
-        id: 'variant',
-        elementType: 'radio',
-        title: 'VARIANT',
-        value: 'default',
-        variantList: [
-            { id: 'default', name: 'Default' },
-            { id: 'outline', name: 'Outline' },
-            { id: 'text', name: 'Text' },
-        ],
-    },
-    type: {
-        id: 'type',
-        elementType: 'radio',
-        title: 'TYPE',
-        value: 'primary',
-        variantList: [
-            { id: 'default', name: 'Default' },
-            { id: 'primary', name: 'Primary' },
-            { id: 'light', name: 'Light' },
-            { id: 'danger', name: 'Danger' },
-            { id: 'success', name: 'Success' },
-        ],
-    },
-    size: { 
-        id: 'size',
-        elementType: 'radio',
-        title: 'SIZE',
-        value: 'medium',
-        variantList: [
-            { id: 'small', name: 'Small' },
-            { id: 'medium', name: 'Medium' },
-            { id: 'large', name: 'Large' },
-        ],
-    },
+// BLOCK "button"
+const buttonParameters: TypeParameter = parametersJSON;
+
+type TypeValues = {
+    text: string,
+    loading: boolean,
+    disabled: boolean,
+    variant: string,
+    type: string,
+    size: string,
+}
+
+const buttonValues: TypeValues = reactive({
+    text: '',
+    loading: false,
+    disabled: false,
+    variant: 'default',
+    type: 'primary',
+    size: 'medium',
 });
 
 </script>

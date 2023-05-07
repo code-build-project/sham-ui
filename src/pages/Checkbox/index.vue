@@ -1,4 +1,3 @@
-<!-- eslint-disable max-len -->
 <template lang="pug">
 .page-wrap
     .page
@@ -11,15 +10,16 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="dataCheckboxOrigin"
+                :parameters="checkboxOriginParameters"
                 :codeTemplate="codeCheckboxOrigin"
-                @changeParameter="setParameter(dataCheckboxOrigin, $event)"
+                :parameterValues="checkboxOriginValues"
+                @changeParameter="setValue(checkboxOriginValues, $event)"
             )
                 sh-checkbox-origin(
-                    v-model="valueCheckboxOrigin"
+                    v-model="checkboxOriginValues.modelValue"
                     keyField="checkbox-origin"
-                    :isDisabled="dataCheckboxOrigin.disabled.isChecked"
-                ) {{ dataCheckboxOrigin.text.value || 'My checkbox' }}
+                    :isDisabled="checkboxOriginValues.disabled"
+                ) {{ checkboxOriginValues.text || 'My checkbox' }}
 
             v-api-table.api-table(
                 :propList="apiData.props"
@@ -33,16 +33,17 @@
                 | Компонент <b>sh-button</b> представляет из себя обертку над
 
             v-playground.playground(
-                :parameters="dataCheckbox"
+                :parameters="checkboxParameters"
                 :codeTemplate="codeCheckbox"
-                @changeParameter="setParameter(dataCheckbox, $event)"
+                :parameterValues="checkboxValues"
+                @changeParameter="setValue(checkboxValues, $event)"
             )
                 sh-checkbox(
-                    v-model="valueCheckbox"
+                    v-model="checkboxValues.modelValue"
                     keyField="checkbox"
-                    :isDisabled="dataCheckbox.disabled.isChecked"
-                    :size="dataCheckbox.size.value"
-                ) {{ dataCheckbox.text.value || 'My checkbox' }}
+                    :isDisabled="checkboxValues.disabled"
+                    :size="checkboxValues.size"
+                ) {{ checkboxValues.text || 'My checkbox' }}
             
             v-api-table.api-table(
                 :propList="apiData.props"
@@ -53,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import ShCheckbox from '@/components/UI/ShCheckbox/index.vue';
@@ -62,57 +63,42 @@ import codeCheckbox from '@/components/UI/ShCheckbox/code';
 import codeCheckboxOrigin from '@/components/UI/ShCheckbox/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import parametersJSON from '@/pages/Checkbox/parameters.json';
+import parametersOriginJSON from '@/pages/Checkbox/parametersOrigin.json';
 import { useParameter } from '@/composables/playground';
 
-const { setParameter } = useParameter();
+const { setValue } = useParameter();
 
-let valueCheckboxOrigin = ref<boolean>(false);
+// BLOCK "checkbox origin"
+const checkboxOriginParameters: TypeParameter = parametersOriginJSON;
 
-const dataCheckboxOrigin: TypeParameter = reactive({
-    text: { 
-        id: 'text',
-        elementType: 'input',
-        title: 'TEXT CHECKBOX',
-        value: '',
-        placeholder: 'My checkbox',
-    },
-    disabled: {
-        id: 'disable',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
+type TypeValuesOrigin = {
+    modelValue: boolean,
+    text: string,
+    disabled: boolean,
+}
+
+const checkboxOriginValues: TypeValuesOrigin = reactive({
+    modelValue: false,
+    text: '',
+    disabled: false,
 });
 
-let valueCheckbox = ref<boolean>(false);
+// BLOCK "checkbox"
+const checkboxParameters: TypeParameter = parametersJSON;
 
-const dataCheckbox: TypeParameter = reactive({
-    text: { 
-        id: 'text',
-        elementType: 'input',
-        title: 'TEXT CHECKBOX',
-        value: '',
-        placeholder: 'My checkbox',
-    },
-    disabled: {
-        id: 'disable1',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
-    size: { 
-        id: 'size',
-        elementType: 'radio',
-        title: 'SIZE',
-        value: 'medium',
-        variantList: [
-            { id: 'small', name: 'Small' },
-            { id: 'medium', name: 'Medium' },
-            { id: 'large', name: 'Large' },
-        ],
-    },
+type TypeValues = {
+    modelValue: boolean,
+    text: string,
+    disabled: boolean,
+    size: string,
+}
+
+const checkboxValues: TypeValues = reactive({
+    modelValue: false,
+    text: '',
+    disabled: false,
+    size: 'medium',
 });
 
 const apiData: TypeApiTable = {

@@ -1,13 +1,9 @@
-import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
+import type { TypeData } from '@/components/common/VPlayground/types';
 
-export function useParameter() {    
-    function setParameter(playground: TypeParameter, data: TypeData): void {
-        if (typeof data.value === 'string') {
-            playground[data.key].value = data.value as string;
-        } else {
-            playground[data.key].isChecked = data.value as boolean;
-        }
+export function useParameter() {
+    function setValue(playgroundValues: { [name: string]: string | boolean | string[] }, data: TypeData): void {
+        playgroundValues[data.key] = data.value;
     }
     
-    return { setParameter };
+    return { setValue };
 }

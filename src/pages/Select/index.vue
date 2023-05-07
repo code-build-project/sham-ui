@@ -10,22 +10,23 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="selectData"
+                :parameters="selectParameters"
                 :codeTemplate="codeSelect"
+                :parameterValues="selectValues"
                 @changeParameter="setParameterDecorator"
             )
                 sh-select.sh-select(
-                    v-model="selectValue"
-                    :placeholder="selectData.placeholder.value || 'My Select'"
-                    :isDisabled="selectData.disabled.isChecked"
-                    :isClearable="selectData.clear.isChecked"
-                    :message="selectData.message.value"
-                    :size="selectData.size.value"
-                    :variant="selectData.variant.value"
-                    :isError="selectData.error.isChecked"
-                    :isMultiple="selectData.multiple.isChecked"
+                    v-model="selectValues.modelValue"
+                    :placeholder="selectValues.placeholder || 'My Select'"
+                    :isDisabled="selectValues.disabled"
+                    :isClearable="selectValues.clear"
+                    :message="selectValues.message"
+                    :size="selectValues.size"
+                    :variant="selectValues.variant"
+                    :isError="selectValues.error"
+                    :isMultiple="selectValues.multiple"
                     :options="selectOptions"
-                ) {{ selectData.label.value }}
+                ) {{ selectValues.label }}
 
             v-api-table.api-table(
                 :propList="apiData.props"
@@ -36,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeSelect from '@/components/UI/ShSelect/code';
@@ -46,98 +47,51 @@ import type { TypeOption } from '@/components/UI/ShSelect/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiDataJSON from '@/pages/Select/apiData.json';
 import selectOptionsJSON from '@/pages/Select/selectOptions.json';
+import parametersJSON from '@/pages/Select/parameters.json';
 import { useParameter } from '@/composables/playground';
 
-const { setParameter } = useParameter();
+const { setValue } = useParameter();
 
-const apiData = apiDataJSON as TypeApiTable;
-const selectOptions = selectOptionsJSON as TypeOption[];
+const apiData: TypeApiTable = apiDataJSON;
+const selectOptions: TypeOption[]  = selectOptionsJSON;
+const selectParameters: TypeParameter = parametersJSON;
 
-let selectValue = ref<string | string[]>('');
+type TypeValues = {
+    modelValue: string | string[],
+    placeholder: string,
+    disabled: boolean,
+    clear: boolean,
+    label: string,
+    message: string,
+    size: string,
+    variant: string,
+    error: boolean,
+    multiple: boolean,
+}
 
-const selectData: TypeParameter = reactive({
-    placeholder: { 
-        id: 'placeholder',
-        elementType: 'input',
-        title: 'PLACEHOLDER',
-        value: '',
-        placeholder: 'My Select',
-    },
-    disabled: {
-        id: 'disable1',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
-    variant: {
-        id: 'variant',
-        elementType: 'radio',
-        title: 'VARIANT',
-        value: 'default',
-        variantList: [
-            { id: 'default', name: 'Default' },
-            { id: 'outline', name: 'Outline' },
-            { id: 'underline', name: 'Underline' },
-        ],
-    },
-    size: { 
-        id: 'size',
-        elementType: 'radio',
-        title: 'SIZE',
-        value: 'medium',
-        variantList: [
-            { id: 'small', name: 'Small' },
-            { id: 'medium', name: 'Medium' },
-            { id: 'large', name: 'Large' },
-        ],
-    },
-    message: { 
-        id: 'message',
-        elementType: 'input',
-        title: 'MESSAGE',
-        value: '',
-        placeholder: 'Message',
-    },
-    error: {
-        id: 'error',
-        elementType: 'switch',
-        title: 'ERROR',
-        isChecked: false,
-    },
-    clear: {
-        id: 'clear',
-        elementType: 'switch',
-        title: 'CLEARABLE',
-        isChecked: false,
-        isInline: true,
-    },
-    multiple: {
-        id: 'multiple',
-        elementType: 'switch',
-        title: 'MULTIPLE',
-        isChecked: false,
-        isInline: true,
-    },
-    label: { 
-        id: 'label',
-        elementType: 'input',
-        title: 'LABEL',
-        value: '',
-        placeholder: 'Label',
-    },
+const selectValues: TypeValues = reactive({
+    modelValue: '',
+    placeholder: '',
+    disabled: false,
+    clear: false,
+    label: '',
+    message: '',
+    size: 'medium',
+    variant: 'default',
+    error: false,
+    multiple: false,
 });
 
 function setParameterDecorator(event: TypeData): void {
-    if (event.key === selectData.multiple.id) {
+    if (event.key === selectParameters.multiple.id) {
         if (event.value) {
-            selectValue.value = [];
+            selectValues.modelValue = [];
         } else {
-            selectValue.value = '';
+            selectValues.modelValue = '';
         }
     }
 
-    setParameter(selectData, event);
+    setValue(selectValues, event);
 }
 
 </script>

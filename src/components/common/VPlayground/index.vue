@@ -42,7 +42,7 @@
 
             v-radio-button.parameters-radio(
                 v-if="item.elementType === 'radio'"
-                :modelValue="item.value"
+                :modelValue="getValueCorrectType(parameterValues[key])"
                 :keyField="item.id"
                 :radioList="item.variantList"
                 @update:modelValue="setParameter(key, $event)"
@@ -50,14 +50,14 @@
 
             v-switch.parameters-switch(
                 v-if="item.elementType === 'switch'"
-                :modelValue="item.isChecked"
+                :modelValue="getValueCorrectType(parameterValues[key])"
                 :keyField="item.id"
                 @update:modelValue="setParameter(key, $event)"
             ) {{ item.title }}
 
             v-input-title.parameters-input(
                 v-if="item.elementType === 'input'"
-                :modelValue="item.value"
+                :modelValue="getValueCorrectType(parameterValues[key])"
                 :placeholder="item.placeholder"
                 @update:modelValue="setParameter(key, $event)"
             ) {{ item.title }}
@@ -76,9 +76,11 @@ withDefaults(
     defineProps<{
         parameters?: TypeParameter,
         codeTemplate?: string,
+        parameterValues?: { [name: string]: string | boolean | string[] },
     }>(),
     {
         codeTemplate: '',
+        parameterValues: () => ({}),
     },
 );
 
@@ -86,16 +88,16 @@ const emit = defineEmits<{
     (e: 'changeParameter', data: TypeData): void,
 }>();
 
-function setParameter(key: string | number, value: string | boolean | number): void {
-    let dynamicValue: string | boolean = '';
+// BLOCK "parameters"
+type TypeKey = string | number;
+type TypeValue = string | boolean | number;
 
-    if (typeof value === 'string') {
-        dynamicValue = value;
-    } else if (typeof value === 'boolean') {
-        dynamicValue = value;
-    }
+function setParameter<T extends string | boolean>(key: TypeKey, value: TypeValue): void {
+    emit('changeParameter', { key: key as string, value: value as T });
+}
 
-    emit('changeParameter', { key: key as string, value: dynamicValue });
+function getValueCorrectType<T>(value: string | boolean | string[]): T {
+    return value as T;
 }
 
 // BLOCK "code show"

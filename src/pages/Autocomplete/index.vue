@@ -10,22 +10,23 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="autocompleteData"
+                :parameters="autocompleteParameters"
                 :codeTemplate="codeAutocomplete"
-                @changeParameter="setParameter(autocompleteData, $event)"
+                :parameterValues="autocompleteValues"
+                @changeParameter="setValue(autocompleteValues, $event)"
             )
                 sh-autocomplete.sh-autocomplete(
-                    v-model="autocompleteValue"
-                    :placeholder="autocompleteData.placeholder.value || 'My Autocomplete'"
-                    :isDisabled="autocompleteData.disabled.isChecked"
-                    :isClearable="autocompleteData.clear.isChecked"
-                    :message="autocompleteData.message.value"
-                    :size="autocompleteData.size.value"
-                    :variant="autocompleteData.variant.value"
-                    :isError="autocompleteData.error.isChecked"
-                    :isListWithoutValue="autocompleteData.listHide.isChecked"
+                    v-model="autocompleteValues.modelValue"
+                    :placeholder="autocompleteValues.placeholder || 'My Autocomplete'"
+                    :isDisabled="autocompleteValues.disabled"
+                    :isClearable="autocompleteValues.clear"
+                    :message="autocompleteValues.message"
+                    :size="autocompleteValues.size"
+                    :variant="autocompleteValues.variant"
+                    :isError="autocompleteValues.error"
+                    :isListWithoutValue="autocompleteValues.listHide"
                     :options="autocompleteOptions"
-                ) {{ autocompleteData.label.value }}
+                ) {{ autocompleteValues.label }}
 
             v-api-table.api-table(
                 :propList="apiData.props"
@@ -36,7 +37,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeAutocomplete from '@/components/UI/ShAutocomplete/code';
@@ -44,86 +45,39 @@ import ShAutocomplete from '@/components/UI/ShAutocomplete/index.vue';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiDataJSON from '@/pages/Autocomplete/apiData.json';
+import parametersJSON from '@/pages/Autocomplete/parameters.json';
 import { useParameter } from '@/composables/playground';
 
-const { setParameter } = useParameter();
+const { setValue } = useParameter();
 
-const apiData = apiDataJSON as TypeApiTable;
+const apiData: TypeApiTable = apiDataJSON;
+const autocompleteParameters: TypeParameter = parametersJSON;
 const autocompleteOptions: string[] = ['Яблоко', 'Мандарин', 'Мадрид', 'Апельсин'];
 
-let autocompleteValue = ref<string>('');
+type TypeValues = {
+    modelValue: string,
+    placeholder: string,
+    disabled: boolean,
+    clear: boolean,
+    label: string,
+    message: string,
+    size: string,
+    variant: string,
+    error: boolean,
+    listHide: boolean,
+}
 
-const autocompleteData: TypeParameter = reactive({
-    placeholder: { 
-        id: 'placeholder',
-        elementType: 'input',
-        title: 'PLACEHOLDER',
-        value: '',
-        placeholder: 'My Autocomplete',
-    },
-    disabled: {
-        id: 'disable1',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
-    variant: {
-        id: 'variant',
-        elementType: 'radio',
-        title: 'VARIANT',
-        value: 'default',
-        variantList: [
-            { id: 'default', name: 'Default' },
-            { id: 'outline', name: 'Outline' },
-            { id: 'underline', name: 'Underline' },
-        ],
-    },
-    size: { 
-        id: 'size',
-        elementType: 'radio',
-        title: 'SIZE',
-        value: 'medium',
-        variantList: [
-            { id: 'small', name: 'Small' },
-            { id: 'medium', name: 'Medium' },
-            { id: 'large', name: 'Large' },
-        ],
-    },
-    message: { 
-        id: 'message',
-        elementType: 'input',
-        title: 'MESSAGE',
-        value: '',
-        placeholder: 'Message',
-    },
-    error: {
-        id: 'error',
-        elementType: 'switch',
-        title: 'ERROR',
-        isChecked: false,
-    },
-    clear: {
-        id: 'clear',
-        elementType: 'switch',
-        title: 'CLEARABLE',
-        isChecked: false,
-        isInline: true,
-    },
-    listHide: {
-        id: 'listHide',
-        elementType: 'switch',
-        title: 'LIST WITHOUT VALUE',
-        isChecked: true,
-        isInline: true,
-    },
-    label: { 
-        id: 'label',
-        elementType: 'input',
-        title: 'LABEL',
-        value: '',
-        placeholder: 'Label',
-    },
+const autocompleteValues: TypeValues = reactive({
+    modelValue: '',
+    placeholder: '',
+    disabled: false,
+    clear: false,
+    label: '',
+    message: '',
+    size: 'medium',
+    variant: 'default',
+    error: false,
+    listHide: true,
 });
 
 </script>

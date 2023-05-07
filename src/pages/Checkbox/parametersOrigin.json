@@ -1,0 +1,14 @@
+{
+    "text": { 
+        "id": "text",
+        "elementType": "input",
+        "title": "TEXT CHECKBOX",
+        "placeholder": "My checkbox"
+    },
+    "disabled": {
+        "id": "disable-origin",
+        "elementType": "switch",
+        "title": "DISABLED",
+        "isInline": true
+    }
+}

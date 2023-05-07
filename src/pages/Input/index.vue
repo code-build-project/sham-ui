@@ -10,15 +10,16 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="inputOrigin"
+                :parameters="inputOriginParameters"
                 :codeTemplate="codeInputOrigin"
-                @changeParameter="setParameter(inputOrigin, $event)"
+                :parameterValues="inputOriginValues"
+                @changeParameter="setValue(inputOriginValues, $event)"
             )
                 sh-input-origin(
-                    v-model="inputOriginValue"
-                    :placeholder="inputOrigin.placeholder.value || 'My Input'"
-                    :isReadonly="inputOrigin.readonly.isChecked"
-                    :isDisabled="inputOrigin.disabled.isChecked"
+                    v-model="inputOriginValues.modelValue"
+                    :placeholder="inputOriginValues.placeholder || 'My Input'"
+                    :isReadonly="inputOriginValues.readonly"
+                    :isDisabled="inputOriginValues.disabled"
                 )
 
         .field
@@ -27,155 +28,89 @@
                 | Компонент <b>sh-button</b> представляет из себя обертку над
 
             v-playground.playground(
-                :parameters="inputStylized"
+                :parameters="inputParameters"
                 :codeTemplate="codeInput"
-                @changeParameter="setParameter(inputStylized, $event)"
+                :parameterValues="inputValues"
+                @changeParameter="setValue(inputValues, $event)"
             )
                 sh-input.sh-input(
-                    v-model="inputStylizedValue"
-                    :placeholder="inputStylized.placeholder.value || 'My Input'"
-                    :isReadonly="inputStylized.readonly.isChecked"
-                    :isDisabled="inputStylized.disabled.isChecked"
-                    :size="inputStylized.size.value"
-                    :variant="inputStylized.variant.value"
-                    :isError="inputStylized.error.isChecked"
-                    :message="inputStylized.message.value"
-                    :isClearable="inputStylized.clear.isChecked"
-                    :isPassword="inputStylized.password.isChecked"
-                    :format="inputStylized.format.value"
-                ) {{ inputStylized.label.value }}
+                    v-model="inputValues.modelValue"
+                    :placeholder="inputValues.placeholder || 'My Input'"
+                    :isReadonly="inputValues.readonly"
+                    :isDisabled="inputValues.disabled"
+                    :size="inputValues.size"
+                    :variant="inputValues.variant"
+                    :isError="inputValues.error"
+                    :message="inputValues.message"
+                    :isClearable="inputValues.clear"
+                    :isPassword="inputValues.password"
+                    :format="inputValues.format"
+                ) {{ inputValues.label }}
 
 </template>
 
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
+import { reactive } from 'vue';
 import ShInput from '@/components/UI/ShInput/index.vue';
 import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeInput from '@/components/UI/ShInput/code';
 import codeInputOrigin from '@/components/UI/ShInput/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
+import parametersJSON from '@/pages/Input/parameters.json';
+import parametersOriginJSON from '@/pages/Input/parametersOrigin.json';
 import { useParameter } from '@/composables/playground';
 
-const { setParameter } = useParameter();
+const { setValue } = useParameter();
 
-let inputOriginValue = ref<string>('');
+// BLOCK "input origin"
+const inputOriginParameters: TypeParameter = parametersOriginJSON;
 
-const inputOrigin: TypeParameter = reactive({
-    placeholder: { 
-        id: 'placeholder',
-        elementType: 'input',
-        title: 'PLACEHOLDER',
-        value: '',
-        placeholder: 'My Input',
-    },
-    readonly: {
-        id: 'readonly',
-        elementType: 'switch',
-        title: 'READONLY',
-        isChecked: false,
-    },
-    disabled: {
-        id: 'disable',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
+type TypeValuesOrigin = {
+    modelValue: string,
+    placeholder: string,
+    readonly: boolean,
+    disabled: boolean,
+}
+
+const inputOriginValues: TypeValuesOrigin = reactive({
+    modelValue: '',
+    placeholder: '',
+    readonly: false,
+    disabled: false,
 });
 
-let inputStylizedValue = ref<string>('');
+// BLOCK "input"
+const inputParameters: TypeParameter = parametersJSON;
 
-const inputStylized: TypeParameter = reactive({
-    placeholder: { 
-        id: 'placeholder',
-        elementType: 'input',
-        title: 'PLACEHOLDER',
-        value: '',
-        placeholder: 'My Input',
-    },
-    readonly: {
-        id: 'readonly1',
-        elementType: 'switch',
-        title: 'READONLY',
-        isChecked: false,
-    },
-    disabled: {
-        id: 'disable1',
-        elementType: 'switch',
-        title: 'DISABLED',
-        isChecked: false,
-        isInline: true,
-    },
-    variant: {
-        id: 'variant',
-        elementType: 'radio',
-        title: 'VARIANT',
-        value: 'default',
-        variantList: [
-            { id: 'default', name: 'Default' },
-            { id: 'outline', name: 'Outline' },
-            { id: 'underline', name: 'Underline' },
-        ],
-    },
-    size: { 
-        id: 'size',
-        elementType: 'radio',
-        title: 'SIZE',
-        value: 'medium',
-        variantList: [
-            { id: 'small', name: 'Small' },
-            { id: 'medium', name: 'Medium' },
-            { id: 'large', name: 'Large' },
-        ],
-    },
-    message: { 
-        id: 'message',
-        elementType: 'input',
-        title: 'MESSAGE',
-        value: '',
-        placeholder: 'Message',
-    },
-    error: {
-        id: 'error',
-        elementType: 'switch',
-        title: 'ERROR',
-        isChecked: false,
-    },
-    clear: {
-        id: 'clear',
-        elementType: 'switch',
-        title: 'CLEARABLE',
-        isChecked: false,
-        isInline: true,
-    },
-    password: {
-        id: 'password',
-        elementType: 'switch',
-        title: 'PASSWORD',
-        isChecked: false,
-        isInline: true,
-    },
-    format: { 
-        id: 'format',
-        elementType: 'radio',
-        title: 'FORMAT',
-        value: '',
-        variantList: [
-            { id: '', name: 'Default' },
-            { id: 'number', name: 'Number' },
-            { id: 'letter', name: 'Letter' },
-            { id: 'latin', name: 'Latin' },
-            { id: 'cyrillic', name: 'Cyrillic' },
-        ],
-    },
-    label: { 
-        id: 'label',
-        elementType: 'input',
-        title: 'LABEL',
-        value: '',
-        placeholder: 'Label',
-    },
+type TypeValues = {
+    modelValue: string,
+    placeholder: string,
+    readonly: boolean,
+    disabled: boolean,
+    clear: boolean,
+    label: string,
+    message: string,
+    size: string,
+    variant: string,
+    error: boolean,
+    password: boolean,
+    format: string,
+}
+
+const inputValues: TypeValues = reactive({
+    modelValue: '',
+    placeholder: '',
+    readonly: false,
+    disabled: false,
+    clear: false,
+    label: '',
+    message: '',
+    size: 'medium',
+    variant: 'default',
+    error: false,
+    password: false,
+    format: '',
 });
 
 </script>
