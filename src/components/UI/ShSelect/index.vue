@@ -42,7 +42,7 @@
             :key="option.id"
             @click.prevent="updateValue(option.id)"
         )
-            v-check-box(
+            sh-checkbox(
                 v-if="isMultiple"
                 :modelValue="modelValue.includes(option.id)"
                 :keyField="option.id"
@@ -55,13 +55,15 @@
 <script setup lang="ts">
 import { ref, computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
-import VCheckBox from '@/components/common/VCheckBox/index.vue';
+import ShCheckbox from '@/components/UI/ShCheckbox/Origin/index.vue';
 import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
 import type { TypeOption } from '@/components/UI/ShSelect/types';
 
+type TypeModelValue = string | string[];
+
 const props = withDefaults(
     defineProps<{
-        modelValue?: string | string[],
+        modelValue?: TypeModelValue,
         label?: string,
         placeholder?: string,
         isDisabled?: boolean,
@@ -89,7 +91,7 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', id: string | string[]): void
+  (e: 'update:modelValue', id: TypeModelValue): void
   (e: 'focus'): void
   (e: 'blur'): void
 }>();

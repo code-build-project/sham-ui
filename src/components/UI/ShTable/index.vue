@@ -1,3 +1,4 @@
+<!-- TODO - шаблон для будущего компонента таблицы. -->
 <template lang="pug">
 .table
     .header

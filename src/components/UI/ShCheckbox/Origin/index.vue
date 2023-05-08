@@ -14,7 +14,7 @@
     label.label(:for="keyField")
 
     .name
-        slot Название флажка
+        slot
 
 </template>
 

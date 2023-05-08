@@ -29,9 +29,9 @@
                 ) {{ autocompleteValues.label }}
 
             v-api-table.api-table(
-                :propList="apiData.props"
-                :eventList="apiData.events"
-                :slotList="apiData.slots"
+                :propList="api.props"
+                :eventList="api.events"
+                :slotList="api.slots"
             )
 
 </template>
@@ -44,13 +44,13 @@ import codeAutocomplete from '@/components/UI/ShAutocomplete/code';
 import ShAutocomplete from '@/components/UI/ShAutocomplete/index.vue';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
-import apiDataJSON from '@/pages/Autocomplete/apiData.json';
+import apiJSON from '@/pages/Autocomplete/api.json';
 import parametersJSON from '@/pages/Autocomplete/parameters.json';
 import { useParameter } from '@/composables/playground';
 
 const { setValue } = useParameter();
 
-const apiData: TypeApiTable = apiDataJSON;
+const api: TypeApiTable = apiJSON;
 const autocompleteParameters: TypeParameter = parametersJSON;
 const autocompleteOptions: string[] = ['Яблоко', 'Мандарин', 'Мадрид', 'Апельсин'];
 

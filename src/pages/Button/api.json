@@ -1,0 +1,48 @@
+{
+    "props": [
+        {
+            "name": "is-loading",
+            "type": "boolean",
+            "default": "false",
+            "description": "Прелоадер"
+        },
+        {
+            "name": "is-disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Блокрует работу с полем"
+        },
+        {
+            "name": "size",
+            "type": "string",
+            "default": "medium",
+            "description": "Размер кнопки"
+        },
+        {
+            "name": "variant",
+            "type": "string",
+            "default": "default",
+            "description": "Вариант кнопки"
+        },
+        {
+            "name": "type",
+            "type": "string",
+            "default": "primary",
+            "description": "Тип кнопки"
+        }
+    ],
+    "events": [
+        {
+            "name": "@click",
+            "parameters": "void",
+            "description": "Событие которое срабатывает при клике на кнопку"
+        }
+    ],
+    "slots": [
+        {
+            "name": "(default)",
+            "default": "Button",
+            "description": "Дефолтный слот, для передачи значения для названия кнопки"
+        }
+    ]
+}

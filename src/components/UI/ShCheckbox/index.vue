@@ -6,7 +6,7 @@ sh-checkbox-origin(
     :class="componentClasses"
     @update:modelValue="updateValue"
 )
-    slot Название флажка
+    slot
 
 </template>
 
@@ -20,7 +20,6 @@ const props = withDefaults(
         keyField: string,
         isDisabled?: boolean,
         size?: string,
-        type?: string,
     }>(),
     {
         modelValue: false,

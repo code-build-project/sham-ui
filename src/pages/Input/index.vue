@@ -22,6 +22,12 @@
                     :isDisabled="inputOriginValues.disabled"
                 )
 
+            v-api-table.api-table(
+                :propList="apiOrigin.props"
+                :eventList="apiOrigin.events"
+                :slotList="apiOrigin.slots"
+            )
+
         .field
             h3.sub-title Стилизованное поле ввода
             p.text
@@ -47,16 +53,26 @@
                     :format="inputValues.format"
                 ) {{ inputValues.label }}
 
+            v-api-table.api-table(
+                :propList="api.props"
+                :eventList="api.events"
+                :slotList="api.slots"
+            )
+
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
+import VApiTable from '@/components/common/VApiTable/index.vue';
+import VPlayground from '@/components/common/VPlayground/index.vue';
 import ShInput from '@/components/UI/ShInput/index.vue';
 import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
-import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeInput from '@/components/UI/ShInput/code';
 import codeInputOrigin from '@/components/UI/ShInput/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import apiJSON from '@/pages/Input/api.json';
+import apiOriginJSON from '@/pages/Input/apiOrigin.json';
 import parametersJSON from '@/pages/Input/parameters.json';
 import parametersOriginJSON from '@/pages/Input/parametersOrigin.json';
 import { useParameter } from '@/composables/playground';
@@ -64,6 +80,7 @@ import { useParameter } from '@/composables/playground';
 const { setValue } = useParameter();
 
 // BLOCK "input origin"
+const apiOrigin: TypeApiTable = apiOriginJSON;
 const inputOriginParameters: TypeParameter = parametersOriginJSON;
 
 type TypeValuesOrigin = {
@@ -81,6 +98,7 @@ const inputOriginValues: TypeValuesOrigin = reactive({
 });
 
 // BLOCK "input"
+const api: TypeApiTable = apiJSON;
 const inputParameters: TypeParameter = parametersJSON;
 
 type TypeValues = {
@@ -146,5 +164,8 @@ const inputValues: TypeValues = reactive({
 
 .sh-input
     width: 200px
+
+.api-table
+    margin-top: 32px
 
 </style>

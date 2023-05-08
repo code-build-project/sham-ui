@@ -1,0 +1,133 @@
+{
+    "props": [
+        {
+            "name": "modelValue",
+            "type": "string",
+            "default": "—",
+            "description": "Значение которое будет отображаться в поле"
+        },
+        {
+            "name": "type",
+            "type": "string",
+            "default": "text",
+            "description": "Тип текстового поля"
+        },
+        {
+            "name": "label",
+            "type": "string",
+            "default": "—",
+            "description": "Заголовок поля"
+        },
+        {
+            "name": "maxlength",
+            "type": "string",
+            "default": "—",
+            "description": "Максимальное количество символов в поле"
+        },
+        {
+            "name": "autocomplete",
+            "type": "string",
+            "default": "on",
+            "description": "Автозаполнение поля"
+        },
+        {
+            "name": "placeholder",
+            "type": "string",
+            "default": "—",
+            "description": "Текст, когда поле пустое"
+        },
+        {
+            "name": "is-disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Блокрует работу с полем"
+        },
+        {
+            "name": "is-readonly",
+            "type": "boolean",
+            "default": "false",
+            "description": "Блокрует ввод в поле"
+        },
+        {
+            "name": "is-сlearable",
+            "type": "boolean",
+            "default": "false",
+            "description": "Позволяет очистить поле"
+        },
+        {
+            "name": "message",
+            "type": "string",
+            "default": "—",
+            "description": "Сообщение под полем"
+        },
+        {
+            "name": "size",
+            "type": "string",
+            "default": "medium",
+            "description": "Размер поля"
+        },
+        {
+            "name": "variant",
+            "type": "string",
+            "default": "default",
+            "description": "Вариант поля"
+        },
+        {
+            "name": "format",
+            "type": "string",
+            "default": "default",
+            "description": "Формат ввода"
+        },
+        {
+            "name": "is-error",
+            "type": "boolean",
+            "default": "false",
+            "description": "Состояние ошибки поля"
+        },
+        {
+            "name": "is-password",
+            "type": "boolean",
+            "default": "false",
+            "description": "Флаг для поля с паролем"
+        }
+    ],
+    "events": [
+        {
+            "name": "@update:modelValue",
+            "parameters": "id: string | string[ ]",
+            "description": "Событие которое срабатывает при изменении значения в поле"
+        },
+        {
+            "name": "@input",
+            "parameters": "event: Event",
+            "description": "Событие которое срабатывает при изменении значения в поле"
+        },
+        {
+            "name": "@focus",
+            "parameters": "void",
+            "description": "Событие которое срабатывает при фокусировке"
+        },
+        {
+            "name": "@blur",
+            "parameters": "void",
+            "description": "Событие которое срабатывает при расфокусировке"
+        }
+    ],
+    "slots": [
+        {
+            "name": "(default)",
+            "default": "—",
+            "description": "Дефолтный слот, для передачи значения для заголовка поля"
+        },
+        {
+            "name": "left",
+            "default": "—",
+            "description": "Слот для передачи элементов слева от поля"
+        },
+        {
+            "name": "right",
+            "default": "—",
+            "description": "Слот для передачи элементов справа от поля"
+        }
+    ]
+}

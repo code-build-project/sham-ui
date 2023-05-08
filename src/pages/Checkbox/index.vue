@@ -22,9 +22,9 @@
                 ) {{ checkboxOriginValues.text || 'My checkbox' }}
 
             v-api-table.api-table(
-                :propList="apiData.props"
-                :eventList="apiData.events"
-                :slotList="apiData.slots"
+                :propList="apiOrigin.props"
+                :eventList="apiOrigin.events"
+                :slotList="apiOrigin.slots"
             )
 
         .field
@@ -46,9 +46,9 @@
                 ) {{ checkboxValues.text || 'My checkbox' }}
             
             v-api-table.api-table(
-                :propList="apiData.props"
-                :eventList="apiData.events"
-                :slotList="apiData.slots"
+                :propList="api.props"
+                :eventList="api.events"
+                :slotList="api.slots"
             )
 
 </template>
@@ -63,6 +63,8 @@ import codeCheckbox from '@/components/UI/ShCheckbox/code';
 import codeCheckboxOrigin from '@/components/UI/ShCheckbox/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import apiJSON from '@/pages/Checkbox/api.json';
+import apiOriginJSON from '@/pages/Checkbox/apiOrigin.json';
 import parametersJSON from '@/pages/Checkbox/parameters.json';
 import parametersOriginJSON from '@/pages/Checkbox/parametersOrigin.json';
 import { useParameter } from '@/composables/playground';
@@ -70,6 +72,7 @@ import { useParameter } from '@/composables/playground';
 const { setValue } = useParameter();
 
 // BLOCK "checkbox origin"
+const apiOrigin: TypeApiTable = apiOriginJSON;
 const checkboxOriginParameters: TypeParameter = parametersOriginJSON;
 
 type TypeValuesOrigin = {
@@ -85,6 +88,7 @@ const checkboxOriginValues: TypeValuesOrigin = reactive({
 });
 
 // BLOCK "checkbox"
+const api: TypeApiTable = apiJSON;
 const checkboxParameters: TypeParameter = parametersJSON;
 
 type TypeValues = {
@@ -100,19 +104,6 @@ const checkboxValues: TypeValues = reactive({
     disabled: false,
     size: 'medium',
 });
-
-const apiData: TypeApiTable = {
-    props: [
-        { name: 'modelValue', type: 'boolean', default: 'false', description: 'Example text' },
-        { name: 'keyField', type: 'string', default: 'key-id', description: 'Example text' },
-    ],
-    events: [
-        { name: '@click', parameters: 'value: boolean', description: 'Example text' },
-    ],
-    slots: [
-        { name: '(default)', default: 'Название флажка', description: 'Example text' },
-    ],
-};
 
 </script>
 

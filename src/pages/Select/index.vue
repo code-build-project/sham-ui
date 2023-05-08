@@ -29,9 +29,9 @@
                 ) {{ selectValues.label }}
 
             v-api-table.api-table(
-                :propList="apiData.props"
-                :eventList="apiData.events"
-                :slotList="apiData.slots"
+                :propList="api.props"
+                :eventList="api.events"
+                :slotList="api.slots"
             )
 
 </template>
@@ -45,14 +45,14 @@ import ShSelect from '@/components/UI/ShSelect/index.vue';
 import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
 import type { TypeOption } from '@/components/UI/ShSelect/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
-import apiDataJSON from '@/pages/Select/apiData.json';
+import apiJSON from '@/pages/Select/api.json';
 import selectOptionsJSON from '@/pages/Select/selectOptions.json';
 import parametersJSON from '@/pages/Select/parameters.json';
 import { useParameter } from '@/composables/playground';
 
 const { setValue } = useParameter();
 
-const apiData: TypeApiTable = apiDataJSON;
+const api: TypeApiTable = apiJSON;
 const selectOptions: TypeOption[]  = selectOptionsJSON;
 const selectParameters: TypeParameter = parametersJSON;
 

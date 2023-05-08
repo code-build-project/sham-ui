@@ -20,6 +20,12 @@
                     :isDisabled="buttonOriginValues.disabled"
                 ) {{ buttonOriginValues.text || 'My button' }}
 
+            v-api-table.api-table(
+                :propList="apiOrigin.props"
+                :eventList="apiOrigin.events"
+                :slotList="apiOrigin.slots"
+            )
+
         .field
             h3.sub-title Стилизованная кнопка
             p.text
@@ -42,16 +48,26 @@
                     :isDisabled="buttonValues.disabled"
                 ) {{ buttonValues.text || 'My button' }}
 
+            v-api-table.api-table(
+                :propList="api.props"
+                :eventList="api.events"
+                :slotList="api.slots"
+            )
+
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
+import VApiTable from '@/components/common/VApiTable/index.vue';
+import VPlayground from '@/components/common/VPlayground/index.vue';
 import ShButton from '@/components/UI/ShButton/index.vue';
 import ShButtonOrigin from '@/components/UI/ShButton/Origin/index.vue';
-import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeButton from '@/components/UI/ShButton/code';
 import codeButtonOrigin from '@/components/UI/ShButton/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import apiJSON from '@/pages/Button/api.json';
+import apiOriginJSON from '@/pages/Button/apiOrigin.json';
 import parametersJSON from '@/pages/Button/parameters.json';
 import parametersOriginJSON from '@/pages/Button/parametersOrigin.json';
 import { useParameter } from '@/composables/playground';
@@ -59,6 +75,7 @@ import { useParameter } from '@/composables/playground';
 const { setValue } = useParameter();
 
 // BLOCK "button origin"
+const apiOrigin: TypeApiTable = apiOriginJSON;
 const buttonOriginParameters: TypeParameter = parametersOriginJSON;
 
 type TypeValuesOrigin = {
@@ -74,6 +91,7 @@ const buttonOriginValues: TypeValuesOrigin = reactive({
 });
 
 // BLOCK "button"
+const api: TypeApiTable = apiJSON;
 const buttonParameters: TypeParameter = parametersJSON;
 
 type TypeValues = {
@@ -123,6 +141,9 @@ const buttonValues: TypeValues = reactive({
     margin-top: 12px
 
 .playground
+    margin-top: 32px
+
+.api-table
     margin-top: 32px
 
 </style>

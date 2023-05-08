@@ -20,11 +20,12 @@
 
         template(v-slot:right)
             slot(name="right")
-                v-icon.icon(
-                    v-show="isIconClear"
-                    path="img/clearField.svg"
-                    @click="clearField"
-                )
+
+            v-icon.icon(
+                v-show="isIconClear"
+                path="img/clearField.svg"
+                @click="clearField"
+            )
 
 
     .message(v-if="message") {{ message }}

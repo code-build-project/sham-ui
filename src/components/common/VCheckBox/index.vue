@@ -37,8 +37,7 @@ function onChecked(): void {
 
 <style lang="sass" scoped>
 .checkbox
-    display: flex
-    align-items: center
+    @extend %flex_row-center
     margin-left: 32px
     &:first-child
         margin-left: 0

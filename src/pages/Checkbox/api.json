@@ -1,0 +1,42 @@
+{
+    "props": [
+        {
+            "name": "modelValue",
+            "type": "boolean",
+            "default": "false",
+            "description": "Значение которое будет отображаться в поле"
+        },
+        {
+            "name": "keyField",
+            "type": "string",
+            "default": "key-id",
+            "description": "Ключ идентифиактор флага. Обязательный параметр"
+        },
+        {
+            "name": "is-disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Блокрует работу с полем"
+        },
+        {
+            "name": "size",
+            "type": "string",
+            "default": "medium",
+            "description": "Размер поля"
+        }
+    ],
+    "events": [
+        {
+            "name": "@update:modelValue",
+            "parameters": "value: boolean",
+            "description": "Событие которое срабатывает при изменении значения в поле"
+        }
+    ],
+    "slots": [
+        {
+            "name": "(default)",
+            "default": "—",
+            "description": "Дефолтный слот, для передачи значения для заголовка поля"
+        }
+    ]
+}
