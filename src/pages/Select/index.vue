@@ -13,7 +13,7 @@
                 :parameters="selectParameters"
                 :codeTemplate="codeSelect"
                 :parameterValues="selectValues"
-                @changeParameter="setParameterDecorator"
+                @change="setParameterDecorator"
             )
                 sh-select.sh-select(
                     v-model="selectValues.modelValue"

@@ -6,12 +6,12 @@
         "placeholder": "My Input"
     },
     "readonly": {
-        "id": "readonly-origin",
+        "id": "readonly",
         "elementType": "switch",
         "title": "READONLY"
     },
     "disabled": {
-        "id": "disable-origin",
+        "id": "disable",
         "elementType": "switch",
         "title": "DISABLED",
         "isInline": true

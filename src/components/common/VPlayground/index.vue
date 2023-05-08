@@ -70,13 +70,13 @@ import VIcon from '@/components/common/VIcon/index.vue';
 import VSwitch from '@/components/common/VSwitch/index.vue';
 import VInputTitle from '@/components/common/VInput/Title/index.vue';
 import VRadioButton from '@/components/common/VRadioButton/index.vue';
-import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
+import type { TypeParameter, TypeParameterValue, TypeData } from '@/components/common/VPlayground/types';
 
 withDefaults(
     defineProps<{
         parameters?: TypeParameter,
         codeTemplate?: string,
-        parameterValues?: { [name: string]: string | boolean | string[] },
+        parameterValues?: TypeParameterValue,
     }>(),
     {
         codeTemplate: '',
@@ -85,18 +85,19 @@ withDefaults(
 );
 
 const emit = defineEmits<{
-    (e: 'changeParameter', data: TypeData): void,
+    (e: 'change', data: TypeData): void,
 }>();
 
 // BLOCK "parameters"
 type TypeKey = string | number;
 type TypeValue = string | boolean | number;
+type TypeCorrectValue = string | boolean | string[];
 
 function setParameter<T extends string | boolean>(key: TypeKey, value: TypeValue): void {
-    emit('changeParameter', { key: key as string, value: value as T });
+    emit('change', { key: key as string, value: value as T });
 }
 
-function getValueCorrectType<T>(value: string | boolean | string[]): T {
+function getValueCorrectType<T>(value: TypeCorrectValue): T {
     return value as T;
 }
 

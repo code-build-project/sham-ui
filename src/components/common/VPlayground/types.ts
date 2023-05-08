@@ -8,12 +8,14 @@ export interface TypeParameter {
         id: string,
         elementType: string,
         title: string,
-        value?: string,
-        isChecked?: boolean,
         placeholder?: string,
         variantList?: TypeVariant[],
         isInline?: boolean,
     }
+}
+
+export interface TypeParameterValue {
+    [name: string]: string | boolean | string[],
 }
 
 export interface TypeData {

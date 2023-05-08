@@ -1,7 +1,7 @@
-import type { TypeData } from '@/components/common/VPlayground/types';
+import type { TypeParameterValue, TypeData } from '@/components/common/VPlayground/types';
 
 export function useParameter() {
-    function setValue(playgroundValues: { [name: string]: string | boolean | string[] }, data: TypeData): void {
+    function setValue(playgroundValues: TypeParameterValue, data: TypeData): void {
         playgroundValues[data.key] = data.value;
     }
     

@@ -13,7 +13,7 @@
                 :parameters="buttonOriginParameters"
                 :codeTemplate="codeButtonOrigin"
                 :parameterValues="buttonOriginValues"
-                @changeParameter="setValue(buttonOriginValues, $event)"
+                @change="setValue(buttonOriginValues, $event)"
             )
                 sh-button-origin(
                     :isLoading="buttonOriginValues.loading"
@@ -32,7 +32,7 @@
                 :parameters="buttonParameters"
                 :codeTemplate="codeButton"
                 :parameterValues="buttonValues"
-                @changeParameter="setValue(buttonValues, $event)"
+                @change="setValue(buttonValues, $event)"
             )
                 sh-button(
                     :variant="buttonValues.variant"

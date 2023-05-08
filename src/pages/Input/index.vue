@@ -13,7 +13,7 @@
                 :parameters="inputOriginParameters"
                 :codeTemplate="codeInputOrigin"
                 :parameterValues="inputOriginValues"
-                @changeParameter="setValue(inputOriginValues, $event)"
+                @change="setValue(inputOriginValues, $event)"
             )
                 sh-input-origin(
                     v-model="inputOriginValues.modelValue"
@@ -31,7 +31,7 @@
                 :parameters="inputParameters"
                 :codeTemplate="codeInput"
                 :parameterValues="inputValues"
-                @changeParameter="setValue(inputValues, $event)"
+                @change="setValue(inputValues, $event)"
             )
                 sh-input.sh-input(
                     v-model="inputValues.modelValue"

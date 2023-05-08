@@ -13,7 +13,7 @@
                 :parameters="autocompleteParameters"
                 :codeTemplate="codeAutocomplete"
                 :parameterValues="autocompleteValues"
-                @changeParameter="setValue(autocompleteValues, $event)"
+                @change="setValue(autocompleteValues, $event)"
             )
                 sh-autocomplete.sh-autocomplete(
                     v-model="autocompleteValues.modelValue"

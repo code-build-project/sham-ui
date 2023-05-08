@@ -13,7 +13,7 @@
                 :parameters="checkboxOriginParameters"
                 :codeTemplate="codeCheckboxOrigin"
                 :parameterValues="checkboxOriginValues"
-                @changeParameter="setValue(checkboxOriginValues, $event)"
+                @change="setValue(checkboxOriginValues, $event)"
             )
                 sh-checkbox-origin(
                     v-model="checkboxOriginValues.modelValue"
@@ -36,7 +36,7 @@
                 :parameters="checkboxParameters"
                 :codeTemplate="codeCheckbox"
                 :parameterValues="checkboxValues"
-                @changeParameter="setValue(checkboxValues, $event)"
+                @change="setValue(checkboxValues, $event)"
             )
                 sh-checkbox(
                     v-model="checkboxValues.modelValue"
