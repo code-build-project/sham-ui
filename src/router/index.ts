@@ -18,6 +18,11 @@ const router = createRouter({
                     component: () => import('@/pages/PageAlert.vue'),
                 },
                 {
+                    path: '/breadcrumbs',
+                    name: 'PageBreadcrumbs',
+                    component: () => import('@/pages/Breadcrumbs/index.vue'),
+                },
+                {
                     path: '/autocomplete',
                     name: 'PageAutocomplete',
                     component: () => import('@/pages/Autocomplete/index.vue'),
