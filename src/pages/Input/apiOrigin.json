@@ -1,5 +1,5 @@
 {
-    "props": [
+    "propList": [
         {
             "name": "modelValue",
             "type": "string",
@@ -43,7 +43,7 @@
             "description": "Блокрует ввод в поле"
         }
     ],
-    "events": [
+    "eventList": [
         {
             "name": "@update:modelValue",
             "parameters": "id: string | string[ ]",
@@ -65,7 +65,7 @@
             "description": "Событие которое срабатывает при расфокусировке"
         }
     ],
-    "slots": [
+    "slotList": [
         {
             "name": "left",
             "default": "—",

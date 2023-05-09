@@ -29,9 +29,9 @@
                 ) {{ selectValues.label }}
 
             v-api-table.api-table(
-                :propList="api.props"
-                :eventList="api.events"
-                :slotList="api.slots"
+                :propList="api.propList"
+                :eventList="api.eventList"
+                :slotList="api.slotList"
             )
 
 </template>

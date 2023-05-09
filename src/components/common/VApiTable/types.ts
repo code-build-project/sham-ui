@@ -20,7 +20,7 @@ export interface TypeTableSlot extends TypeTableItem {
 }
 
 export interface TypeApiTable {
-    props: TypeTableProp[],
-    events: TypeTableEvent[],
-    slots: TypeTableSlot[],
+    propList: TypeTableProp[],
+    eventList: TypeTableEvent[],
+    slotList: TypeTableSlot[],
 }

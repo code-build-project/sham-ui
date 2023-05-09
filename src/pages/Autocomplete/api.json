@@ -1,5 +1,5 @@
 {
-    "props": [
+    "propList": [
         {
             "name": "modelValue",
             "type": "string",
@@ -67,7 +67,7 @@
             "description": "Опции для выпадающего списка"
         }
     ],
-    "events": [
+    "eventList": [
         {
             "name": "@update:modelValue",
             "parameters": "id: string | string[ ]",
@@ -84,7 +84,7 @@
             "description": "Событие которое срабатывает при расфокусировке"
         }
     ],
-    "slots": [
+    "slotList": [
         {
             "name": "(default)",
             "default": "—",

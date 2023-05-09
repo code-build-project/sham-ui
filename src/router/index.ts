@@ -42,6 +42,11 @@ const router = createRouter({
                     name: 'PageSelect',
                     component: () => import('@/pages/Select/index.vue'),
                 },
+                {
+                    path: '/tooltip',
+                    name: 'PageTooltip',
+                    component: () => import('@/pages/Tooltip/index.vue'),
+                },
             ],
         },
     ],

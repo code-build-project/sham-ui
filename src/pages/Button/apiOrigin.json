@@ -1,5 +1,5 @@
 {
-    "props": [
+    "propList": [
         {
             "name": "is-loading",
             "type": "boolean",
@@ -13,14 +13,14 @@
             "description": "Блокрует работу с полем"
         }
     ],
-    "events": [
+    "eventList": [
         {
             "name": "@click",
             "parameters": "void",
             "description": "Событие которое срабатывает при клике на кнопку"
         }
     ],
-    "slots": [
+    "slotList": [
         {
             "name": "(default)",
             "default": "Button",

@@ -1,5 +1,5 @@
 {
-    "props": [
+    "propList": [
         {
             "name": "modelValue",
             "type": "boolean",
@@ -25,14 +25,14 @@
             "description": "Размер поля"
         }
     ],
-    "events": [
+    "eventList": [
         {
             "name": "@update:modelValue",
             "parameters": "value: boolean",
             "description": "Событие которое срабатывает при изменении значения в поле"
         }
     ],
-    "slots": [
+    "slotList": [
         {
             "name": "(default)",
             "default": "—",

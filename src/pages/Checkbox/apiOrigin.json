@@ -1,5 +1,5 @@
 {
-    "props": [
+    "propList": [
         {
             "name": "modelValue",
             "type": "boolean",
@@ -19,14 +19,14 @@
             "description": "Блокрует работу с полем"
         }
     ],
-    "events": [
+    "eventList": [
         {
             "name": "@update:modelValue",
             "parameters": "value: boolean",
             "description": "Событие которое срабатывает при изменении значения в поле"
         }
     ],
-    "slots": [
+    "slotList": [
         {
             "name": "(default)",
             "default": "—",

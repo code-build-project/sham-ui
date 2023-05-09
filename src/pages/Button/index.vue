@@ -21,9 +21,9 @@
                 ) {{ buttonOriginValues.text || 'My button' }}
 
             v-api-table.api-table(
-                :propList="apiOrigin.props"
-                :eventList="apiOrigin.events"
-                :slotList="apiOrigin.slots"
+                :propList="apiOrigin.propList"
+                :eventList="apiOrigin.eventList"
+                :slotList="apiOrigin.slotList"
             )
 
         .field
@@ -49,9 +49,9 @@
                 ) {{ buttonValues.text || 'My button' }}
 
             v-api-table.api-table(
-                :propList="api.props"
-                :eventList="api.events"
-                :slotList="api.slots"
+                :propList="api.propList"
+                :eventList="api.eventList"
+                :slotList="api.slotList"
             )
 
 </template>

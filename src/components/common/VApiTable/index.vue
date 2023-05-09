@@ -55,13 +55,18 @@ type TypeNav = {
     title: string,
 }
 
-const navList: TypeNav[] = [
-    { id: 'props', title: 'Properties' },
-    { id: 'events', title: 'Events' },
-    { id: 'slots', title: 'Slots' },
-];
+const navList = computed<TypeNav[]>(() => {
+    const navs: TypeNav[] = [
+        { id: 'propList', title: 'Properties' },
+        { id: 'eventList', title: 'Events' },
+        { id: 'slotList', title: 'Slots' },
+    ];
 
-const activeNavId = ref<string>(navList[0].id);
+    type TypeKey = keyof typeof props;
+    return navs.filter(item => props[item.id as TypeKey].length);
+});
+
+const activeNavId = ref<string>(navList.value[0].id);
 
 function getActiveClass(id: string) {
     if (activeNavId.value === id) {
@@ -79,16 +84,16 @@ type TypeHeader = {
     title: string,
 }
 const headerList: { [name: string]: TypeHeader[] } = {
-    props: [
+    propList: [
         { id: 'name', title: 'Name' },
         { id: 'type', title: 'Type' },
         { id: 'default', title: 'Default' },
     ],
-    events: [
+    eventList: [
         { id: 'name', title: 'Name' },
         { id: 'parameters', title: 'Parameters' },
     ],
-    slots: [
+    slotList: [
         { id: 'name', title: 'Name' },
         { id: 'default', title: 'Default' },
     ],
@@ -96,16 +101,8 @@ const headerList: { [name: string]: TypeHeader[] } = {
 
 // BLOCK "body"
 const items = computed<TypeTableProp[] | TypeTableEvent[] | TypeTableSlot[]>(() => {
-    switch (activeNavId.value) {
-        case navList[0].id:
-            return props.propList;
-        case navList[1].id:
-            return props.eventList;
-        case navList[2].id:
-            return props.slotList;
-        default:
-            return [];
-    }
+    type TypeKey = keyof typeof props;
+    return props[activeNavId.value as TypeKey];
 });
 
 </script>

@@ -1,5 +1,5 @@
 {
-    "props": [
+    "propList": [
         {
             "name": "modelValue",
             "type": "string",
@@ -91,7 +91,7 @@
             "description": "Флаг для поля с паролем"
         }
     ],
-    "events": [
+    "eventList": [
         {
             "name": "@update:modelValue",
             "parameters": "id: string | string[ ]",
@@ -113,7 +113,7 @@
             "description": "Событие которое срабатывает при расфокусировке"
         }
     ],
-    "slots": [
+    "slotList": [
         {
             "name": "(default)",
             "default": "—",
