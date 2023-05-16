@@ -18,14 +18,14 @@ const router = createRouter({
                     component: () => import('@/pages/PageAlert.vue'),
                 },
                 {
-                    path: '/breadcrumbs',
-                    name: 'PageBreadcrumbs',
-                    component: () => import('@/pages/Breadcrumbs/index.vue'),
-                },
-                {
                     path: '/autocomplete',
                     name: 'PageAutocomplete',
                     component: () => import('@/pages/Autocomplete/index.vue'),
+                },
+                {
+                    path: '/breadcrumbs',
+                    name: 'PageBreadcrumbs',
+                    component: () => import('@/pages/Breadcrumbs/index.vue'),
                 },
                 {
                     path: '/button',
@@ -36,6 +36,11 @@ const router = createRouter({
                     path: '/checkbox',
                     name: 'PageCheckbox',
                     component: () => import('@/pages/Checkbox/index.vue'),
+                },
+                {
+                    path: '/datepicker',
+                    name: 'PageDatepicker',
+                    component: () => import('@/pages/Datepicker/index.vue'),
                 },
                 {
                     path: '/input',

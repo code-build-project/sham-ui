@@ -8,6 +8,7 @@
         },
         "preserveValueImports": false, // Добавлено чтоб не было ошибки: 'importsNotUsedAsValues', Use 'verbatimModuleSyntax'
         "importsNotUsedAsValues": "remove", // Добавлено чтоб не было ошибки: 'importsNotUsedAsValues', Use 'verbatimModuleSyntax'
+        "lib": ["es2017", "dom", "dom.iterable", "scripthost"],
     },
 
     "references": [
