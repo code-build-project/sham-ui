@@ -43,14 +43,44 @@ const router = createRouter({
                     component: () => import('@/pages/Datepicker/index.vue'),
                 },
                 {
+                    path: '/file-input',
+                    name: 'PageFileInput',
+                    component: () => import('@/pages/FileInput/index.vue'),
+                },
+                {
                     path: '/input',
                     name: 'PageInput',
                     component: () => import('@/pages/Input/index.vue'),
                 },
                 {
+                    path: '/pagination',
+                    name: 'PagePagination',
+                    component: () => import('@/pages/Pagination/index.vue'),
+                },
+                {
+                    path: '/radio-button',
+                    name: 'PageRadioButton',
+                    component: () => import('@/pages/RadioButton/index.vue'),
+                },
+                {
                     path: '/select',
                     name: 'PageSelect',
                     component: () => import('@/pages/Select/index.vue'),
+                },
+                {
+                    path: '/table',
+                    name: 'PageTable',
+                    component: () => import('@/pages/Table/index.vue'),
+                },
+                {
+                    path: '/tabs',
+                    name: 'PageTabs',
+                    component: () => import('@/pages/Tabs/index.vue'),
+                },
+                {
+                    path: '/textarea',
+                    name: 'PageTextarea',
+                    component: () => import('@/pages/Textarea/index.vue'),
                 },
                 {
                     path: '/tooltip',

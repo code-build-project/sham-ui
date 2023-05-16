@@ -31,9 +31,15 @@ const links: TypeLink[] = [
     { id: 4, name: 'Button', path: '/button' },
     { id: 5, name: 'Checkbox', path: '/checkbox' },
     { id: 6, name: 'Datepicker', path: '/datepicker' },
-    { id: 7, name: 'Input', path: '/input' },
-    { id: 8, name: 'Select', path: '/select' },
-    { id: 9, name: 'Tooltip', path: '/tooltip' },
+    { id: 7, name: 'FileInput', path: '/file-input' },
+    { id: 8, name: 'Input', path: '/input' },
+    { id: 9, name: 'Pagination', path: '/pagination' },
+    { id: 10, name: 'RadioButton', path: '/radio-button' },
+    { id: 11, name: 'Select', path: '/select' },
+    { id: 12, name: 'Table', path: '/table' },
+    { id: 13, name: 'Tabs', path: '/tabs' },
+    { id: 14, name: 'Textarea', path: '/textarea' },
+    { id: 15, name: 'Tooltip', path: '/tooltip' },
 ];
 </script>
 
