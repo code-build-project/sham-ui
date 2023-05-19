@@ -143,7 +143,6 @@ function clearField() {
     position: relative
 
 .label
-    margin-left: 5px
     font-weight: 500
     font-size: 12px
     color: $color-gray-2
