@@ -36,6 +36,7 @@
 import { computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
+import formatters from '@/helpers/formatters';
 
 const props = withDefaults(
     defineProps<{
@@ -100,25 +101,6 @@ const isLabel = computed<boolean>(() => {
 
 // BLOCK "input"
 function onInput(event: Event) {
-    type TypeFormat = {
-        [name: string]: Function
-    };
-
-    const formatters: TypeFormat = {
-        number(value: string): string {
-            return value.replace(/[^\d.,]*/g, '');
-        },
-        letter(value: string) {
-            return value.replace(/[^a-zA-ZА-Яа-яЁё\s-]/gi, '');
-        },
-        latin(value: string) {
-            return value.replace(/[^a-z\s-]/gi, '');
-        },
-        cyrillic(value: string) {
-            return value.replace(/[^а-яё\s-]/gi, '');
-        },
-    };
-
     if (props.format) {
         (event.target as HTMLInputElement).value = formatters[props.format]((event.target as HTMLInputElement).value);
     }

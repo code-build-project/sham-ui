@@ -1,5 +1,5 @@
 interface TypeVariant {
-    id: string,
+    id: string | number,
     name: string,
 }
 
@@ -15,7 +15,7 @@ export interface TypeParameter {
 }
 
 export interface TypeParameterValue {
-    [name: string]: string | boolean | string[],
+    [name: string]: string | number | boolean | string[],
 }
 
 export interface TypeData {

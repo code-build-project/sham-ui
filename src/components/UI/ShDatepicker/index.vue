@@ -84,9 +84,7 @@
 import { ref, reactive, computed, useSlots} from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
-import { useFormatters } from '@/composables/formatters';
-
-const { formatters } = useFormatters();
+import formatters from '@/helpers/formatters';
 
 const props = withDefaults(
     defineProps<{
