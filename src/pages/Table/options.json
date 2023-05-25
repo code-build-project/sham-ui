@@ -1,0 +1,38 @@
+{
+    "headers": [
+        {
+            "id": "name",
+            "title": "Name"
+        },
+        {
+            "id": "age",
+            "title": "Age"
+        }
+    ],
+    "items": [
+        {
+            "name": "Koly",
+            "age": "10"
+        },
+        {
+            "name": "Nika",
+            "age": "22"
+        },
+        {
+            "name": "Nika",
+            "age": "22"
+        },
+        {
+            "name": "Nika",
+            "age": "22"
+        },
+        {
+            "name": "Nika",
+            "age": "22"
+        },
+        {
+            "name": "Nika",
+            "age": "22"
+        }
+    ]
+}
