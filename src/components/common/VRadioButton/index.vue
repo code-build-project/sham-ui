@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 interface TypeRadio {
-    id: string,
+    id: string | number,
     name: string,
 }
 

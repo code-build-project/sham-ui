@@ -91,7 +91,7 @@ const emit = defineEmits<{
 // BLOCK "parameters"
 type TypeKey = string | number;
 type TypeValue = string | boolean | number;
-type TypeCorrectValue = string | boolean | string[];
+type TypeCorrectValue = string | number | boolean | string[];
 
 function setParameter<T extends string | boolean>(key: TypeKey, value: TypeValue): void {
     emit('change', { key: key as string, value: value as T });
