@@ -2,7 +2,7 @@
 .page-wrap
     .page
         .field
-            h1.title Tooltip
+            h1.title Modal
             p.text
                 | Компонент <b>sh-button-origin</b> представляет элемент кнопки
                 | с минимальным функционалом, который очень просто кастомизировать,
@@ -10,17 +10,19 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="tooltipParameters"
-                :codeTemplate="codeTooltip"
-                :parameterValues="tooltipValues"
-                @change="setValue(tooltipValues, $event);"
+                :parameters="modalParameters"
+                :codeTemplate="codeModal"
+                :parameterValues="modalValues"
+                @change="setValue(modalValues, $event);"
             )
                 .element
-                    sh-tooltip(
-                        :isShow="tooltipValues.show || undefined"
-                        :position="tooltipValues.position"
-                    ) {{ tooltipValues.text || 'Tooltip' }}
-                    | Hover me!
+                    sh-modal(
+                        v-if="modalValues.modelValue"
+                        :title="modalValues.title"
+                        :text="modalValues.text"
+                        @close="modalValues.modelValue = false"
+                    )
+                    div(@click="modalValues.modelValue = true") Click me!
 
             v-api-table.api-table(
                 :propList="api.propList"
@@ -34,29 +36,29 @@
 import { reactive } from 'vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeTooltip from '@/components/UI/ShTooltip/code';
-import ShTooltip from '@/components/UI/ShTooltip/index.vue';
+import codeModal from '@/components/UI/ShModal/code';
+import ShModal from '@/components/UI/ShModal/index.vue';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
-import apiJSON from '@/pages/Tooltip/api.json';
-import parametersJSON from '@/pages/Tooltip/parameters.json';
+import apiJSON from '@/pages/Modal/api.json';
+import parametersJSON from '@/pages/Modal/parameters.json';
 import { useParameter } from '@/composables/playground';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const tooltipParameters: TypeParameter = parametersJSON;
+const modalParameters: TypeParameter = parametersJSON;
 
 type TypeValues = {
+    modelValue: boolean,
+    title: string,
     text: string,
-    show: boolean,
-    position: string,
 }
 
-const tooltipValues: TypeValues = reactive({
-    text: 'Tooltip',
-    show: false,
-    position: 'right',
+const modalValues: TypeValues = reactive({
+    modelValue: false,
+    title: 'Modal',
+    text: 'Modal text',
 });
 
 </script>

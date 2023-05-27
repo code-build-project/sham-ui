@@ -25,14 +25,14 @@ import VIcon from '@/components/common/VIcon/index.vue';
 import type { TypeLink } from '@/components/SidebarMenu/types';
 
 const links: TypeLink[] = [
-    { id: 1, name: 'Alert', path: '/alert' },
-    { id: 2, name: 'Autocomplete', path: '/autocomplete' },
-    { id: 3, name: 'Breadcrumbs', path: '/breadcrumbs' },
-    { id: 4, name: 'Button', path: '/button' },
-    { id: 5, name: 'Checkbox', path: '/checkbox' },
-    { id: 6, name: 'Datepicker', path: '/datepicker' },
-    { id: 7, name: 'FileInput', path: '/file-input' },
-    { id: 8, name: 'Input', path: '/input' },
+    { id: 1, name: 'Autocomplete', path: '/autocomplete' },
+    { id: 2, name: 'Breadcrumbs', path: '/breadcrumbs' },
+    { id: 3, name: 'Button', path: '/button' },
+    { id: 4, name: 'Checkbox', path: '/checkbox' },
+    { id: 5, name: 'Datepicker', path: '/datepicker' },
+    { id: 6, name: 'FileInput', path: '/file-input' },
+    { id: 7, name: 'Input', path: '/input' },
+    { id: 8, name: 'Modal', path: '/modal' },
     { id: 9, name: 'Pagination', path: '/pagination' },
     { id: 10, name: 'RadioButton', path: '/radio-button' },
     { id: 11, name: 'Select', path: '/select' },

@@ -13,11 +13,6 @@ const router = createRouter({
                     component: () => import('@/pages/Main.vue'),
                 },
                 {
-                    path: '/alert',
-                    name: 'PageAlert',
-                    component: () => import('@/pages/PageAlert.vue'),
-                },
-                {
                     path: '/autocomplete',
                     name: 'PageAutocomplete',
                     component: () => import('@/pages/Autocomplete/index.vue'),
@@ -51,6 +46,11 @@ const router = createRouter({
                     path: '/input',
                     name: 'PageInput',
                     component: () => import('@/pages/Input/index.vue'),
+                },
+                {
+                    path: '/modal',
+                    name: 'PageModal',
+                    component: () => import('@/pages/Modal/index.vue'),
                 },
                 {
                     path: '/pagination',
