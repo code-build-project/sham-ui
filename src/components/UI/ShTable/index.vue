@@ -29,7 +29,7 @@ withDefaults(
     defineProps<{
         headers: { id: string, title: string }[],
         items: { [name: string]: string }[],
-        height: string,
+        height?: string,
     }>(),
     {
         headers: () => [],
