@@ -13,10 +13,6 @@
                 path="img/tag.svg"
                 @click="showCode"
             )
-            v-icon(
-                class="header-icon-full"
-                path="img/fullscreen.svg"
-            )
 
     .field(
         ref="refField"
@@ -180,12 +176,6 @@ function drag(e: MouseEvent): void {
     &-icon-tag
         width: 25px
         height: 25px
-        fill: $color-gray-2
-        cursor: pointer
-        margin-left: 15px
-    &-icon-full
-        width: 24px
-        height: 24px
         fill: $color-gray-2
         cursor: pointer
         margin-left: 15px

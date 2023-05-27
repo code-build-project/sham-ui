@@ -10,29 +10,6 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="checkboxOriginParameters"
-                :codeTemplate="codeCheckboxOrigin"
-                :parameterValues="checkboxOriginValues"
-                @change="setValue(checkboxOriginValues, $event)"
-            )
-                sh-checkbox-origin(
-                    v-model="checkboxOriginValues.modelValue"
-                    keyField="checkbox-origin"
-                    :isDisabled="checkboxOriginValues.disabled"
-                ) {{ checkboxOriginValues.text || 'My checkbox' }}
-
-            v-api-table.api-table(
-                :propList="apiOrigin.propList"
-                :eventList="apiOrigin.eventList"
-                :slotList="apiOrigin.slotList"
-            )
-
-        .field
-            h3.sub-title Стилизованный checkbox
-            p.text
-                | Компонент <b>sh-button</b> представляет из себя обертку над
-
-            v-playground.playground(
                 :parameters="checkboxParameters"
                 :codeTemplate="codeCheckbox"
                 :parameterValues="checkboxValues"
@@ -58,36 +35,15 @@ import { reactive } from 'vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import ShCheckbox from '@/components/UI/ShCheckbox/index.vue';
-import ShCheckboxOrigin from '@/components/UI/ShCheckbox/Origin/index.vue';
 import codeCheckbox from '@/components/UI/ShCheckbox/code';
-import codeCheckboxOrigin from '@/components/UI/ShCheckbox/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/Checkbox/api.json';
-import apiOriginJSON from '@/pages/Checkbox/apiOrigin.json';
 import parametersJSON from '@/pages/Checkbox/parameters.json';
-import parametersOriginJSON from '@/pages/Checkbox/parametersOrigin.json';
 import { useParameter } from '@/composables/playground';
 
 const { setValue } = useParameter();
 
-// BLOCK "checkbox origin"
-const apiOrigin: TypeApiTable = apiOriginJSON;
-const checkboxOriginParameters: TypeParameter = parametersOriginJSON;
-
-type TypeValuesOrigin = {
-    modelValue: boolean,
-    text: string,
-    disabled: boolean,
-}
-
-const checkboxOriginValues: TypeValuesOrigin = reactive({
-    modelValue: false,
-    text: '',
-    disabled: false,
-});
-
-// BLOCK "checkbox"
 const api: TypeApiTable = apiJSON;
 const checkboxParameters: TypeParameter = parametersJSON;
 

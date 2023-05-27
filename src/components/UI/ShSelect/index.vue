@@ -55,7 +55,7 @@
 <script setup lang="ts">
 import { ref, computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
-import ShCheckbox from '@/components/UI/ShCheckbox/Origin/index.vue';
+import ShCheckbox from '@/components/UI/ShCheckbox/index.vue';
 import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
 import type { TypeOption } from '@/components/UI/ShSelect/types';
 

@@ -10,31 +10,6 @@
                 | без необходимости писать базовый функционал кнопки с нуля.<br/>
 
             v-playground.playground(
-                :parameters="buttonOriginParameters"
-                :codeTemplate="codeButtonOrigin"
-                :parameterValues="buttonOriginValues"
-                @change="setValue(buttonOriginValues, $event)"
-            )
-                sh-button-origin(
-                    :isLoading="buttonOriginValues.loading"
-                    :isDisabled="buttonOriginValues.disabled"
-                ) {{ buttonOriginValues.text || 'My button' }}
-
-            v-api-table.api-table(
-                :propList="apiOrigin.propList"
-                :eventList="apiOrigin.eventList"
-                :slotList="apiOrigin.slotList"
-            )
-
-        .field
-            h3.sub-title Стилизованная кнопка
-            p.text
-                | Компонент <b>sh-button</b> представляет из себя обертку над
-                | <b>sh-button-origin</b>, с добавлением необходимого набора стилей.
-                | Вы можете использовать данный компонент в проектах,
-                | либо кастомизировать свой компонент кнопки, как в примере ниже.
-
-            v-playground.playground(
                 :parameters="buttonParameters"
                 :codeTemplate="codeButton"
                 :parameterValues="buttonValues"
@@ -61,36 +36,15 @@ import { reactive } from 'vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import ShButton from '@/components/UI/ShButton/index.vue';
-import ShButtonOrigin from '@/components/UI/ShButton/Origin/index.vue';
 import codeButton from '@/components/UI/ShButton/code';
-import codeButtonOrigin from '@/components/UI/ShButton/Origin/code';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/Button/api.json';
-import apiOriginJSON from '@/pages/Button/apiOrigin.json';
 import parametersJSON from '@/pages/Button/parameters.json';
-import parametersOriginJSON from '@/pages/Button/parametersOrigin.json';
 import { useParameter } from '@/composables/playground';
 
 const { setValue } = useParameter();
 
-// BLOCK "button origin"
-const apiOrigin: TypeApiTable = apiOriginJSON;
-const buttonOriginParameters: TypeParameter = parametersOriginJSON;
-
-type TypeValuesOrigin = {
-    text: string,
-    loading: boolean,
-    disabled: boolean,
-}
-
-const buttonOriginValues: TypeValuesOrigin = reactive({
-    text: '',
-    loading: false,
-    disabled: false,
-});
-
-// BLOCK "button"
 const api: TypeApiTable = apiJSON;
 const buttonParameters: TypeParameter = parametersJSON;
 

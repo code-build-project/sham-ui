@@ -7,7 +7,7 @@ aside.sidebar
     .components
         .components-title
             span COMPONENTS
-            span 26
+            span {{ links.length }}
 
         router-link.components-link(
             v-for="link in links"
