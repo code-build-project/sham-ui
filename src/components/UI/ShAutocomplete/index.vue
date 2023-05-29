@@ -3,7 +3,7 @@
     .label(v-if="isLabel")
         slot {{ label }}
 
-    sh-input-origin(
+    v-input(
         :modelValue="modelValue"
         :class="componentClasses"
         :placeholder="placeholder"
@@ -38,7 +38,7 @@
 <script setup lang="ts">
 import { ref, computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
-import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
+import VInput from '@/components/common/VInput/index.vue';
 
 const props = withDefaults(
     defineProps<{

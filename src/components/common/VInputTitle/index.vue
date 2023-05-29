@@ -45,5 +45,6 @@ function onInput(value: number | string) {
 
 .input
     margin-top: 12px
+    background: $color-white-1
 
 </style>

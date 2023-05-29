@@ -3,7 +3,7 @@
     .label(v-if="isLabel")
         slot {{ label }}
 
-    sh-input-origin(
+    v-input(
         :modelValue="modelValue"
         :class="componentClasses"
         :type="isPassword ? 'password' : type"
@@ -35,7 +35,7 @@
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
-import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
+import VInput from '@/components/common/VInput/index.vue';
 import formatters from '@/helpers/formatters';
 
 const props = withDefaults(

@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
-import VInputSearch from '@/components/common/VInput/Search/index.vue';
+import VInputSearch from '@/components/common/VInputSearch/index.vue';
 
 const textButton = ref<string>('');
 </script>

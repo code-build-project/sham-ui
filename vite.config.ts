@@ -19,4 +19,9 @@ export default defineConfig({
             },
         },
     },
+    server: {
+        watch: {
+            usePolling: true, // Чтобы работал vite-hot-reload
+        },
+    },
 });

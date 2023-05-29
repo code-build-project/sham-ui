@@ -3,7 +3,7 @@
     .label(v-if="isLabel")
         slot {{ label }}
 
-    sh-input-origin(
+    v-input(
         :modelValue="valueInput"
         :class="componentClasses"
         :placeholder="placeholder"
@@ -42,7 +42,7 @@
             :key="option.id"
             @click.prevent="updateValue(option.id)"
         )
-            sh-checkbox(
+            v-checkbox(
                 v-if="isMultiple"
                 :modelValue="modelValue.includes(option.id)"
                 :keyField="option.id"
@@ -55,8 +55,8 @@
 <script setup lang="ts">
 import { ref, computed, useSlots } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
-import ShCheckbox from '@/components/UI/ShCheckbox/index.vue';
-import ShInputOrigin from '@/components/UI/ShInput/Origin/index.vue';
+import VCheckbox from '@/components/common/VCheckBox/index.vue';
+import VInput from '@/components/common/VInput/index.vue';
 import type { TypeOption } from '@/components/UI/ShSelect/types';
 
 type TypeModelValue = string | string[];

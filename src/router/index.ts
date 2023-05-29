@@ -43,11 +43,6 @@ const router = createRouter({
                     component: () => import('@/pages/FileInput/index.vue'),
                 },
                 {
-                    path: '/input',
-                    name: 'PageInput',
-                    component: () => import('@/pages/Input/index.vue'),
-                },
-                {
                     path: '/modal',
                     name: 'PageModal',
                     component: () => import('@/pages/Modal/index.vue'),
@@ -81,6 +76,11 @@ const router = createRouter({
                     path: '/textarea',
                     name: 'PageTextarea',
                     component: () => import('@/pages/Textarea/index.vue'),
+                },
+                {
+                    path: '/text-field',
+                    name: 'PageTextField',
+                    component: () => import('@/pages/TextField/index.vue'),
                 },
                 {
                     path: '/tooltip',

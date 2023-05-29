@@ -22,24 +22,29 @@ aside.sidebar
 
 <script setup lang="ts">
 import VIcon from '@/components/common/VIcon/index.vue';
-import type { TypeLink } from '@/components/SidebarMenu/types';
+
+type TypeLink = {
+    id: string,
+    name: string,
+    path: string,
+}
 
 const links: TypeLink[] = [
-    { id: 1, name: 'Autocomplete', path: '/autocomplete' },
-    { id: 2, name: 'Breadcrumbs', path: '/breadcrumbs' },
-    { id: 3, name: 'Button', path: '/button' },
-    { id: 4, name: 'Checkbox', path: '/checkbox' },
-    { id: 5, name: 'Datepicker', path: '/datepicker' },
-    { id: 6, name: 'FileInput', path: '/file-input' },
-    { id: 7, name: 'Input', path: '/input' },
-    { id: 8, name: 'Modal', path: '/modal' },
-    { id: 9, name: 'Pagination', path: '/pagination' },
-    { id: 10, name: 'RadioButton', path: '/radio-button' },
-    { id: 11, name: 'Select', path: '/select' },
-    { id: 12, name: 'Table', path: '/table' },
-    { id: 13, name: 'Tabs', path: '/tabs' },
-    { id: 14, name: 'Textarea', path: '/textarea' },
-    { id: 15, name: 'Tooltip', path: '/tooltip' },
+    { id: 'auto', name: 'Autocomplete', path: '/autocomplete' },
+    { id: 'crumbs', name: 'Breadcrumbs', path: '/breadcrumbs' },
+    { id: 'button', name: 'Button', path: '/button' },
+    { id: 'checkbox', name: 'Checkbox', path: '/checkbox' },
+    { id: 'date', name: 'Datepicker', path: '/datepicker' },
+    { id: 'file', name: 'FileInput', path: '/file-input' },
+    { id: 'modal', name: 'Modal', path: '/modal' },
+    { id: 'pagination', name: 'Pagination', path: '/pagination' },
+    { id: 'radio', name: 'RadioButton', path: '/radio-button' },
+    { id: 'select', name: 'Select', path: '/select' },
+    { id: 'table', name: 'Table', path: '/table' },
+    { id: 'tabs', name: 'Tabs', path: '/tabs' },
+    { id: 'textarea', name: 'Textarea', path: '/textarea' },
+    { id: 'text', name: 'TextField', path: '/text-field' },
+    { id: 'tooltip', name: 'Tooltip', path: '/tooltip' },
 ];
 </script>
 

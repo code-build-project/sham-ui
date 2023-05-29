@@ -64,7 +64,7 @@
 import { ref, computed } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import VSwitch from '@/components/common/VSwitch/index.vue';
-import VInputTitle from '@/components/common/VInput/Title/index.vue';
+import VInputTitle from '@/components/common/VInputTitle/index.vue';
 import VRadioButton from '@/components/common/VRadioButton/index.vue';
 import type { TypeParameter, TypeParameterValue, TypeData } from '@/components/common/VPlayground/types';
 
