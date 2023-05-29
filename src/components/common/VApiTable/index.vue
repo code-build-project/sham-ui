@@ -26,6 +26,7 @@
                     .body-column(
                         v-for="header in headerList[activeNavId]"
                         :key="header.id"
+                        :class="['color-' + header.color]"
                     ) {{ item[header.id] }}
                 .body-row-description {{  item.description }}
 
@@ -82,19 +83,21 @@ function setActiveNav(id: string): void {
 type TypeHeader = {
     id: string,
     title: string,
+    color?: string,
 }
+
 const headerList: { [name: string]: TypeHeader[] } = {
     propList: [
-        { id: 'name', title: 'Name' },
-        { id: 'type', title: 'Type' },
+        { id: 'name', title: 'Name', color: 'blue' },
+        { id: 'type', title: 'Type', color: 'green' },
         { id: 'default', title: 'Default' },
     ],
     eventList: [
-        { id: 'name', title: 'Name' },
-        { id: 'parameters', title: 'Parameters' },
+        { id: 'name', title: 'Name', color: 'blue' },
+        { id: 'parameters', title: 'Parameters', color: 'green' },
     ],
     slotList: [
-        { id: 'name', title: 'Name' },
+        { id: 'name', title: 'Name', color: 'blue' },
         { id: 'default', title: 'Default' },
     ],
 };
@@ -138,9 +141,9 @@ const items = computed<TypeTableProp[] | TypeTableEvent[] | TypeTableSlot[]>(() 
     @extend %flex_row
     border-bottom: 2px solid $color-gray-3
     &-item
-        padding: 8px 6px
+        padding: 14px
         flex: 1 1 0
-        font-weight: 600
+        font-weight: 500
         border-right: 1px solid $color-gray-3
         &:last-child
             border-right: none
@@ -150,16 +153,24 @@ const items = computed<TypeTableProp[] | TypeTableEvent[] | TypeTableSlot[]>(() 
         @extend %flex_row
         border-bottom: 1px solid $color-gray-3
     &-column
-        padding: 8px 6px
+        padding: 14px
         flex: 1 1 0
         border-right: 1px solid $color-gray-3
+        font-weight: 500
         &:last-child
             border-right: none
     &-row-description
-        padding: 8px 6px
+        padding: 14px
         border-bottom: 1px solid $color-gray-3
         background: $color-gray-5
+        font-size: 17px
         &:last-child
             border-bottom: none
+
+.color
+    &-blue
+        color: $color-blue-1
+    &-green
+        color: $color-green-1
 
 </style>

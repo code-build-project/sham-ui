@@ -3,13 +3,11 @@
     .header
         | Playground
         .header-icons
-            v-icon(
-                class="header-icon-bulb"
+            v-icon.icon-bulb(
                 path="img/bulb.svg"
                 @click="setTheme"
             )
-            v-icon(
-                class="header-icon-tag"
+            v-icon.icon-tag(
                 path="img/tag.svg"
                 @click="showCode"
             )
@@ -20,8 +18,7 @@
     )
         slot
         .field-resize
-            v-icon(
-                class="field-resize-icon"
+            v-icon.icon-resize(
                 path="img/resize.svg"
                 @mousedown="drag"
             )
@@ -167,20 +164,24 @@ function drag(e: MouseEvent): void {
     border-bottom: 1px solid $color-gray-3
     &-icons
         @extend %flex_row-center-center
-    &-icon-bulb
-        width: 24px
-        height: 24px
-        fill: $color-gray-2
-        cursor: pointer
-        margin-top: -4px
-    &-icon-tag
-        width: 25px
-        height: 25px
-        fill: $color-gray-2
-        cursor: pointer
-        margin-left: 15px
-    &-icon-dark
-        fill: $color-dark-2
+
+.icon-bulb
+    width: 24px
+    height: 24px
+    fill: $color-gray-2
+    cursor: pointer
+    margin-top: -4px
+    &:hover
+        fill: $color-gray-1
+
+.icon-tag
+    width: 25px
+    height: 25px
+    fill: $color-gray-2
+    cursor: pointer
+    margin-left: 15px
+    &:hover
+        fill: $color-gray-1
 
 .field
     @extend %flex_row-center-center
@@ -199,12 +200,13 @@ function drag(e: MouseEvent): void {
         right: 0
         cursor: col-resize
         user-select: none
-    &-resize-icon
-        width: 16px
-        height: 16px
-        fill: $color-gray-2
     &-dark
         background: $color-dark-1
+
+.icon-resize
+    width: 16px
+    height: 16px
+    fill: $color-gray-2
 
 .code
     max-height: 0
