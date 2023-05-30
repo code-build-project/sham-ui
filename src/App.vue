@@ -29,6 +29,7 @@ html,
 body,
 #app
     height: 100%
+    overflow: hidden
 
 // Отлючение дефолтных свойст браузера для тегов
 *

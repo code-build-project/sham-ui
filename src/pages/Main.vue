@@ -1,12 +1,65 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template lang="pug">
-.home(style="color: red") Главная страница
+.main
+    .banner ShamUI
+
+    .title Vue Component Library
+
+    .buttons
+        router-link(to="/autocomplete").button GET STARTED
+        router-link(to="/").button
+            v-icon.icon(path="img/github.svg")
+            | GITHUB
 
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import VIcon from '@/components/common/VIcon/index.vue';
 
-export default defineComponent({
-    name: 'MainComponent',
-});
 </script>
+
+<style scoped lang="sass">
+.main
+    @extend %flex_column-start-center
+    padding: 10px
+
+.banner
+    @extend %flex_row-center-center
+    width: 400px
+    height: 210px
+    font-size: 52px
+    font-weight: 700
+    color: $color-white-1
+    background: rgb($color-dark-1, 0.96)
+    border-radius: 32px
+    margin-top: 100px
+
+.title
+    color: $color-dark-1
+    font-size: 46px
+    font-weight: 500
+    margin-top: 50px
+
+.buttons
+    @extend %flex_row
+    margin-top: 80px
+
+.button
+    @extend %flex_row-center-center
+    width: 228px
+    height: 52px
+    font-size: 18px
+    font-weight: 500
+    border-radius: 8px
+    background: $color-blue-1
+    &:last-child
+        background: $color-dark-1
+        margin-left: 30px
+
+.icon
+    width: 25px
+    height: 25px
+    margin-right: 8px
+    fill: $color-white-1
+
+</style>

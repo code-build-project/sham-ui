@@ -1,7 +1,7 @@
 <template lang="pug">
 aside.sidebar
     .header
-        | ShamUI
+        router-link(to="/") ShamUI
         .version V 1.0
 
     .components
@@ -60,13 +60,13 @@ const links: TypeLink[] = [
     padding-left: 32px
     font-size: 20px
     font-weight: 600
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08)
+    border-bottom: 1px solid rgb($color-white-1, 0.08)
 
 .version
     @extend %flex_row-center-center
     width: 43px
     height: 24px
-    background: rgba(255, 255, 255, 0.08)
+    background: rgb($color-white-1, 0.08)
     border-radius: 55px
     font-weight: 600
     font-size: 12px
@@ -74,29 +74,43 @@ const links: TypeLink[] = [
     line-height: 12px
 
 .components
-    padding: 32px 16px
+    padding: 0 16px 32px 16px
     font-weight: 600
+    overflow-y: auto
+    height: calc(100% - 64px)
+    scrollbar-width: thin
+    scrollbar-color: $color-gray-1
+    &::-webkit-scrollbar
+        height: 6px
+        width: 6px
+    &::-webkit-scrollbar-thumb
+        background-color: $color-gray-1
+    &::-webkit-scrollbar-track
+        background: $color-gray-3
     &-title
         @extend %flex_row-start-between
-        padding: 0 16px
+        padding: 32px 16px 10px 16px
         margin-bottom: 8px
-        color: rgba(255, 255, 255, 0.24)
+        color: rgb($color-white-1, 0.24)
+        position: sticky
+        top: 0px
+        background: $color-dark-1
     &-link
         @extend %flex_row-center-between
         height: 44px
         padding: 0 16px
         border-radius: 8px
         &:hover
-            background: rgba(255, 255, 255, 0.03)
+            background: rgb($color-white-1, 0.03)
 
     &-link-icon
         width: 20px
         height: 20px
         fill: transparent
     &-link_active
-        background: rgba(255, 255, 255, 0.08)
+        background: rgb($color-white-1, 0.08)
         .components-link-icon
-            fill: rgba(255, 255, 255, 0.5)
+            fill: rgb($color-white-1, 0.5)
 
 @media screen and (max-width: 1440px)
     .sidebar
