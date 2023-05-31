@@ -1,68 +1,68 @@
 {
     "propList": [
         {
-            "name": "modelValue",
+            "name": "model-value",
             "type": "string",
             "default": "—",
-            "description": "Значение которое будет отображаться в поле"
+            "description": "Значение компонента"
         },
         {
             "name": "label",
             "type": "string",
             "default": "—",
-            "description": "Заголовок поля"
+            "description": "Заголовок компонента"
         },
         {
             "name": "placeholder",
             "type": "string",
             "default": "—",
-            "description": "Текст, когда ничего не выделено"
+            "description": "Текст подсказки для пользователя"
         },
         {
             "name": "is-disabled",
             "type": "boolean",
             "default": "false",
-            "description": "Блокрует работу с полем"
+            "description": "Флаг блокировки работы с компонентом"
         },
         {
             "name": "is-сlearable",
             "type": "boolean",
             "default": "false",
-            "description": "Позволяет очистить поле"
+            "description": "Флаг отображения компонента очистки поля ввода"
         },
         {
             "name": "message",
             "type": "string",
             "default": "—",
-            "description": "Сообщение под полем"
+            "description": "Сообщение под компонентом"
         },
         {
             "name": "size",
             "type": "string",
             "default": "medium",
-            "description": "Размер поля"
+            "description": "Размер компонента"
         },
         {
             "name": "variant",
             "type": "string",
             "default": "default",
-            "description": "Вариант поля"
+            "description": "Вариант внешнего вида компонента"
         },
         {
             "name": "is-error",
             "type": "boolean",
             "default": "false",
-            "description": "Состояние ошибки поля"
+            "description": "Флаг отображения состояния ошибки"
         },
         {
-            "name": "is-multiple",
+            "name": "is-list-without-value",
             "type": "boolean",
-            "default": "false",
-            "description": "Позволяет выбирать несколько вариантов"
+            "default": "true",
+            "description": "Флаг отображения подсказок сразу при фокусировке поля"
         },
         {
             "name": "options",
-            "type": "{ id: string, value: string }[]",
+            "type": "string[ ]",
             "default": "[ ]",
             "description": "Опции для выпадающего списка"
         }
@@ -70,25 +70,25 @@
     "eventList": [
         {
             "name": "@update:modelValue",
-            "parameters": "id: string | string[ ]",
-            "description": "Событие которое срабатывает при изменении значения в поле"
+            "parameters": "string",
+            "description": "Событие срабатывает при изменении значения в поле"
         },
         {
             "name": "@focus",
             "parameters": "void",
-            "description": "Событие которое срабатывает при фокусировке"
+            "description": "Событие срабатывает при фокусировке поля"
         },
         {
             "name": "@blur",
             "parameters": "void",
-            "description": "Событие которое срабатывает при расфокусировке"
+            "description": "Событие срабатывает при расфокусировке поля"
         }
     ],
     "slotList": [
         {
             "name": "(default)",
             "default": "—",
-            "description": "Дефолтный слот, для передачи значения для заголовка поля"
+            "description": "Дефолтный слот, для передачи значения заголовка компонента"
         },
         {
             "name": "left",

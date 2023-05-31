@@ -3,10 +3,9 @@ page-wrap
     template(v-slot:title) Autocomplete
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-autocomplete</b> представляет функциональность
+        | предопределённого варианта выбора для пользователя.
+        | Пользователь может выбрать опцию из списка вместо того, чтобы вводить её вручную.
 
     template(v-slot:playground)
         v-playground(
@@ -17,7 +16,7 @@ page-wrap
         )
             sh-autocomplete.sh-autocomplete(
                 v-model="autocompleteValues.modelValue"
-                :placeholder="autocompleteValues.placeholder || 'My Autocomplete'"
+                :placeholder="autocompleteValues.placeholder"
                 :isDisabled="autocompleteValues.disabled"
                 :isClearable="autocompleteValues.clear"
                 :message="autocompleteValues.message"
@@ -42,14 +41,14 @@ import { reactive } from 'vue';
 import PageWrap from '@/components/PageWrap/index.vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeAutocomplete from '@/components/UI/ShAutocomplete/code';
 import ShAutocomplete from '@/components/UI/ShAutocomplete/index.vue';
+import apiJSON from '@/pages/Autocomplete/api.json';
+import optionsJSON from '@/pages/Autocomplete/options.json';
+import parametersJSON from '@/pages/Autocomplete/parameters.json';
+import codeAutocomplete from '@/components/UI/ShAutocomplete/code';
+import { useParameter } from '@/composables/playground';
 import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
-import apiJSON from '@/pages/Autocomplete/api.json';
-import parametersJSON from '@/pages/Autocomplete/parameters.json';
-import optionsJSON from '@/pages/Autocomplete/options.json';
-import { useParameter } from '@/composables/playground';
 
 const { setValue } = useParameter();
 
@@ -72,7 +71,7 @@ type TypeValues = {
 
 const autocompleteValues: TypeValues = reactive({
     modelValue: '',
-    placeholder: '',
+    placeholder: 'My Autocomplete',
     disabled: false,
     clear: false,
     label: '',

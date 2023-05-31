@@ -175,7 +175,7 @@ function drag(e: MouseEvent): void {
     height: 24px
     fill: $color-gray-2
     cursor: pointer
-    margin-left: 10px
+    margin-left: 15px
     &:hover
         fill: $color-gray-1
 

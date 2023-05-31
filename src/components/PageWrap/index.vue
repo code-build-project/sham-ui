@@ -21,7 +21,7 @@
 
 .page
     width: 768px
-    padding: 32px 0
+    padding: 32px 0 80px 0
 
 .title
     font-weight: 600
@@ -42,6 +42,6 @@
     margin-top: 32px
 
 .api-table
-    margin-top: 32px
+    margin-top: 80px
 
 </style>

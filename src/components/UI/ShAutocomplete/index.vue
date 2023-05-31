@@ -8,9 +8,9 @@
         :class="componentClasses"
         :placeholder="placeholder"
         :isDisabled="isDisabled"
-        @update:modelValue="updateValue"
-        @focus="onFocus"
         @blur="onBlur"
+        @focus="onFocus"
+        @update:modelValue="updateValue"
     )
         template(v-slot:left)
             slot(name="left")
@@ -36,13 +36,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useSlots } from 'vue';
+import { ref, computed, toRef } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import VInput from '@/components/common/VInput/index.vue';
+import { useLabel } from '@/composables/label';
 
 const props = withDefaults(
     defineProps<{
-        modelValue?: number | string,
+        modelValue?: string,
         label?: string,
         placeholder?: string,
         isDisabled?: boolean,
@@ -70,7 +71,7 @@ const props = withDefaults(
 );
 
 const emit = defineEmits<{
-  (e: 'update:modelValue', value: number | string): void
+  (e: 'update:modelValue', value: string): void
   (e: 'focus'): void
   (e: 'blur'): void
 }>();
@@ -90,11 +91,8 @@ const componentClasses = computed<string[] | object>(() => {
 });
 
 // BLOCK "label"
-const slots = useSlots();
-
-const isLabel = computed<boolean>(() => {
-    return !!(slots.default || props.label);
-});
+const refLabel = toRef(props, 'label');
+const { isLabel } = useLabel(refLabel);
 
 // BLOCK "focus and blur"
 const isFocus = ref<boolean>(false);
