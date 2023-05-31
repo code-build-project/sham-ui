@@ -7,8 +7,13 @@
                 path="img/bulb.svg"
                 @click="setTheme"
             )
-            v-icon.icon-tag(
-                path="img/tag.svg"
+            a(
+                href="https://github.com"
+                target="_blank"
+            )
+                v-icon.icon-git(path="img/github.svg")
+            v-icon.icon-code(
+                path="img/code.svg"
                 @click="showCode"
             )
 
@@ -165,23 +170,18 @@ function drag(e: MouseEvent): void {
     &-icons
         @extend %flex_row-center-center
 
-.icon-bulb
+.icon-bulb, .icon-code, .icon-git
     width: 24px
     height: 24px
     fill: $color-gray-2
     cursor: pointer
-    margin-top: -4px
+    margin-left: 10px
     &:hover
         fill: $color-gray-1
 
-.icon-tag
-    width: 25px
-    height: 25px
-    fill: $color-gray-2
-    cursor: pointer
-    margin-left: 15px
-    &:hover
-        fill: $color-gray-1
+.icon-bulb
+    margin-top: -4px
+    margin-left: 0
 
 .field
     @extend %flex_row-center-center
