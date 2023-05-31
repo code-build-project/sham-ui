@@ -6,9 +6,7 @@
             placeholder="Search"
         )
 
-    button.button(
-        @click="isLike = true"
-    )
+    v-button.button(@click="isLike = true")
         v-icon.button-icon(
             :class="iconClasses"
             path="img/heart.svg"
@@ -20,6 +18,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
+import VButton from '@/components/common/VButton/index.vue';
 import VInputSearch from '@/components/common/VInputSearch/index.vue';
 
 const textButton = ref<string>('');
@@ -48,20 +47,13 @@ const iconClasses = computed<object>(() => {
     width: 211px
 
 .button
-    @extend %flex_row-center-center
     position: absolute
     right: 12px
     width: 211px
     height: 40px
-    border-radius: 8px
-    border: 1px solid $color-gray-3
-    background: $color-gray-5
-    color: $color-dark-1
     font-size: 14px
     font-weight: 500
     line-height: 16px
-    &:hover
-        border-color: $color-gray-2
     &-icon
         width: 20px
         height: 20px
