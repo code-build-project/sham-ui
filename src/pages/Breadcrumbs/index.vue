@@ -2,22 +2,18 @@
 page-wrap
     template(v-slot:title) Breadcrumbs
 
-    template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+    template(v-slot:text) Компонент <b>sh-breadcrumbs</b> является компонентом навигации.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="breadcrumbsParameters"
+            :parameters="parameters"
             :codeTemplate="codeBreadcrumbs"
-            :parameterValues="breadcrumbsValues"
-            @change="setValue(breadcrumbsValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-breadcrumbs(
-                :size="breadcrumbsValues.size"
-                :items="breadcrumbList"
+                :size="data.size"
+                :items="options"
             )
 
     template(v-slot:apiTable)
@@ -34,32 +30,28 @@ import { reactive } from 'vue';
 import PageWrap from '@/components/PageWrap/index.vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import codeBreadcrumbs from '@/components/UI/ShBreadcrumbs/code';
 import ShBreadcrumbs from '@/components/UI/ShBreadcrumbs/index.vue';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
-import type { TypeCrumb } from '@/components/UI/ShBreadcrumbs/types';
 import apiJSON from '@/pages/Breadcrumbs/api.json';
+import optionsJSON from '@/pages/Breadcrumbs/options.json';
 import parametersJSON from '@/pages/Breadcrumbs/parameters.json';
+import codeBreadcrumbs from '@/components/UI/ShBreadcrumbs/code';
 import { useParameter } from '@/composables/playground';
+import type { TypeCrumb } from '@/components/UI/ShBreadcrumbs/types';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const breadcrumbsParameters: TypeParameter = parametersJSON;
+const options: TypeCrumb[] = optionsJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     size: string,
 }
 
-const breadcrumbsValues: TypeValues = reactive({
+const data: TypeData = reactive({
     size: 'medium',
 });
-
-const breadcrumbList: TypeCrumb[] = [
-    { id: 'auto', title: 'Autocomplete', url: '/autocomplete' },
-    { id: 'select', title: 'Select', url: '/select' },
-    { id: 'bread', title: 'Breadcrumbs' },
-];
 
 </script>

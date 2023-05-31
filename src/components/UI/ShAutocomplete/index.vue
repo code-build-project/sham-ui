@@ -103,7 +103,7 @@ function onFocus(): void {
 }
 
 function onBlur(): void {
-    setTimeout( () => {
+    setTimeout(() => {
         isFocus.value = false;
         emit('blur');
     }, 100);

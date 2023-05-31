@@ -4,13 +4,13 @@
             "name": "size",
             "type": "small | medium | large",
             "default": "medium",
-            "description": "Размеры хлебных крошек"
+            "description": "Размер компонента"
         },
         {
             "name": "items",
-            "type": "{ id: string, title: string, url?: string }[]",
-            "default": "[ ]",
-            "description": "Опции для хлебных крошек"
+            "type": "{ id: string, title: string, url?: string }[ ]",
+            "default": "( required )",
+            "description": "Опции для компонента"
         }
     ],
     "eventList": [],

@@ -12,7 +12,7 @@
 
         .title(v-else) {{ item.title }}
 
-        .separator(v-if="index < (items.length - 1)")
+        .separator(v-if="isSeparator(index)")
             slot(name="separator") /
 
 </template>
@@ -37,6 +37,11 @@ const componentClasses = computed<string[]>(() => {
         'size-' + props.size,
     ];
 });
+
+function isSeparator(index: number) {
+    const lastIndex = props.items.length - 1;
+    return index < lastIndex;
+}
 
 </script>
 

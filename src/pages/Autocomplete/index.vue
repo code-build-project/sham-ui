@@ -9,23 +9,23 @@ page-wrap
 
     template(v-slot:playground)
         v-playground(
-            :parameters="autocompleteParameters"
+            :parameters="parameters"
             :codeTemplate="codeAutocomplete"
-            :parameterValues="autocompleteValues"
-            @change="setValue(autocompleteValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-autocomplete.sh-autocomplete(
-                v-model="autocompleteValues.modelValue"
-                :placeholder="autocompleteValues.placeholder"
-                :isDisabled="autocompleteValues.disabled"
-                :isClearable="autocompleteValues.clear"
-                :message="autocompleteValues.message"
-                :size="autocompleteValues.size"
-                :variant="autocompleteValues.variant"
-                :isError="autocompleteValues.error"
-                :isListWithoutValue="autocompleteValues.listHide"
-                :options="autocompleteOptions"
-            ) {{ autocompleteValues.label }}
+                v-model="data.modelValue"
+                :placeholder="data.placeholder"
+                :isDisabled="data.disabled"
+                :isClearable="data.clear"
+                :message="data.message"
+                :size="data.size"
+                :variant="data.variant"
+                :isError="data.error"
+                :isListWithoutValue="data.listHide"
+                :options="options"
+            ) {{ data.label }}
 
     template(v-slot:apiTable)
         v-api-table(
@@ -47,16 +47,16 @@ import optionsJSON from '@/pages/Autocomplete/options.json';
 import parametersJSON from '@/pages/Autocomplete/parameters.json';
 import codeAutocomplete from '@/components/UI/ShAutocomplete/code';
 import { useParameter } from '@/composables/playground';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
 import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const autocompleteParameters: TypeParameter = parametersJSON;
-const autocompleteOptions: string[] = optionsJSON;
+const options: string[] = optionsJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     modelValue: string,
     placeholder: string,
     disabled: boolean,
@@ -69,7 +69,7 @@ type TypeValues = {
     listHide: boolean,
 }
 
-const autocompleteValues: TypeValues = reactive({
+const data: TypeData = reactive({
     modelValue: '',
     placeholder: 'My Autocomplete',
     disabled: false,
