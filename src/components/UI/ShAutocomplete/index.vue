@@ -112,7 +112,7 @@ function onBlur(): void {
 // BLOCK "list"
 const filteredOptions = computed<string[]>(() => {
     return props.options.filter((option) => {
-        return option.startsWith(props.modelValue as string);
+        return option.toUpperCase().startsWith(props.modelValue.toUpperCase());
     });
 });
 
