@@ -4,45 +4,45 @@
             "name": "is-loading",
             "type": "boolean",
             "default": "false",
-            "description": "Прелоадер"
+            "description": "Флаг переключения прелоадера"
         },
         {
             "name": "is-disabled",
             "type": "boolean",
             "default": "false",
-            "description": "Блокрует работу с полем"
+            "description": "Флаг блокировки работы с компонентом"
         },
         {
             "name": "size",
             "type": "string",
             "default": "medium",
-            "description": "Размер кнопки"
+            "description": "Размер компонента"
         },
         {
             "name": "variant",
             "type": "string",
             "default": "default",
-            "description": "Вариант кнопки"
+            "description": "Вариант внешнего вида компонента"
         },
         {
             "name": "type",
             "type": "string",
             "default": "primary",
-            "description": "Тип кнопки"
+            "description": "Тип цвета компонента"
         }
     ],
     "eventList": [
         {
             "name": "@click",
             "parameters": "void",
-            "description": "Событие которое срабатывает при клике на кнопку"
+            "description": "Событие срабатывает при клике на компонент"
         }
     ],
     "slotList": [
         {
             "name": "(default)",
             "default": "Button",
-            "description": "Дефолтный слот, для передачи значения для названия кнопки"
+            "description": "Дефолтный слот, для передачи значения названия компонента"
         }
     ]
 }

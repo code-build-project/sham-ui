@@ -70,14 +70,14 @@ const props = withDefaults(
     },
 );
 
-const emit = defineEmits<{
+const emits = defineEmits<{
   (e: 'update:modelValue', value: string): void
   (e: 'focus'): void
   (e: 'blur'): void
 }>();
 
 function updateValue(value: number | string) {
-    emit('update:modelValue', value as string);
+    emits('update:modelValue', value as string);
 }
 
 const componentClasses = computed<string[] | object>(() => {
@@ -99,13 +99,13 @@ const isFocus = ref<boolean>(false);
 
 function onFocus(): void {
     isFocus.value = true;
-    emit('focus');
+    emits('focus');
 }
 
 function onBlur(): void {
     setTimeout(() => {
         isFocus.value = false;
-        emit('blur');
+        emits('blur');
     }, 100);
 }
 

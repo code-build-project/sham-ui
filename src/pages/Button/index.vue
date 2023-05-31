@@ -3,10 +3,10 @@ page-wrap
     template(v-slot:title) Button
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-button-origin</b> заменяет стандартную
+        | html-кнопку и добавляет множество опций.
+        | Вы так же можете кастомизировать кнопку добавив компонент-обертку
+        | с необходимым функционалом.
 
     template(v-slot:playground)
         v-playground(
@@ -37,13 +37,13 @@ import { reactive } from 'vue';
 import PageWrap from '@/components/PageWrap/index.vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import ShButton from '@/components/UI/ShButton/index.vue';
 import codeButton from '@/components/UI/ShButton/code';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import ShButton from '@/components/UI/ShButton/index.vue';
 import apiJSON from '@/pages/Button/api.json';
 import parametersJSON from '@/pages/Button/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 

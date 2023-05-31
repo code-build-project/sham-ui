@@ -31,6 +31,10 @@ const props = withDefaults(
     },
 );
 
+const emits = defineEmits<{
+    (e: 'click'): void
+}>();
+
 const componentClasses = computed<string[] | object>(() => {
     return [
         'size-' + props.size,
@@ -43,16 +47,13 @@ const componentClasses = computed<string[] | object>(() => {
     ];
 });
 
-const emit = defineEmits<{
-    (e: 'click'): void
-}>();
 
 function onClick(): void {
     if (props.isLoading || props.isDisabled) {
         return;
     }
 
-    emit('click');
+    emits('click');
 }
 
 </script>
@@ -151,4 +152,5 @@ function onClick(): void {
         @include getType($color-red-1, $color-white-1)
     &-success
         @include getType($color-green-1, $color-white-1)
+
 </style>
