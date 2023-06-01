@@ -5,12 +5,13 @@
 
     v-input(
         :modelValue="modelValue"
+        :class="componentClasses"
         :placeholder="placeholder"
         :isDisabled="isDisabled"
         :isReadonly="isReadonly"
+        @blur="onBlur('input')"
+        @focus="onFocus('input')"
         @input="onInput"
-        @focus="onFocus('isInput')"
-        @blur="onBlur('isInput')"
     )
         template(v-slot:left)
             slot(name="left")
@@ -18,16 +19,19 @@
 
         template(v-slot:right)
             slot(name="right")
-                div(
-                    v-show="isIconClear"
-                    @click.stop="clearField"
-                )
-                    v-icon.icon-clear(path="img/clearField.svg")
+
+            div(
+                v-show="isIconClear"
+                @click.stop="clearField"
+            )
+                v-icon.icon-clear(path="img/clearField.svg")
+
+    .message(v-if="message") {{ message }}
 
     .calendar(
         v-show="isOpenCalendar"
-        @focus="onFocus('isCalendar')"
-        @focusout="onBlur('isCalendar')"
+        @focus="onFocus('calendar')"
+        @focusout="onBlur('calendar')"
         tabindex="-1"
     )
         .calendar-heaeder
@@ -37,8 +41,8 @@
             )
             select.calendar-select(
                 v-model="monthValue"
-                @focus="onFocus('isMonth')"
-                @blur="onBlur('isMonth')"
+                @focus="onFocus('month')"
+                @blur="onBlur('month')"
             )
                 option(
                     v-for="month in monthList"
@@ -47,8 +51,8 @@
                 ) {{ month.name }}
             select.calendar-select(
                 v-model="yearValue"
-                @focus="onFocus('isYear')"
-                @blur="onBlur('isYear')"
+                @focus="onFocus('year')"
+                @blur="onBlur('year')"
             )
                 option(
                     v-for="year in yearList"
@@ -81,29 +85,36 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, useSlots} from 'vue';
+import { ref, reactive, computed, toRef } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import VInput from '@/components/common/VInput/index.vue';
 import formatters from '@/helpers/formatters';
+import monthsJSON from '@/components/UI/ShDatepicker/months.json';
+import weekdaysJSON from '@/components/UI/ShDatepicker/weekdays.json';
+import { useLabel } from '@/composables/label';
 
 const props = withDefaults(
     defineProps<{
         modelValue?: string,
+        label?: string,
         placeholder?: string,
         isDisabled?: boolean,
         isReadonly?: boolean,
-        label?: string,
+        isError?: boolean,
+        message?: string,
     }>(),
     {
         modelValue: '',
+        label: '',
         placeholder: '',
         isDisabled: false,
         isReadonly: false,
-        label: '',
+        isError: false,
+        message: '',
     },
 );
 
-const emit = defineEmits<{
+const emits = defineEmits<{
   (e: 'update:modelValue', date: string): void
 }>();
 
@@ -112,41 +123,30 @@ let monthValue = ref<number>(new Date().getMonth());
 let dayValue = ref<number>(new Date().getDate());
 
 const yearList = computed<number[]>(() => {
+    const minYear = 1980;
+    const maxYear = 2064;
     let yearsArray: number[] = [];
 
-    for (let i = 1980; i <= 2064; i++) {
+    for (let i = minYear; i <= maxYear; i++) {
         yearsArray.push(i);
     }
 
     return yearsArray;
 });
 
-const monthList = [
-    { id: 0, name: 'Январь' },
-    { id: 1, name: 'Февраль' },
-    { id: 2, name: 'Март' },
-    { id: 3, name: 'Апрель' },
-    { id: 4, name: 'Май' },
-    { id: 5, name: 'Июнь' },
-    { id: 6, name: 'Июль' },
-    { id: 7, name: 'Август' },
-    { id: 8, name: 'Сентябрь' },
-    { id: 9, name: 'Октябрь' },
-    { id: 10, name: 'Ноябрь' },
-    { id: 11, name: 'Декабрь' },
-];
-
-const dayWeekList = [ 'пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'вс'];
+const monthList = monthsJSON;
+const dayWeekList = weekdaysJSON;
 
 const dayMonthList = computed<number[][]>(() => {
-    let arrayIndex = 0;
+    const maxWeekDays = 7;
+    let arrayIndex: number = 0;
     let daysArray: number[][] = [[]];
     const daysInMonth: number = new Date(yearValue.value, monthValue.value + 1, 0).getDate();
 
     for (let i = 1; i <= daysInMonth; i++) {
         daysArray[arrayIndex].push(i);
 
-        if (i % 7 === 0) {
+        if (i % maxWeekDays === 0) {
             arrayIndex++;
             daysArray.push([]);
         }
@@ -186,24 +186,27 @@ function setDay(day: number): void {
     });
 
     setTimeout( () => {
-        emit('update:modelValue', newDate);
-        onBlur('isCalendar');
+        emits('update:modelValue', newDate);
+        onBlur('calendar');
     }, 100);
 }
 
-// BLOCK "label"
-const slots = useSlots();
-
-const isLabel = computed<boolean>(() => {
-    return !!(slots.default || props.label);
+const componentClasses = computed<object>(() => {
+    return {
+        'error': props.isError,
+    };
 });
+
+// BLOCK "label"
+const refLabel = toRef(props, 'label');
+const { isLabel } = useLabel(refLabel);
 
 // BLOCK "focus and blur"
 const focusList: { [key: string]: boolean } = reactive({
-    isInput: false,
-    isMonth: false,
-    isYear: false,
-    isCalendar: false,
+    input: false,
+    month: false,
+    year: false,
+    calendar: false,
 });
 
 const isOpenCalendar = computed<boolean>(() => {
@@ -224,22 +227,25 @@ function onBlur(key: string): void {
 // BLOCK "input"
 function onInput(event: Event) {
     (event.target as HTMLInputElement).value = formatters.date((event.target as HTMLInputElement).value);
-    emit('update:modelValue', (event.target as HTMLInputElement).value);
+    emits('update:modelValue', (event.target as HTMLInputElement).value);
 }
 
 function checkDate(): void {
-    if (props.modelValue && props.modelValue.length < 10 && !isOpenCalendar.value) {
-        emit('update:modelValue', '');
+    const requiredDateLength = 10;
+    const isValidDateLength = props.modelValue && props.modelValue.length < requiredDateLength;
+
+    if (isValidDateLength && !isOpenCalendar.value) {
+        emits('update:modelValue', '');
     }
 }
 
 // BLOCK "clear"
 const isIconClear = computed<boolean>(() => {
-    return  !!props.modelValue.length;
+    return !!props.modelValue.length;
 });
 
 function clearField(): void {
-    emit('update:modelValue', '');
+    emits('update:modelValue', '');
 }
 
 </script>
@@ -268,6 +274,13 @@ function clearField(): void {
     height: 20px
     fill: $color-gray-2
     cursor: pointer
+
+.message
+    position: absolute
+    margin-top: 5px
+    margin-left: 5px
+    color: $color-gray-2
+    font-size: 12px
 
 .calendar
     position: absolute
@@ -338,5 +351,15 @@ function clearField(): void {
         background: $color-gray-3
     &-active
         background: $color-gray-3
+
+.error
+    border-color: $color-red-1
+    &:hover
+        border-color: $color-red-1
+
+.datepicker:has(.error)
+    .label,
+    .message
+        color: $color-red-1
 
 </style>

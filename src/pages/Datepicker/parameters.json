@@ -1,14 +1,14 @@
 {
-    "placeholder": { 
-        "id": "placeholder",
-        "elementType": "input",
-        "title": "PLACEHOLDER",
-        "placeholder": "My Input"
+    "error": {
+        "id": "error",
+        "elementType": "switch",
+        "title": "ERROR"
     },
     "readonly": {
         "id": "readonly",
         "elementType": "switch",
-        "title": "READONLY"
+        "title": "READONLY",
+        "isInline": true
     },
     "disabled": {
         "id": "disable",
@@ -21,5 +21,19 @@
         "elementType": "input",
         "title": "LABEL",
         "placeholder": "Label"
+    },
+    "placeholder": { 
+        "id": "placeholder",
+        "elementType": "input",
+        "title": "PLACEHOLDER",
+        "placeholder": "Placeholder",
+        "isInline": true
+    },
+    "message": { 
+        "id": "message",
+        "elementType": "input",
+        "title": "MESSAGE",
+        "placeholder": "Message",
+        "isInline": true
     }
 }

@@ -38,13 +38,13 @@
         },
         {
             "name": "size",
-            "type": "string",
+            "type": "small | medium | large",
             "default": "medium",
             "description": "Размер компонента"
         },
         {
             "name": "variant",
-            "type": "string",
+            "type": "default | outline | underline",
             "default": "default",
             "description": "Вариант внешнего вида компонента"
         },

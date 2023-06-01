@@ -3,24 +3,24 @@ page-wrap
     template(v-slot:title) Datepicker
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-datepicker</b> является полем ввода даты.
+        | Значение даты можно ввести вручную, либо выбрать из выпадающего списка.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="datepickerParameters"
+            :parameters="parameters"
             :codeTemplate="codeDatepicker"
-            :parameterValues="datepickerValues"
-            @change="setValue(datepickerValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-datepicker.sh-datepicker(
-                v-model="datepickerValues.modelValue"
-                :placeholder="datepickerValues.placeholder || 'My Datapicker'"
-                :isReadonly="datepickerValues.readonly"
-                :isDisabled="datepickerValues.disabled"
-            ) {{ datepickerValues.label || 'Datapicker' }}
+                v-model="data.modelValue"
+                :placeholder="data.placeholder"
+                :isReadonly="data.readonly"
+                :isDisabled="data.disabled"
+                :isError="data.error"
+                :message="data.message"
+            ) {{ data.label }}
 
     template(v-slot:apiTable)
         v-api-table(
@@ -38,31 +38,35 @@ import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeDatepicker from '@/components/UI/ShDatepicker/code';
 import ShDatepicker from '@/components/UI/ShDatepicker/index.vue';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/Datepicker/api.json';
 import parametersJSON from '@/pages/Datepicker/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const datepickerParameters: TypeParameter = parametersJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     modelValue: string,
+    label: string,
     placeholder: string,
     readonly: boolean,
     disabled: boolean,
-    label: string,
+    error: boolean,
+    message: string,
 }
 
-const datepickerValues: TypeValues = reactive({
+const data: TypeData = reactive({
     modelValue: '',
-    placeholder: '',
+    label: 'Datapicker',
+    placeholder: 'My Datapicker',
     readonly: false,
     disabled: false,
-    label: '',
+    error: false,
+    message: '',
 });
 
 </script>
