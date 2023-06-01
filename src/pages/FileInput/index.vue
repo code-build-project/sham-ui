@@ -3,27 +3,25 @@ page-wrap
     template(v-slot:title) FileInput
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-file-input</b> - это специализированный инструмент ввода,
+        | который обеспечивает понятный интерфейс для выбора файлов.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="fileInputParameters"
+            :parameters="parameters"
             :codeTemplate="codeFileInput"
-            :parameterValues="fileInputValues"
-            @change="setValue(fileInputValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-file-input.sh-file-input(
                 v-model="modelValue"
-                :placeholder="fileInputValues.placeholder || 'My FileInput'"
-                :isMultiple="fileInputValues.multiple"
-                :isDisabled="fileInputValues.disabled"
-                :isError="fileInputValues.error"
-                :accept="fileInputValues.accept"
-                :message="fileInputValues.message"
-            ) {{ fileInputValues.label || 'FileInput' }}
+                :placeholder="data.placeholder"
+                :isMultiple="data.multiple"
+                :isDisabled="data.disabled"
+                :isError="data.error"
+                :accept="data.accept"
+                :message="data.message"
+            ) {{ data.label }}
 
     template(v-slot:apiTable)
         v-api-table(
@@ -41,36 +39,36 @@ import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeFileInput from '@/components/UI/ShFileInput/code';
 import ShFileInput from '@/components/UI/ShFileInput/index.vue';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/FileInput/api.json';
 import parametersJSON from '@/pages/FileInput/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const fileInputParameters: TypeParameter = parametersJSON;
-
-type TypeValues = {
-    placeholder: string,
-    multiple: boolean,
-    disabled: boolean,
-    error: boolean,
-    label: string,
-    message: string,
-    accept: string,
-}
+const parameters: TypeParameter = parametersJSON;
 
 let modelValue = ref<{ [key: string]: any }[]>([{}]);
 
-const fileInputValues: TypeValues = reactive({
-    placeholder: '',
+type TypeData = {
+    label: string,
+    multiple: boolean,
+    disabled: boolean,
+    error: boolean,
+    message: string,
+    placeholder: string,
+    accept: string,
+}
+
+const data: TypeData = reactive({
+    label: 'FileInput',
     multiple: false,
     disabled: false,
     error: false,
-    label: '',
     message: '',
+    placeholder: 'My FileInput',
     accept: '',
 });
 

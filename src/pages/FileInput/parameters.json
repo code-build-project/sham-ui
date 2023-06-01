@@ -1,9 +1,23 @@
 {
+    "label": { 
+        "id": "label",
+        "elementType": "input",
+        "title": "LABEL",
+        "placeholder": "Label"
+    },
     "placeholder": { 
         "id": "placeholder",
         "elementType": "input",
         "title": "PLACEHOLDER",
-        "placeholder": "My Input"
+        "placeholder": "My Input",
+        "isInline": true
+    },
+    "message": { 
+        "id": "message",
+        "elementType": "input",
+        "title": "MESSAGE",
+        "placeholder": "Message",
+        "isInline": true
     },
     "multiple": {
         "id": "multiple",
@@ -21,18 +35,6 @@
         "elementType": "switch",
         "title": "ERROR",
         "isInline": true
-    },
-    "label": { 
-        "id": "label",
-        "elementType": "input",
-        "title": "LABEL",
-        "placeholder": "Label"
-    },
-    "message": { 
-        "id": "message",
-        "elementType": "input",
-        "title": "MESSAGE",
-        "placeholder": "Message"
     },
     "accept": { 
         "id": "accept",

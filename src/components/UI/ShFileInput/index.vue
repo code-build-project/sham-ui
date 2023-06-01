@@ -33,33 +33,34 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useSlots } from 'vue';
+import { ref, computed, toRef } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
+import { useLabel } from '@/composables/label';
 
 const props = withDefaults(
     defineProps<{
         modelValue?: { [key: string]: any }[],
+        label?: string,
         isMultiple?: boolean,
         isDisabled?: boolean,
         isError?: boolean,
-        label?: string,
         message?: string,
         placeholder?: string,
         accept?: string,
     }>(),
     {
         modelValue: () => [],
+        label: '',
         isMultiple: false,
         isDisabled: false,
         isError: false,
-        label: '',
         message: '',
         placeholder: '',
         accept: '',
     },
 );
 
-const emit = defineEmits<{
+const emits = defineEmits<{
     (e: 'update:modelValue', files: { [key: string]: any }[]): void
 }>();
 
@@ -80,7 +81,7 @@ async function onLoad(event: Event) {
         files.push(target.files[i]);
     }
 
-    emit('update:modelValue', files);
+    emits('update:modelValue', files);
     target.value = '';
 
     isLoading.value = false;
@@ -98,11 +99,8 @@ const inputClasses = computed<object>(() => {
 });
 
 // BLOCK "label"
-const slots = useSlots();
-
-const isLabel = computed<boolean>(() => {
-    return !!(slots.default || props.label);
-});
+const refLabel = toRef(props, 'label');
+const { isLabel } = useLabel(refLabel);
 
 // BLOCK "clip"
 const refField = ref<null | HTMLInputElement>(null);
@@ -121,7 +119,7 @@ const isIconClear = computed<boolean>(() => {
 });
 
 function clearField() {
-    emit('update:modelValue', []);
+    emits('update:modelValue', []);
 }
 
 </script>
