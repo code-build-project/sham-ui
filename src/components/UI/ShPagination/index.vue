@@ -44,11 +44,12 @@ const props = withDefaults(
     },
 );
 
-const emit = defineEmits<{
+const emits = defineEmits<{
     (e: 'update:modelValue', step: number): void
 }>();
 
 const maxViewSteps = 5;
+
 let stepList = ref<number[]>([]);
 initStepList();
 
@@ -60,7 +61,7 @@ function initStepList(): void {
 watch(() => props.stepsLength, () => initStepList());
 
 function setStep(step: number): void {
-    emit('update:modelValue', step);
+    emits('update:modelValue', step);
 
     const lastIndex = stepList.value.length - 1;
 
