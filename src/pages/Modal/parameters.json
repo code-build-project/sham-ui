@@ -9,6 +9,7 @@
         "id": "text",
         "elementType": "input",
         "title": "TEXT",
-        "placeholder": "Text"
+        "placeholder": "Text",
+        "isInline": true
     }
 }

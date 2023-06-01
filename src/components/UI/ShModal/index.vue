@@ -15,8 +15,11 @@ teleport(to="#app")
                 slot {{ text }}
 
             .footer
-                .button-no(@click="onClose") No
-                .button-ok(@click="onClose") Ok
+                .button-no(@click="onClickNo")
+                    slot(name="textNo") {{ textNo }}
+
+                .button-ok(@click="onClickOk")
+                    slot(name="textOk") {{ textOk }}
 
 </template>
 
@@ -27,19 +30,33 @@ withDefaults(
     defineProps<{
         title?: string,
         text?: string,
+        textNo?: string,
+        textOk?: string,
     }>(),
     {
         title: 'Modal',
         text: 'Modal text',
+        textNo: 'No',
+        textOk: 'Ok',
     },
 );
 
 const emits = defineEmits<{
     (e: 'close'): void
+    (e: 'no'): void
+    (e: 'ok'): void
 }>();
 
 function onClose() {
     emits('close');
+}
+
+function onClickNo() {
+    emits('no');
+}
+
+function onClickOk() {
+    emits('ok');
 }
 
 </script>
