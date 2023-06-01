@@ -24,7 +24,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed, toRef } from 'vue';
+import { useLabel } from '@/composables/label';
 
 interface TypeRadio {
     id: string | number,
@@ -34,8 +35,8 @@ interface TypeRadio {
 const props = withDefaults(
     defineProps<{
         modelValue?: number | string,
-        radioList?: TypeRadio[],
         keyField: string,
+        radioList?: TypeRadio[],
         label?: string,
         isColumn?: boolean,
     }>(),
@@ -62,13 +63,8 @@ function setRadio(value: number | string): void {
 }
 
 // BLOCK "label"
-const slots = useSlots();
-
-const isLabel = computed<boolean>(() => {
-    const slotDefault = slots.default ? slots.default() : [];
-    const isSlot = slotDefault[0]?.children;
-    return !!(isSlot || props.label);
-});
+const refLabel = toRef(props, 'label');
+const { isLabel } = useLabel(refLabel);
 
 </script>
 

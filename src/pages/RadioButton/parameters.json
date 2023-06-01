@@ -8,6 +8,7 @@
     "column": {
         "id": "column",
         "elementType": "switch",
-        "title": "COLUMN"
+        "title": "COLUMN",
+        "isInline": true
     }
 }

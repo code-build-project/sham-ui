@@ -1,26 +1,24 @@
 <template lang="pug">
 page-wrap
-    template(v-slot:title) Radio
+    template(v-slot:title) RadioButton
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-radio-button</b> представляет собой простой переключатель.
+        | Пользователь может выбрать один вариант из предоставляемых опций.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="radioParameters"
+            :parameters="parameters"
             :codeTemplate="codeRadioButton"
-            :parameterValues="radioValues"
-            @change="setValue(radioValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-radio-button(
-                v-model="radioValues.modelValue"
+                v-model="data.modelValue"
                 keyField="radio-button"
-                :radioList="radioOptions"
-                :isColumn="radioValues.column"
-            ) {{ radioValues.label }}
+                :radioList="options"
+                :isColumn="data.column"
+            ) {{ data.label }}
 
     template(v-slot:apiTable)
         v-api-table(
@@ -38,26 +36,26 @@ import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeRadioButton from '@/components/UI/ShRadioButton/code';
 import ShRadioButton from '@/components/UI/ShRadioButton/index.vue';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/RadioButton/api.json';
-import parametersJSON from '@/pages/RadioButton/parameters.json';
 import optionsJSON from '@/pages/RadioButton/options.json';
+import parametersJSON from '@/pages/RadioButton/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const radioOptions: { id: number, name: string }[]  = optionsJSON;
-const radioParameters: TypeParameter = parametersJSON;
+const options: { id: number, name: string }[]  = optionsJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     modelValue: string | number,
     label: string,
     column: boolean,
 }
 
-const radioValues: TypeValues = reactive({
+const data: TypeData = reactive({
     modelValue: 1,
     label: '',
     column: false,
