@@ -3,24 +3,21 @@ page-wrap
     template(v-slot:title) Checkbox
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-checkbox</b> представляет флаг для выбора опции.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="checkboxParameters"
+            :parameters="parameters"
             :codeTemplate="codeCheckbox"
-            :parameterValues="checkboxValues"
-            @change="setValue(checkboxValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-checkbox(
-                v-model="checkboxValues.modelValue"
+                v-model="data.modelValue"
                 keyField="checkbox"
-                :isDisabled="checkboxValues.disabled"
-                :size="checkboxValues.size"
-            ) {{ checkboxValues.text || 'My checkbox' }}
+                :isDisabled="data.disabled"
+                :size="data.size"
+            ) {{ data.text }}
 
     template(v-slot:apiTable)
         v-api-table(
@@ -36,29 +33,29 @@ import { reactive } from 'vue';
 import PageWrap from '@/components/PageWrap/index.vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import ShCheckbox from '@/components/UI/ShCheckbox/index.vue';
 import codeCheckbox from '@/components/UI/ShCheckbox/code';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import ShCheckbox from '@/components/UI/ShCheckbox/index.vue';
 import apiJSON from '@/pages/Checkbox/api.json';
 import parametersJSON from '@/pages/Checkbox/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const checkboxParameters: TypeParameter = parametersJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     modelValue: boolean,
     text: string,
     disabled: boolean,
     size: string,
 }
 
-const checkboxValues: TypeValues = reactive({
+const data: TypeData = reactive({
     modelValue: false,
-    text: '',
+    text: 'My Checkbox',
     disabled: false,
     size: 'medium',
 });

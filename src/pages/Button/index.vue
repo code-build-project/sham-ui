@@ -10,18 +10,18 @@ page-wrap
 
     template(v-slot:playground)
         v-playground(
-            :parameters="buttonParameters"
+            :parameters="parameters"
             :codeTemplate="codeButton"
-            :parameterValues="buttonValues"
-            @change="setValue(buttonValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-button(
-                :variant="buttonValues.variant"
-                :type="buttonValues.type"
-                :size="buttonValues.size"
-                :isLoading="buttonValues.loading"
-                :isDisabled="buttonValues.disabled"
-            ) {{ buttonValues.text || 'My button' }}
+                :variant="data.variant"
+                :type="data.type"
+                :size="data.size"
+                :isLoading="data.loading"
+                :isDisabled="data.disabled"
+            ) {{ data.text || 'My button' }}
 
     template(v-slot:apiTable)
         v-api-table(
@@ -48,9 +48,9 @@ import type { TypeParameter } from '@/components/common/VPlayground/types';
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const buttonParameters: TypeParameter = parametersJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     text: string,
     loading: boolean,
     disabled: boolean,
@@ -59,7 +59,7 @@ type TypeValues = {
     size: string,
 }
 
-const buttonValues: TypeValues = reactive({
+const data: TypeData = reactive({
     text: '',
     loading: false,
     disabled: false,

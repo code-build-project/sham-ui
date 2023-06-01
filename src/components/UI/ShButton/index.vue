@@ -35,7 +35,7 @@ const emits = defineEmits<{
     (e: 'click'): void
 }>();
 
-const componentClasses = computed<string[] | object>(() => {
+const componentClasses = computed<(string | object)[]>(() => {
     return [
         'size-' + props.size,
         'variant-' + props.variant,

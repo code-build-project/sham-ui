@@ -2,8 +2,8 @@
     "text": { 
         "id": "text",
         "elementType": "input",
-        "title": "TEXT CHECKBOX",
-        "placeholder": "My checkbox"
+        "title": "TEXT",
+        "placeholder": "My Checkbox"
     },
     "disabled": {
         "id": "disable",

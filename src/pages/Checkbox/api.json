@@ -1,42 +1,42 @@
 {
     "propList": [
         {
-            "name": "modelValue",
+            "name": "model-value",
             "type": "boolean",
             "default": "false",
-            "description": "Значение которое будет отображаться в поле"
+            "description": "Значение компонента"
         },
         {
-            "name": "keyField",
+            "name": "key-field",
             "type": "string",
-            "default": "key-id",
-            "description": "Ключ идентифиактор флага. Обязательный параметр"
+            "default": "( required )",
+            "description": "Ключ идентифиактор компонента"
         },
         {
             "name": "is-disabled",
             "type": "boolean",
             "default": "false",
-            "description": "Блокрует работу с полем"
+            "description": "Флаг блокировки работы с компонентом"
         },
         {
             "name": "size",
             "type": "string",
             "default": "medium",
-            "description": "Размер поля"
+            "description": "Размер компонента"
         }
     ],
     "eventList": [
         {
             "name": "@update:modelValue",
-            "parameters": "value: boolean",
-            "description": "Событие которое срабатывает при изменении значения в поле"
+            "parameters": "boolean",
+            "description": "Событие срабатывает при изменении значения флага"
         }
     ],
     "slotList": [
         {
             "name": "(default)",
             "default": "—",
-            "description": "Дефолтный слот, для передачи значения для заголовка поля"
+            "description": "Дефолтный слот, для передачи значения заголовка флага"
         }
     ]
 }

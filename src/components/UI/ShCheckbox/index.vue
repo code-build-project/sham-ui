@@ -36,11 +36,11 @@ const props = withDefaults(
     },
 );
 
-const emit = defineEmits<{
+const emits = defineEmits<{
     (e: 'update:modelValue', value: boolean): void
 }>();
 
-const componentClasses = computed<object>(() => {
+const componentClasses = computed<(string | object)[]>(() => {
     return [
         'size-' + props.size,
         {
@@ -54,7 +54,7 @@ function onChecked(): void {
         return;
     }
 
-    emit('update:modelValue', !props.modelValue);
+    emits('update:modelValue', !props.modelValue);
 }
 
 </script>
@@ -109,18 +109,16 @@ function onChecked(): void {
 
 .size
     &-small
-        .label
-            &:before
-                width: 12px
-                height: 12px
+        .label::before
+            width: 12px
+            height: 12px
         .name
             font-size: 12px
             margin-left: 6px
     &-large
-        .label
-            &:before
-                width: 17px
-                height: 17px
+        .label::before
+            width: 17px
+            height: 17px
         .name
             font-size: 16px
             margin-left: 10px

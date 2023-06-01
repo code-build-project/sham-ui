@@ -80,7 +80,7 @@ function updateValue(value: number | string) {
     emits('update:modelValue', value as string);
 }
 
-const componentClasses = computed<string[] | object>(() => {
+const componentClasses = computed<(string | object)[]>(() => {
     return [
         'size-' + props.size,
         'variant-' + props.variant,
