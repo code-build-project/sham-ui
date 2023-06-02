@@ -9,20 +9,21 @@
         :placeholder="placeholder"
         :isDisabled="isDisabled"
         isReadonly
-        @click="clickInput"
-        @focus="emit('focus')"
         @blur="onBlur"
+        @focus="emits('focus')"
+        @click="clickInput"
     )
         template(v-slot:left)
             slot(name="left")
 
         template(v-slot:right)
             slot(name="right")
-                div(
-                    v-show="isIconClear"
-                    @click.stop="clearField"
-                )
-                    v-icon.icon-clear(path="img/clearField.svg")
+
+            div(
+                v-show="isIconClear"
+                @click.stop="clearField"
+            )
+                v-icon.icon-clear(path="img/clearField.svg")
 
             v-icon.icon-chevron(
                 path="img/chevron.svg"
@@ -53,11 +54,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useSlots } from 'vue';
+import { ref, computed, toRef } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
-import VCheckbox from '@/components/common/VCheckBox/index.vue';
 import VInput from '@/components/common/VInput/index.vue';
+import VCheckbox from '@/components/common/VCheckBox/index.vue';
 import type { TypeOption } from '@/components/UI/ShSelect/types';
+import { useLabel } from '@/composables/label';
 
 type TypeModelValue = string | string[];
 
@@ -90,13 +92,13 @@ const props = withDefaults(
     },
 );
 
-const emit = defineEmits<{
+const emits = defineEmits<{
   (e: 'update:modelValue', id: TypeModelValue): void
   (e: 'focus'): void
   (e: 'blur'): void
 }>();
 
-const componentClasses = computed<string[] | object>(() => {
+const componentClasses = computed<(string | object)[]>(() => {
     return [
         'size-' + props.size,
         'variant-' + props.variant,
@@ -114,11 +116,8 @@ const iconClasses = computed<object>(() => {
 });
 
 // BLOCK "label"
-const slots = useSlots();
-
-const isLabel = computed<boolean>(() => {
-    return !!(slots.default || props.label);
-});
+const refLabel = toRef(props, 'label');
+const { isLabel } = useLabel(refLabel);
 
 // BLOCK "focus and blur"
 let isOpenList = ref<boolean>(false);
@@ -135,7 +134,7 @@ function onBlur(): void {
         }
 
         isOpenList.value = false;
-        emit('blur');
+        emits('blur');
     }, 100);
 }
 
@@ -183,9 +182,9 @@ function updateValue(id: string): void {
             array.push(id);
         }
 
-        emit('update:modelValue', array.slice());
+        emits('update:modelValue', array.slice());
     } else {
-        emit('update:modelValue', id);
+        emits('update:modelValue', id);
     }
 }
 
@@ -196,9 +195,9 @@ const isIconClear = computed<boolean>(() => {
 
 function clearField() {
     if (props.isMultiple) {
-        emit('update:modelValue', []);
+        emits('update:modelValue', []);
     } else {
-        emit('update:modelValue', '');
+        emits('update:modelValue', '');
     }
 }
 

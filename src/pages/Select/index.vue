@@ -3,30 +3,28 @@ page-wrap
     template(v-slot:title) Select
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-select</b> используются для сбора предоставленной
+        | пользователем информации из списка опций.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="selectParameters"
+            :parameters="parameters"
             :codeTemplate="codeSelect"
-            :parameterValues="selectValues"
+            :parameterValues="data"
             @change="setParameterDecorator"
         )
             sh-select.sh-select(
-                v-model="selectValues.modelValue"
-                :placeholder="selectValues.placeholder || 'My Select'"
-                :isDisabled="selectValues.disabled"
-                :isClearable="selectValues.clear"
-                :message="selectValues.message"
-                :size="selectValues.size"
-                :variant="selectValues.variant"
-                :isError="selectValues.error"
-                :isMultiple="selectValues.multiple"
-                :options="selectOptions"
-            ) {{ selectValues.label }}
+                v-model="data.modelValue"
+                :placeholder="data.placeholder"
+                :isDisabled="data.disabled"
+                :isClearable="data.clear"
+                :message="data.message"
+                :size="data.size"
+                :variant="data.variant"
+                :isError="data.error"
+                :isMultiple="data.multiple"
+                :options="options"
+            ) {{ data.label }}
 
     template(v-slot:apiTable)
         v-api-table(
@@ -44,21 +42,21 @@ import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeSelect from '@/components/UI/ShSelect/code';
 import ShSelect from '@/components/UI/ShSelect/index.vue';
-import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
-import type { TypeOption } from '@/components/UI/ShSelect/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/Select/api.json';
 import optionsJSON from '@/pages/Select/options.json';
 import parametersJSON from '@/pages/Select/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeOption } from '@/components/UI/ShSelect/types';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter, TypeData } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const selectOptions: TypeOption[]  = optionsJSON;
-const selectParameters: TypeParameter = parametersJSON;
+const options: TypeOption[]  = optionsJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeSelectData = {
     modelValue: string | string[],
     placeholder: string,
     disabled: boolean,
@@ -71,9 +69,9 @@ type TypeValues = {
     multiple: boolean,
 }
 
-const selectValues: TypeValues = reactive({
+const data: TypeSelectData = reactive({
     modelValue: '',
-    placeholder: '',
+    placeholder: 'My Select',
     disabled: false,
     clear: false,
     label: '',
@@ -85,15 +83,15 @@ const selectValues: TypeValues = reactive({
 });
 
 function setParameterDecorator(event: TypeData): void {
-    if (event.key === selectParameters.multiple.id) {
+    if (event.key === parameters.multiple.id) {
         if (event.value) {
-            selectValues.modelValue = [];
+            data.modelValue = [];
         } else {
-            selectValues.modelValue = '';
+            data.modelValue = '';
         }
     }
 
-    setValue(selectValues, event);
+    setValue(data, event);
 }
 
 </script>
