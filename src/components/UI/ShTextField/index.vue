@@ -11,9 +11,9 @@
         :isDisabled="isDisabled"
         :isReadonly="isReadonly"
         :maxlength="maxlength"
+        @blur="emits('blur')"
+        @focus="emits('focus')"
         @input="onInput"
-        @focus="emit('focus')"
-        @blur="emit('blur')"
     )
         template(v-slot:left)
             slot(name="left")
@@ -27,20 +27,21 @@
                 @click="clearField"
             )
 
-
     .message(v-if="message") {{ message }}
 
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
+import { computed, toRef } from 'vue';
 import VIcon from '@/components/common/VIcon/index.vue';
 import VInput from '@/components/common/VInput/index.vue';
 import formatters from '@/helpers/formatters';
+import { useLabel } from '@/composables/label';
 
 const props = withDefaults(
     defineProps<{
         modelValue?: number | string,
+        label?: string,
         type?: string,
         placeholder?: string,
         isDisabled?: boolean,
@@ -52,12 +53,12 @@ const props = withDefaults(
         isError?: boolean,
         message?: string,
         isClearable?: boolean,
-        label?: string,
         isPassword?: boolean,
         format?: string,
     }>(),
     {
         modelValue: '',
+        label: '',
         type: 'text',
         placeholder: '',
         isDisabled: false,
@@ -69,13 +70,12 @@ const props = withDefaults(
         isError: false,
         message: '',
         isClearable: false,
-        label: '',
         isPassword: false,
         format: '',
     },
 );
 
-const emit = defineEmits<{
+const emits = defineEmits<{
   (e: 'update:modelValue', value: number | string): void
   (e: 'input', event: Event): void
   (e: 'focus'): void
@@ -93,20 +93,19 @@ const componentClasses = computed<string[] | object>(() => {
 });
 
 // BLOCK "label"
-const slots = useSlots();
-
-const isLabel = computed<boolean>(() => {
-    return !!(slots.default || props.label);
-});
+const refLabel = toRef(props, 'label');
+const { isLabel } = useLabel(refLabel);
 
 // BLOCK "input"
 function onInput(event: Event) {
+    const target = (event.target as HTMLInputElement);
+
     if (props.format) {
-        (event.target as HTMLInputElement).value = formatters[props.format]((event.target as HTMLInputElement).value);
+        target.value = formatters[props.format](target.value);
     }
 
-    emit('update:modelValue', (event.target as HTMLInputElement).value);
-    emit('input', event);
+    emits('update:modelValue', target.value);
+    emits('input', event);
 }
 
 // BLOCK "clear"
@@ -115,7 +114,7 @@ const isIconClear = computed<boolean>(() => {
 });
 
 function clearField() {
-    emit('update:modelValue', '');
+    emits('update:modelValue', '');
 }
 
 </script>

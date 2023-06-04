@@ -1,10 +1,28 @@
 {
     "propList": [
         {
-            "name": "modelValue",
+            "name": "model-value",
+            "type": "string | number",
+            "default": "—",
+            "description": "Значение компонента"
+        },
+        {
+            "name": "label",
             "type": "string",
             "default": "—",
-            "description": "Значение которое будет отображаться в поле"
+            "description": "Заголовок компонента"
+        },
+        {
+            "name": "placeholder",
+            "type": "string",
+            "default": "—",
+            "description": "Текст подсказки для пользователя"
+        },
+        {
+            "name": "is-disabled",
+            "type": "boolean",
+            "default": "false",
+            "description": "Флаг блокировки работы с компонентом"
         },
         {
             "name": "type",
@@ -13,16 +31,10 @@
             "description": "Тип текстового поля"
         },
         {
-            "name": "label",
-            "type": "string",
-            "default": "—",
-            "description": "Заголовок поля"
-        },
-        {
             "name": "maxlength",
             "type": "string",
             "default": "—",
-            "description": "Максимальное количество символов в поле"
+            "description": "Максимальное количество символов для ввода"
         },
         {
             "name": "autocomplete",
@@ -31,50 +43,38 @@
             "description": "Автозаполнение поля"
         },
         {
-            "name": "placeholder",
-            "type": "string",
-            "default": "—",
-            "description": "Текст, когда поле пустое"
-        },
-        {
-            "name": "is-disabled",
-            "type": "boolean",
-            "default": "false",
-            "description": "Блокрует работу с полем"
-        },
-        {
             "name": "is-readonly",
             "type": "boolean",
             "default": "false",
-            "description": "Блокрует ввод в поле"
+            "description": "Флаг блокировки ввода"
         },
         {
             "name": "is-сlearable",
             "type": "boolean",
             "default": "false",
-            "description": "Позволяет очистить поле"
+            "description": "Флаг отображения компонента очистки поля ввода"
         },
         {
             "name": "message",
             "type": "string",
             "default": "—",
-            "description": "Сообщение под полем"
+            "description": "Сообщение под компонентом"
         },
         {
             "name": "size",
-            "type": "string",
+            "type": "small | medium | large",
             "default": "medium",
-            "description": "Размер поля"
+            "description": "Размер компонента"
         },
         {
             "name": "variant",
-            "type": "string",
+            "type": "default | outline | underline",
             "default": "default",
-            "description": "Вариант поля"
+            "description": "Вариант внешнего вида компонента"
         },
         {
             "name": "format",
-            "type": "string",
+            "type": "default | number | letter | latin | cyrillic",
             "default": "default",
             "description": "Формат ввода"
         },
@@ -82,19 +82,19 @@
             "name": "is-error",
             "type": "boolean",
             "default": "false",
-            "description": "Состояние ошибки поля"
+            "description": "Флаг отображения состояния ошибки"
         },
         {
             "name": "is-password",
             "type": "boolean",
             "default": "false",
-            "description": "Флаг для поля с паролем"
+            "description": "Флаг сокрытия видимости ввода"
         }
     ],
     "eventList": [
         {
             "name": "@update:modelValue",
-            "parameters": "id: string | string[ ]",
+            "parameters": "string | number",
             "description": "Событие которое срабатывает при изменении значения в поле"
         },
         {

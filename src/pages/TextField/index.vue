@@ -3,31 +3,29 @@ page-wrap
     template(v-slot:title) TextField
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-text-field</b> используются для сбора предоставленной
+        | пользователем информации.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="textFieldParameters"
+            :parameters="parameters"
             :codeTemplate="codeTextField"
-            :parameterValues="textFieldValues"
-            @change="setValue(textFieldValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-text-field.sh-text-field(
-                v-model="textFieldValues.modelValue"
-                :placeholder="textFieldValues.placeholder || 'My TextField'"
-                :isReadonly="textFieldValues.readonly"
-                :isDisabled="textFieldValues.disabled"
-                :size="textFieldValues.size"
-                :variant="textFieldValues.variant"
-                :isError="textFieldValues.error"
-                :message="textFieldValues.message"
-                :isClearable="textFieldValues.clear"
-                :isPassword="textFieldValues.password"
-                :format="textFieldValues.format"
-            ) {{ textFieldValues.label }}
+                v-model="data.modelValue"
+                :placeholder="data.placeholder"
+                :isReadonly="data.readonly"
+                :isDisabled="data.disabled"
+                :size="data.size"
+                :variant="data.variant"
+                :isError="data.error"
+                :message="data.message"
+                :isClearable="data.clear"
+                :isPassword="data.password"
+                :format="data.format"
+            ) {{ data.label }}
 
     template(v-slot:apiTable)
         v-api-table(
@@ -43,26 +41,26 @@ import { reactive } from 'vue';
 import PageWrap from '@/components/PageWrap/index.vue';
 import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
-import ShTextField from '@/components/UI/ShTextField/index.vue';
 import codeTextField from '@/components/UI/ShTextField/code';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import ShTextField from '@/components/UI/ShTextField/index.vue';
 import apiJSON from '@/pages/TextField/api.json';
 import parametersJSON from '@/pages/TextField/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const textFieldParameters: TypeParameter = parametersJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
-    modelValue: string,
+type TypeData = {
+    modelValue: number | string,
+    label: string,
     placeholder: string,
     readonly: boolean,
     disabled: boolean,
     clear: boolean,
-    label: string,
     message: string,
     size: string,
     variant: string,
@@ -71,13 +69,13 @@ type TypeValues = {
     format: string,
 }
 
-const textFieldValues: TypeValues = reactive({
+const data: TypeData = reactive({
     modelValue: '',
-    placeholder: '',
+    label: '',
+    placeholder: 'My TextField',
     readonly: false,
     disabled: false,
     clear: false,
-    label: '',
     message: '',
     size: 'medium',
     variant: 'default',
