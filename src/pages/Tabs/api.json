@@ -1,24 +1,36 @@
 {
     "propList": [
         {
-            "name": "is-show",
-            "type": "boolean | undefined",
-            "default": "undefined",
-            "description": "Флаг для ручного управления тултипом. По дефолту undefined"
+            "name": "model-value",
+            "type": "string",
+            "default": "—",
+            "description": "Значение компонента"
         },
         {
-            "name": "position",
-            "type": "top | right | bottom | left",
-            "default": "right",
-            "description": "Позиция тултипа относительно родительского элемента"
+            "name": "tabs",
+            "type": "{ id: string, title: string }[ ]",
+            "default": "( required )",
+            "description": "Опции для навигации"
+        },
+        {
+            "name": "is-column",
+            "type": "boolean",
+            "default": "false",
+            "description": "Флаг переключения навигации в вертикальное направление"
         }
     ],
-    "eventList": [],
+    "eventList": [
+        {
+            "name": "@update:modelValue",
+            "parameters": "string",
+            "description": "Событие срабатывает при переключении навигации"
+        }
+    ],
     "slotList": [
         {
-            "name": "(default)",
-            "default": "Tooltip",
-            "description": "Дефолтный слот, для передачи значения для тултипа"
+            "name": "[tab.id]",
+            "default": "—",
+            "description": "Слот для кастомизации элемента навигации"
         }
     ]
 }
