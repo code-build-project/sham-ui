@@ -10,36 +10,37 @@
         :maxlength="maxlength"
         :spellcheck="isSpellcheck"
         :class="componentClasses"
-        @input="onInput"
-        @focus="onFocus"
         @blur="onBlur"
+        @focus="onFocus"
+        @input="onInput"
     )
 
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useSlots } from 'vue';
+import { ref, computed, toRef } from 'vue';
+import { useLabel } from '@/composables/label';
 
 const props = withDefaults(
     defineProps<{
         modelValue?: string,
+        label?: string,
         placeholder?: string,
         isDisabled?: boolean,
         isReadonly?: boolean,
         isSpellcheck?: boolean,
         resize?: string,
         maxlength?: string,
-        label?: string,
     }>(),
     {
         modelValue: '',
+        label: '',
         placeholder: '',
         isDisabled: false,
         isReadonly: false,
         isSpellcheck: false,
         resize: 'both',
         maxlength: '',
-        label: '',
     },
 );
 
@@ -64,13 +65,8 @@ function onInput(event: Event): void {
 }
 
 // BLOCK "label"
-const slots = useSlots();
-
-const isLabel = computed<boolean>(() => {
-    const slotDefault = slots.default ? slots.default() : [];
-    const isSlot = slotDefault[0]?.children;
-    return !!(isSlot || props.label);
-});
+const refLabel = toRef(props, 'label');
+const { isLabel } = useLabel(refLabel);
 
 // BLOCK "focus and blur"
 const isFocus = ref<boolean>(false);

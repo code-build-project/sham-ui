@@ -3,26 +3,23 @@ page-wrap
     template(v-slot:title) Textarea
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-textarea</b> используются для сбора больших объемов текстовых данных.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="textareaParameters"
+            :parameters="parameters"
             :codeTemplate="codeTextarea"
-            :parameterValues="textareaValues"
-            @change="setValue(textareaValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             sh-textarea.sh-textarea(
-                v-model="textareaValues.modelValue"
-                :placeholder="textareaValues.placeholder || 'My Textarea'"
-                :isReadonly="textareaValues.readonly"
-                :isDisabled="textareaValues.disabled"
-                :isSpellcheck="textareaValues.spellcheck"
-                :resize="textareaValues.resize"
-                :label="textareaValues.label"
+                v-model="data.modelValue"
+                :placeholder="data.placeholder"
+                :isReadonly="data.readonly"
+                :isDisabled="data.disabled"
+                :isSpellcheck="data.spellcheck"
+                :resize="data.resize"
+                :label="data.label"
             )
 
     template(v-slot:apiTable)
@@ -41,35 +38,35 @@ import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeTextarea from '@/components/UI/ShTextarea/code';
 import ShTextarea from '@/components/UI/ShTextarea/index.vue';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/Textarea/api.json';
 import parametersJSON from '@/pages/Textarea/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const textareaParameters: TypeParameter = parametersJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     modelValue: string,
+    label: string,
     placeholder: string,
     readonly: boolean,
     disabled: boolean,
     spellcheck: boolean,
     resize: string,
-    label: string,
 }
 
-const textareaValues: TypeValues = reactive({
+const data: TypeData = reactive({
     modelValue: '',
-    placeholder: '',
+    label: '',
+    placeholder: 'My Textarea',
     readonly: false,
     disabled: false,
     spellcheck: false,
     resize: 'both',
-    label: '',
 });
 
 </script>
