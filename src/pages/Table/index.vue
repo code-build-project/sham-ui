@@ -3,23 +3,21 @@ page-wrap
     template(v-slot:title) Table
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-table</b> представляет строки и столбцы
+        | предназначенные для структурирования данных.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="tableParameters"
+            :parameters="parameters"
             :codeTemplate="codeTable"
-            :parameterValues="tableValues"
-            @change="setValue(tableValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             .sh-table
                 sh-table(
-                    :headers="tableHeaders"
-                    :items="tableItems"
-                    :height="tableValues.height"
+                    :headers="headers"
+                    :items="items"
+                    :height="data.height"
                 )
 
     template(v-slot:apiTable)
@@ -38,25 +36,25 @@ import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeTable from '@/components/UI/ShTable/code';
 import ShTable from '@/components/UI/ShTable/index.vue';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/Table/api.json';
-import parametersJSON from '@/pages/Table/parameters.json';
 import optionsJSON from '@/pages/Table/options.json';
+import parametersJSON from '@/pages/Table/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const tableHeaders: { id: string, title: string }[]  = optionsJSON.headers;
-const tableItems: { [name: string]: string }[]  = optionsJSON.items;
-const tableParameters: TypeParameter = parametersJSON;
+const headers: { id: string, title: string }[]  = optionsJSON.headers;
+const items: { [name: string]: string }[]  = optionsJSON.items;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     height: string,
 }
 
-const tableValues: TypeValues = reactive({
+const data: TypeData = reactive({
     height: '',
 });
 

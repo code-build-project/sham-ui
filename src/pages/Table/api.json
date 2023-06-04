@@ -1,24 +1,30 @@
 {
     "propList": [
         {
-            "name": "is-show",
-            "type": "boolean | undefined",
-            "default": "undefined",
-            "description": "Флаг для ручного управления тултипом. По дефолту undefined"
+            "name": "headers",
+            "type": "{ id: string, title: string }[ ]",
+            "default": "( required )",
+            "description": "Заголовки таблицы"
         },
         {
-            "name": "position",
-            "type": "top | right | bottom | left",
-            "default": "right",
-            "description": "Позиция тултипа относительно родительского элемента"
+            "name": "items",
+            "type": "{ [name: string]: string }[ ]",
+            "default": "( required )",
+            "description": "Данные для таблицы"
+        },
+        {
+            "name": "height",
+            "type": "string",
+            "default": "—",
+            "description": "Высота таблицы"
         }
     ],
     "eventList": [],
     "slotList": [
         {
-            "name": "(default)",
-            "default": "Tooltip",
-            "description": "Дефолтный слот, для передачи значения для тултипа"
+            "name": "[header.id]",
+            "default": "—",
+            "description": "Слот для кастомизации ячеек таблицы"
         }
     ]
 }

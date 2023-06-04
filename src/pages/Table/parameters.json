@@ -3,6 +3,6 @@
         "id": "height",
         "elementType": "input",
         "title": "HEIGHT",
-        "placeholder": "Height"
+        "placeholder": "Example: 130px"
     }
 }
