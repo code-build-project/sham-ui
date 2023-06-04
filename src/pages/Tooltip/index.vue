@@ -3,23 +3,21 @@ page-wrap
     template(v-slot:title) Tooltip
 
     template(v-slot:text)
-        | Компонент <b>sh-button-origin</b> представляет элемент кнопки
-        | с минимальным функционалом, который очень просто кастомизировать,
-        | создавая свои компоненты-обертки над <b>sh-button-origin</b>,
-        | без необходимости писать базовый функционал кнопки с нуля.<br/>
+        | Компонент <b>sh-tooltip</b> полезен для передачи информации,
+        | когда пользователь наводит курсор мыши на элемент.
 
     template(v-slot:playground)
         v-playground(
-            :parameters="tooltipParameters"
+            :parameters="parameters"
             :codeTemplate="codeTooltip"
-            :parameterValues="tooltipValues"
-            @change="setValue(tooltipValues, $event)"
+            :parameterValues="data"
+            @change="setValue(data, $event)"
         )
             .element
                 sh-tooltip(
-                    :isShow="tooltipValues.show || undefined"
-                    :position="tooltipValues.position"
-                ) {{ tooltipValues.text || 'Tooltip' }}
+                    :isShow="data.show || undefined"
+                    :position="data.position"
+                ) {{ data.text || 'Tooltip' }}
                 | Hover me!
 
     template(v-slot:apiTable)
@@ -38,24 +36,24 @@ import VApiTable from '@/components/common/VApiTable/index.vue';
 import VPlayground from '@/components/common/VPlayground/index.vue';
 import codeTooltip from '@/components/UI/ShTooltip/code';
 import ShTooltip from '@/components/UI/ShTooltip/index.vue';
-import type { TypeParameter } from '@/components/common/VPlayground/types';
-import type { TypeApiTable } from '@/components/common/VApiTable/types';
 import apiJSON from '@/pages/Tooltip/api.json';
 import parametersJSON from '@/pages/Tooltip/parameters.json';
 import { useParameter } from '@/composables/playground';
+import type { TypeApiTable } from '@/components/common/VApiTable/types';
+import type { TypeParameter } from '@/components/common/VPlayground/types';
 
 const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
-const tooltipParameters: TypeParameter = parametersJSON;
+const parameters: TypeParameter = parametersJSON;
 
-type TypeValues = {
+type TypeData = {
     text: string,
     show: boolean,
     position: string,
 }
 
-const tooltipValues: TypeValues = reactive({
+const data: TypeData = reactive({
     text: 'Tooltip',
     show: false,
     position: 'right',

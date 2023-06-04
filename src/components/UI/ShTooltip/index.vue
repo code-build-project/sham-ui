@@ -10,7 +10,7 @@ import { computed } from 'vue';
 
 const props = withDefaults(
     defineProps<{
-        isShow?: boolean,
+        isShow?: boolean | undefined,
         position?: string,
     }>(),
     {
@@ -19,7 +19,7 @@ const props = withDefaults(
     },
 );
 
-const componentClasses = computed<object>(() => {
+const componentClasses = computed<(string | object)[]>(() => {
     return [
         'position-' + props.position,
         {

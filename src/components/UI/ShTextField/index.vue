@@ -82,7 +82,7 @@ const emits = defineEmits<{
   (e: 'blur'): void
 }>();
 
-const componentClasses = computed<string[] | object>(() => {
+const componentClasses = computed<(string | object)[]>(() => {
     return [
         'size-' + props.size,
         'variant-' + props.variant,
