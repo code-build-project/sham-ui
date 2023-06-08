@@ -11,6 +11,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codePagination"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-pagination(
@@ -44,6 +45,7 @@ const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShPagination/index.vue';
 
 type TypeData = {
     modelValue: number,

@@ -10,6 +10,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeTextarea"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-textarea.sh-textarea(
@@ -48,6 +49,7 @@ const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShTextarea/index.vue';
 
 type TypeData = {
     modelValue: string,

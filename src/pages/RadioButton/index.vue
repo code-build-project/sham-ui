@@ -11,6 +11,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeRadioButton"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-radio-button(
@@ -48,6 +49,7 @@ const { setValue } = useParameter();
 const api: TypeApiTable = apiJSON;
 const options: { id: number, name: string }[]  = optionsJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShRadioButton/index.vue';
 
 type TypeData = {
     modelValue: string | number,

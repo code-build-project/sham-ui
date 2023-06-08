@@ -10,6 +10,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeCheckbox"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-checkbox(
@@ -45,6 +46,7 @@ const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShCheckbox/index.vue';
 
 type TypeData = {
     modelValue: boolean,

@@ -11,6 +11,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeFileInput"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-file-input.sh-file-input(
@@ -49,6 +50,7 @@ const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShFileInput/index.vue';
 
 let modelValue = ref<{ [key: string]: any }[]>([{}]);
 

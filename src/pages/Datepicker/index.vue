@@ -11,6 +11,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeDatepicker"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-datepicker.sh-datepicker(
@@ -48,6 +49,7 @@ const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShDatepicker/index.vue';
 
 type TypeData = {
     modelValue: string,

@@ -11,6 +11,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeTable"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             .sh-table
@@ -49,6 +50,7 @@ const api: TypeApiTable = apiJSON;
 const headers: { id: string, title: string }[]  = optionsJSON.headers;
 const items: { [name: string]: string }[]  = optionsJSON.items;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShTable/index.vue';
 
 type TypeData = {
     height: string,

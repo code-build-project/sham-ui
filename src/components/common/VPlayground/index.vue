@@ -8,7 +8,7 @@
                 @click="setTheme"
             )
             a(
-                href="https://github.com"
+                :href="gitLink"
                 target="_blank"
             )
                 v-icon.icon-git(path="img/github.svg")
@@ -75,10 +75,12 @@ withDefaults(
         parameters?: TypeParameter,
         codeTemplate?: string,
         parameterValues?: TypeParameterValue,
+        gitLink?: string,
     }>(),
     {
         codeTemplate: '',
         parameterValues: () => ({}),
+        gitLink: '',
     },
 );
 

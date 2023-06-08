@@ -11,6 +11,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeTooltip"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             .element
@@ -46,6 +47,7 @@ const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShTooltip/index.vue';
 
 type TypeData = {
     text: string,

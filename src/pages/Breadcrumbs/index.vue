@@ -9,6 +9,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeBreadcrumbs"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-breadcrumbs(
@@ -45,6 +46,7 @@ const { setValue } = useParameter();
 const api: TypeApiTable = apiJSON;
 const options: TypeCrumb[] = optionsJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShBreadcrumbs/index.vue';
 
 type TypeData = {
     size: string,

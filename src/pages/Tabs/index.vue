@@ -12,6 +12,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeTabs"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-tabs(
@@ -48,6 +49,7 @@ const { setValue } = useParameter();
 const api: TypeApiTable = apiJSON;
 const tabs: { id: string, title: string }[]  = optionsJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShTabs/index.vue';
 
 type TypeData = {
     modelValue: string,

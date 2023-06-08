@@ -12,6 +12,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeAutocomplete"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-autocomplete.sh-autocomplete(
@@ -55,6 +56,7 @@ const { setValue } = useParameter();
 const api: TypeApiTable = apiJSON;
 const options: string[] = optionsJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShAutocomplete/index.vue';
 
 type TypeData = {
     modelValue: string,

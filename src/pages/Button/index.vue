@@ -13,6 +13,7 @@ page-wrap
             :parameters="parameters"
             :codeTemplate="codeButton"
             :parameterValues="data"
+            :gitLink="gitLink"
             @change="setValue(data, $event)"
         )
             sh-button(
@@ -49,6 +50,7 @@ const { setValue } = useParameter();
 
 const api: TypeApiTable = apiJSON;
 const parameters: TypeParameter = parametersJSON;
+const gitLink: string = 'https://github.com/code-build-project/sham-ui/blob/main/src/components/UI/ShButton/index.vue';
 
 type TypeData = {
     text: string,
