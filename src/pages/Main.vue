@@ -9,7 +9,7 @@
         router-link.button-start(to="/autocomplete")
             v-button GET STARTED
         a.button-git(
-            href="https://github.com"
+            href="https://github.com/code-build-project/sham-ui"
             target="_blank"
         )
             v-button
